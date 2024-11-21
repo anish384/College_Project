@@ -12,13 +12,20 @@ def home():
 def search_author():
     input_author = request.form.get('author_name')
     authors = list(sc.search_author(input_author))
-
-    authors_data = [
-        {"index": i+1, "name": author['name'], "affiliation": author.get('affiliation', 'N/A')}
-        for i, author in enumerate(authors)
-    ]
-
-    return render_template('select.html', authors=authors_data, input_author=input_author)
+    
+    if authors:
+        authors_data = [
+            {"index": i+1, "name": author['name'], "affiliation": author.get('affiliation', 'N/A')}
+            for i, author in enumerate(authors)
+        ]
+    else:
+        authors_data = []
+    return render_template(
+        'select.html',
+        authors=authors_data,
+        input_author=input_author,
+        error_message="No authors found with the given name. Please try again." if not authors else None
+    )
 
 # @app.route('/select', methods=['POST'])
 # def select_author():
