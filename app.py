@@ -20,38 +20,81 @@ def search_author():
 
     return render_template('select.html', authors=authors_data, input_author=input_author)
 
+# @app.route('/select', methods=['POST'])
+# def select_author():
+#     input_author = request.form.get('input_author')
+#     selection = int(request.form.get('selected_author')) - 1
+#     authors = list(sc.search_author(input_author))
+#
+#     selected_author = authors[selection]
+#     author_info = sc.fill(selected_author)
+#
+#     author_data = {
+#         'Author Name': author_info['name'],
+#         'Affiliation': author_info.get('affiliation', 'N/A'),
+#         'Citations': author_info['citedby'],
+#         'Homepage': author_info.get('url_picture', 'N/A'),
+#         'Total Publications': author_info.get('num_publications', 'N/A'),
+#     }
+#
+#     publications_list = [
+#         {
+#             "title": publication['bib'].get('title', 'N/A'),
+#             "year": publication['bib'].get('pub_year', 'N/A'),
+#             "citations": publication.get('num_citations', 0),
+#         }
+#         for publication in author_info.get('publications', [])
+#     ]
+#
+#     df = pd.DataFrame(publications_list)
+#     author_summary = pd.DataFrame([author_data])
+#
+#     combined_df = pd.concat([author_summary, df], ignore_index=True)
+#     output_path = "output.xlsx"
+#     combined_df.to_excel(output_path, index=False)
+#
+#     return send_file(output_path, as_attachment=True)
+
 @app.route('/select', methods=['POST'])
 def select_author():
     input_author = request.form.get('input_author')
-    selection = int(request.form.get('selected_author')) - 1
+    selected_authors = request.form.getlist('selected_author')      
     authors = list(sc.search_author(input_author))
 
-    selected_author = authors[selection]
-    author_info = sc.fill(selected_author)
+    all_author_data = []
 
-    author_data = {
-        'Author Name': author_info['name'],
-        'Affiliation': author_info.get('affiliation', 'N/A'),
-        'Citations': author_info['citedby'],
-        'Homepage': author_info.get('url_picture', 'N/A'),
-        'Total Publications': author_info.get('num_publications', 'N/A'),
-    }
+    for selection in selected_authors:
+        selection_index = int(selection) - 1
+        selected_author = authors[selection_index]
+        author_info = sc.fill(selected_author)
 
-    publications_list = [
-        {
-            "title": publication['bib'].get('title', 'N/A'),
-            "year": publication['bib'].get('pub_year', 'N/A'),
-            "citations": publication.get('num_citations', 0),
+        author_data = {
+            'Author Name': author_info['name'],
+            'Affiliation': author_info.get('affiliation', 'N/A'),
+            'Citations': author_info['citedby'],
+            'Homepage': author_info.get('url_picture', 'N/A'),
+            'Total Publications': author_info.get('num_publications', 'N/A'),
         }
-        for publication in author_info.get('publications', [])
-    ]
 
-    df = pd.DataFrame(publications_list)
-    author_summary = pd.DataFrame([author_data])
+        publications_list = [
+            {
+                "title": publication['bib'].get('title', 'N/A'),
+                "year": publication['bib'].get('pub_year', 'N/A'),
+                "citations": publication.get('num_citations', 0),
+            }
+            for publication in author_info.get('publications', [])
+        ]
+        
+        df = pd.DataFrame(publications_list)
+        author_summary = pd.DataFrame([author_data])
 
-    combined_df = pd.concat([author_summary, df], ignore_index=True)
-    output_path = "output.xlsx"
-    combined_df.to_excel(output_path, index=False)
+        combined_df = pd.concat([author_summary, df], ignore_index=True)
+        all_author_data.append(combined_df)
+
+    final_df = pd.concat(all_author_data, ignore_index=True)
+
+    output_path = "output_multiple_authors.xlsx"
+    final_df.to_excel(output_path, index=False)
 
     return send_file(output_path, as_attachment=True)
 
