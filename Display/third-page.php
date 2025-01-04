@@ -1,25 +1,36 @@
 <?php
 // Connect to the database
 $conn = new mysqli("localhost", "root", "", "college_database");
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch data
-$sql = "SELECT * FROM faculty_table";
-$result = $conn->query($sql);
+// Get the faculty_id from the URL
+$faculty_id = $_GET['faculty_id'];
+
+// Fetch the teacher's details
+$sql = "SELECT * FROM faculty_table WHERE faculty_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $faculty_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $teacher = $result->fetch_assoc();
+} else {
+    echo "Teacher not found.";
+    exit;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>college</title>
-  </head>
-  <style>
-    * {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Details</title>
+    <style>
+        * {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
@@ -254,9 +265,10 @@ $result = $conn->query($sql);
       height: 20px;
       position: relative;
     }
-  </style>
-  <body>
-    <div id="real" class="real">
+    </style>
+</head>
+<body>
+<div id="real" class="real">
       <div class="container">
         <div class="row">
           <div class="site_topbar">
@@ -332,42 +344,25 @@ $result = $conn->query($sql);
       </nav>
     </div>
     <div class="content">
-    <h1>Faculty Members</h1>
-    <br>
-      <div class="teachers">
-        <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <a href="third_page2.php?faculty_id=<?php echo $row['faculty_id']; ?>" class="card-link">
-                    <div class="card">
-                        <img src="<?php echo $row['image']; ?>" alt="Faculty Image">
-                        <div class="card-content">
-                            <p><strong>Faculty ID:</strong> <?php echo $row['faculty_id']; ?></p>
-                            <p><strong>Name:</strong> <?php echo $row['name']; ?></p>
-                            <p><strong>Designation:</strong> <?php echo $row['Designation']; ?></p>
-                            <p><strong>Department:</strong> <?php echo $row['Department']; ?></p>
-                            <p><strong>Date of Joining:</strong> <?php echo $row['date_of_joining']; ?></p>
-                            <p><strong>Email:</strong> <?php echo $row['email_id']; ?></p>
-                            <p><strong>Contact No:</strong> <?php echo $row['contact_no']; ?></p>
-                        </div>
-                    </div>
-                </a>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>No records found.</p>
-        <?php endif; ?>
-        <?php $conn->close(); ?>
-      </div>
-        <aside class="related-news">
-            <h3>Department</h3>
-            <ul>
-            <li><a href="#">Robotics and Automation Department</a></li>
-            <li><a href="#">Mechanical Department</a></li>
-            <li><a href="#">Civil Department</a></li>
-            </ul>
-        </aside>
+        <h1><?php echo $teacher['name']; ?></h1>
+        <br>
+        <aside><img src="<?php echo $teacher['image']; ?>" alt="Faculty Image"></aside>
+        <div class="teachers">
+            <p><strong>Faculty ID:</strong> <?php echo $teacher['faculty_id']; ?></p>
+            <p><strong>Designation:</strong> <?php echo $teacher['Designation']; ?></p>
+            <p><strong>Department:</strong> <?php echo $teacher['Department']; ?></p>
+            <p><strong>Date of Joining:</strong> <?php echo $teacher['date_of_joining']; ?></p>
+            <p><strong>Email:</strong> <?php echo $teacher['email_id']; ?></p>
+            <p><strong>Contact No:</strong> <?php echo $teacher['contact_no']; ?></p>
+        </div>
     </div>
-    <footer>
-      <h2>Angadi Insitute Of Technology And Management</h2>
-    </footer>
-  </body>
+    <div class="awards">
+        
+    </div>
+    
+</body>
 </html>
+
+<?php
+$conn->close();
+?>
