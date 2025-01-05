@@ -9,6 +9,7 @@ function generateAwardForms() {
     // Generate the required number of award forms
     for (let i = 1; i <= numAwards; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                     <h3>Award ${i}</h3>
                     <table>
@@ -49,6 +50,7 @@ function generateBookForms() {
     // Generate the required number of book forms
     for (let i = 1; i <= numBooks; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                     <h3>Book ${i}</h3>
                     <table>
@@ -97,6 +99,7 @@ function generateChairResourceForms() {
     // Generate the required number of chair/resource forms
     for (let i = 1; i <= numResources; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                     <h3>Chair/Resource ${i}</h3>
                     <table>
@@ -137,6 +140,7 @@ function generateConferenceForms() {
     // Generate the required number of conference forms
     for (let i = 1; i <= numConferences; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                     <h3>Conference ${i}</h3>
                     <table>
@@ -201,6 +205,7 @@ function generateExperienceForms() {
 
     for (let i = 1; i <= numExperiences; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                     <h3>Experience ${i}</h3>
                     <table>
