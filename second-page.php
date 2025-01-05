@@ -337,7 +337,7 @@ $result = $conn->query($sql);
       <div class="teachers">
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
-                <a href="third_page2.php?faculty_id=<?php echo $row['faculty_id']; ?>" class="card-link">
+                <a href="third-page.php?faculty_id=<?php echo $row['faculty_id']; ?>" class="card-link">
                     <div class="card">
                         <img src="<?php echo $row['image']; ?>" alt="Faculty Image">
                         <div class="card-content">
