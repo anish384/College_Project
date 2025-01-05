@@ -197,7 +197,7 @@
 
     <div class="form-container">
         <h1>Information</h1>
-        <form action="faculty.php" method="post">
+        <form action="phpCode/faculty.php" method="post">
             <table>
                 <tr>
                     <td><label for="faculty_id">Faculty ID: </label></td>
@@ -244,9 +244,9 @@
         <label for="numAwards">Number of Awards:</label>
         <input type="number" id="numAwards" placeholder="Enter number of awards">
         <button type="button" onclick="generateAwardForms()">Generate Awards Forms</button>
-        <form action="awards.php" method="post" id="dynamicAwardsForm">
+        <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm">
             <div id="awardFormsContainer"></div>
-            <button type="submit">Submit All Awards</button>
+            <button type="submit" >Submit All Awards</button>
         </form>
     </div>
 
@@ -257,7 +257,7 @@
             <input type="number" id="numBooks" placeholder="Enter number of books">
             <button type="button" onclick="generateBookForms()">Generate Book Forms</button>
         </div>
-        <form action="books.php" method="post" id="dynamicBooksForm">
+        <form action="phpCode/books.php" method="post" id="dynamicBooksForm">
             <div id="bookFormsContainer"></div>
             <button type="submit">Submit All Books</button>
         </form>
@@ -270,7 +270,7 @@
             <input type="number" id="numResources" placeholder="Enter number of entries">
             <button type="button" onclick="generateChairResourceForms()">Generate Chair/Resource Forms</button>
         </div>
-        <form action="chair_resource.php" method="post" id="dynamicChairResourceForm">
+        <form action="phpCode/chair_resource.php" method="post" id="dynamicChairResourceForm">
             <div id="chairResourceFormsContainer"></div>
             <button type="submit">Submit All Chair/Resources</button>
         </form>
@@ -283,7 +283,7 @@
             <input type="number" id="numConferences" placeholder="Enter number of entries">
             <button type="button" onclick="generateConferenceForms()">Generate Conference Forms</button>
         </div>
-        <form action="conference.php" method="post" id="dynamicConferenceForm">
+        <form action="phpCode/conference.php" method="post" id="dynamicConferenceForm">
             <div id="conferenceFormsContainer"></div>
             <button type="submit">Submit All Conferences</button>
         </form>
@@ -297,7 +297,7 @@
             <input type="number" id="numExperiences" placeholder="Enter number of entries">
             <button type="button" onclick="generateExperienceForms()">Generate Experience Forms</button>
         </div>
-        <form action="experience" method="post" id="dynamicExperienceForm">
+        <form action="phpCode/experience.php" method="post" id="dynamicExperienceForm">
             <div id="experienceFormsContainer"></div>
             <button type="submit">Submit All Experiences</button>
         </form>
@@ -310,7 +310,7 @@
             <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
             <button type="button" onclick="generateConferenceAttendedForms()">Generate Conference Forms</button>
         </div>
-        <form action="conference.php" method="post" id="dynamicConferenceForm">
+        <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm">
             <div id="conferenceAttendedFormsContainer"></div>
             <button type="submit">Submit All Conferences</button>
         </form>
@@ -323,7 +323,7 @@
             <input type="number" id="numScholars" placeholder="Enter number of scholars">
             <button type="button" onclick="generateScholarsForms()">Generate Scholars Forms</button>
     </div>
-        <form action="for_scholars.php" method="post" id="dynamicScholarsForm">
+        <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm">
             <div id="scholarsFormsContainer"></div>
             <button type="submit">Submit All Scholars</button>
         </form>

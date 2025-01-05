@@ -1,6 +1,7 @@
 function generateAwardForms() {
     const numAwards = document.getElementById("numAwards").value;
     const container = document.getElementById("awardFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
     // Clear existing forms
     container.innerHTML = "";
@@ -13,7 +14,7 @@ function generateAwardForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="name_of_awards_${i}">Name of Awards: </label></td>
@@ -40,6 +41,7 @@ function generateAwardForms() {
 function generateBookForms() {
     const numBooks = document.getElementById("numBooks").value;
     const container = document.getElementById("bookFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
     // Clear existing forms
     container.innerHTML = "";
@@ -52,7 +54,7 @@ function generateBookForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="Title_${i}">Title: </label></td>
@@ -87,6 +89,7 @@ function generateBookForms() {
 function generateChairResourceForms() {
     const numResources = document.getElementById("numResources").value;
     const container = document.getElementById("chairResourceFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
     // Clear existing forms
     container.innerHTML = "";
@@ -99,7 +102,7 @@ function generateChairResourceForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="Organization_${i}">Organization: </label></td>
@@ -126,6 +129,7 @@ function generateChairResourceForms() {
 function generateConferenceForms() {
     const numConferences = document.getElementById("numConferences").value;
     const container = document.getElementById("conferenceFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
     // Clear existing forms
     container.innerHTML = "";
@@ -138,7 +142,7 @@ function generateConferenceForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="Title_${i}">Title: </label></td>
@@ -191,11 +195,10 @@ function generateConferenceForms() {
 function generateExperienceForms() {
     const numExperiences = document.getElementById("numExperiences").value;
     const container = document.getElementById("experienceFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
     container.innerHTML = "";
 
-    // Generate the required number of experience forms
     for (let i = 1; i <= numExperiences; i++) {
         const formSet = document.createElement("div");
         formSet.innerHTML = `
@@ -203,7 +206,7 @@ function generateExperienceForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="industry_${i}">Industry</label></td>
@@ -226,6 +229,7 @@ function generateExperienceForms() {
 function generateConferenceAttendedForms() {
     const numConferences = document.getElementById("numConferencesAttended").value;
     const container = document.getElementById("conferenceAttendedFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
     // Clear existing forms
     container.innerHTML = "";
@@ -239,7 +243,7 @@ function generateConferenceAttendedForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="topic_${i}">Topic</label></td>
@@ -270,11 +274,10 @@ function generateConferenceAttendedForms() {
 function generateScholarsForms() {
     const numScholars = document.getElementById("numScholars").value;
     const container = document.getElementById("scholarsFormsContainer");
+    const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
     container.innerHTML = "";
 
-    // Generate forms dynamically
     for (let i = 1; i <= numScholars; i++) {
         const formSet = document.createElement("div");
         formSet.classList.add("form-container");
@@ -283,7 +286,7 @@ function generateScholarsForms() {
                     <table>
                         <tr>
                             <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}"></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
                         </tr>
                         <tr>
                             <td><label for="degree_${i}">Degree</label></td>
