@@ -21,7 +21,7 @@ try {
     }
 
     // Prepare the SQL statement for inserting conference data
-    $stmt = $pdo->prepare("INSERT INTO fdp/conferences_attended (faculty_id, Topic, Organizer, no_of_days, Place, Year) 
+    $stmt = $pdo->prepare("INSERT INTO fdp_conferences_attended (faculty_id, Topic, Organizer, no_of_days, Place, Year) 
                            VALUES (:faculty_id, :Topic, :Organizer, :no_of_days, :Place, :Year)");
 
     // Loop through each conference and execute the insert statement

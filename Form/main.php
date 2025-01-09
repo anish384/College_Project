@@ -97,6 +97,10 @@
             color: #fff;
             font-size: 1rem;
         }
+        
+        textarea{
+            resize: none;
+        }
 
         table input[type="number"] {
             -moz-appearance: textfield;
@@ -473,6 +477,7 @@ function generateAwardForms() {
     // Generate the required number of award forms
     for (let i = 1; i <= numAwards; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
             <h3>Award ${i}</h3>
                             <table>
@@ -514,6 +519,7 @@ function generateBookForms() {
     // Generate the required number of book forms
     for (let i = 1; i <= numBooks; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                             <h3>Book ${i}</h3>
                             <table>
@@ -562,6 +568,7 @@ function generateChairResourceForms() {
     // Generate the required number of chair/resource forms
     for (let i = 1; i <= numResources; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                             <h3>Chair/Resource ${i}</h3>
                             <table>
@@ -603,6 +610,7 @@ function generateConferenceForms() {
     // Generate the required number of conference forms
     for (let i = 1; i <= numConferences; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                             <h3>Conference ${i}</h3>
                             <table>
@@ -672,6 +680,7 @@ function generateExperienceForms() {
 
     for (let i = 1; i <= numExperiences; i++) {
         const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                             <h3>Experience ${i}</h3>
                             <table>
@@ -917,7 +926,7 @@ function generateMtechGuidedForms() {
 
     for (let i = 1; i <= numJournals; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Journal ${i}</h3>
                 <table>
@@ -953,7 +962,7 @@ function generatePatentsForms() {
 
     for (let i = 1; i <= numJournals; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Journal ${i}</h3>
                 <table>
@@ -1013,7 +1022,7 @@ function generatePhdGuidedForms() {
 
     for (let i = 1; i <= numPatents; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Patent ${i}</h3>
                 <table>
@@ -1060,7 +1069,7 @@ function generateOrganizationForms() {
 
     for (let i = 1; i <= numOrganizations; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Organization ${i}</h3>
                 <table>
@@ -1101,7 +1110,7 @@ function generateOrganizationForms() {
 
     for (let i = 1; i <= numEducations; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Education ${i}</h3>
                 <table>
@@ -1152,7 +1161,7 @@ function generateResearchForms() {
 
     for (let i = 1; i <= numResearch; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Research Project ${i}</h3>
                 <table>
@@ -1198,7 +1207,7 @@ function generateFundingForms() {
 
     for (let i = 1; i <= numFunding; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Funding Scheme ${i}</h3>
                 <table>
@@ -1256,7 +1265,7 @@ function generateProjectForms() {
 
     for (let i = 1; i <= numProjects; i++) {
         const formSet = document.createElement("div");
-        formSet.classList.add("form-set");
+        formSet.classList.add("form-container");
         formSet.innerHTML = `
                 <h3>Project ${i}</h3>
                 <table>
@@ -1289,8 +1298,6 @@ function generateProjectForms() {
         container.appendChild(formSet);
     }
 }
-
-
     </script> 
 </body>
 

@@ -21,7 +21,7 @@ try {
     }
 
     // Prepare the SQL statement for inserting book data
-    $stmt = $pdo->prepare("INSERT INTO books (faculty_id, Title, Publisher, Place, Year_of_publication, ISBN, Book/Chapter) VALUES (:faculty_id, :title, :publisher, :place, :year_of_publication, :isbn, :book_chapter)");
+    $stmt = $pdo->prepare("INSERT INTO books_book_chapter (faculty_id, Title, Publisher, Place, Year_of_publication, ISBN, Book_Chapter) VALUES (:faculty_id, :title, :publisher, :place, :year_of_publication, :isbn, :book_chapter)");
 
     // Loop through each book and execute the insert statement
     foreach ($books as $book) {
