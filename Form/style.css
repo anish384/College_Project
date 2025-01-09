@@ -89,6 +89,10 @@ table textarea {
     font-size: 1rem;
 }
 
+table textarea{
+    resize: none;
+}
+
 table input[type="number"] {
     -moz-appearance: textfield;
 }

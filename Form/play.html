@@ -69,7 +69,7 @@
     <div class="form-container">
         <h1>Awards</h1>
         <label for="numAwards">Number of Awards:</label>
-        <input type="number" id="numAwards" placeholder="Enter number of awards">
+        <input type="number" id="numAwards" placeholder="Enter number of awards" min="1">
         <button type="button" onclick="generateAwardForms()">Generate Awards Forms</button>
         <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm">
             <div id="awardFormsContainer"></div>
@@ -81,7 +81,7 @@
         <h1>Books Submission</h1>
         <div>
             <label for="numBooks">Number of Books:</label>
-            <input type="number" id="numBooks" placeholder="Enter number of books">
+            <input type="number" id="numBooks" placeholder="Enter number of books" min="1">
             <button type="button" onclick="generateBookForms()">Generate Book Forms</button>
         </div>
         <form action="phpCode/books.php" method="post" id="dynamicBooksForm">
@@ -94,7 +94,7 @@
         <h1>Chair/Resource Submission</h1>
         <div>
             <label for="numResources">Number of Chair/Resources:</label>
-            <input type="number" id="numResources" placeholder="Enter number of entries">
+            <input type="number" id="numResources" placeholder="Enter number of entries" min="1">
             <button type="button" onclick="generateChairResourceForms()">Generate Chair/Resource Forms</button>
         </div>
         <form action="phpCode/chair_resource.php" method="post" id="dynamicChairResourceForm">
@@ -107,7 +107,7 @@
         <h1>Conference Submission</h1>
         <div>
             <label for="numConferences">Number of Conferences:</label>
-            <input type="number" id="numConferences" placeholder="Enter number of entries">
+            <input type="number" id="numConferences" placeholder="Enter number of entries" min="1">
             <button type="button" onclick="generateConferenceForms()">Generate Conference Forms</button>
         </div>
         <form action="phpCode/conference.php" method="post" id="dynamicConferenceForm">
@@ -121,7 +121,7 @@
         <h1>Experience Form</h1>
         <div>
             <label for="numExperiences">Number of Experience Entries:</label>
-            <input type="number" id="numExperiences" placeholder="Enter number of entries">
+            <input type="number" id="numExperiences" placeholder="Enter number of entries" min="1">
             <button type="button" onclick="generateExperienceForms()">Generate Experience Forms</button>
         </div>
         <form action="phpCode/experience.php" method="post" id="dynamicExperienceForm">
@@ -134,7 +134,7 @@
         <h1>Dynamic Conference Form</h1>
         <div>
             <label for="numConferencesAttended">Number of Conferences:</label>
-            <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
+            <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences" min="1">
             <button type="button" onclick="generateConferenceAttendedForms()">Generate Conference Forms</button>
         </div>
         <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm">
@@ -147,7 +147,7 @@
         <h1>Dynamic Scholars Form</h1>
         <div>
             <label for="numScholars">Number of Scholars:</label>
-            <input type="number" id="numScholars" placeholder="Enter number of scholars">
+            <input type="number" id="numScholars" placeholder="Enter number of scholars" min="1">
             <button type="button" onclick="generateScholarsForms()">Generate Scholars Forms</button>
     </div>
         <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm">
