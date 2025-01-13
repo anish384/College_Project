@@ -258,7 +258,7 @@ $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='department-box'>";
                 echo "<img src='" . htmlspecialchars($row['department_img']) . "' alt='" . htmlspecialchars($row['department_name']) . " Image'>";
-                echo "<a href='teachers.php?department_id=" . $row['department_id'] . "'>" . htmlspecialchars($row['department_name']) . "</a>";
+                echo "<a href='second-page.php?department_id=" . $row['department_id'] . "'>" . htmlspecialchars($row['department_name']) . "</a>";
                 echo "</div>";
             }
         } else {
