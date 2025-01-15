@@ -6,7 +6,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch departments
-$sql = "SELECT department_id, department_name, department_img FROM departments";
+$sql = "SELECT department_name, department_img FROM departments";
 $result = $conn->query($sql);
 
 ?>
@@ -253,17 +253,20 @@ $result = $conn->query($sql);
     </nav>
     <h1>Departments</h1>
     <div class="content">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='department-box'>";
-                echo "<img src='" . htmlspecialchars($row['department_img']) . "' alt='" . htmlspecialchars($row['department_name']) . " Image'>";
-                echo "<a href='second-page.php?department_id=" . $row['department_id'] . "'>" . htmlspecialchars($row['department_name']) . "</a>";
-                echo "</div>";
-            }
-        } else {
-            echo "<p>No departments found.</p>";
-        }
+    <?php
+       $query = "SELECT department_name, department_img FROM departments";
+       $result = $conn->query($query);
+       
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='department-box'>";
+               echo "<img src='" . htmlspecialchars($row['department_img']) . "' alt='" . htmlspecialchars($row['department_name']) . " Image'>";
+               echo "<a href='second-page.php?department_name=" . urlencode($row['department_name']) . "'>" . htmlspecialchars($row['department_name']) . "</a>";
+               echo "</div>";
+           }
+       } else {
+           echo "<p>No departments found.</p>";
+       }
         ?>
     </div>
 </body>

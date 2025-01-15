@@ -7,20 +7,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the department_id from the query string
-if (isset($_GET['department_id'])) {
-    $department_id = intval($_GET['department_id']);
+// Get the department_name from the query string
+if (isset($_GET['department_name'])) {
+    // Escape the department_name to prevent SQL injection
+    $department_name = $conn->real_escape_string($_GET['department_name']);
 
-    // Fetch the department name
-    $dept_query = "SELECT department_name FROM departments WHERE department_id = $department_id";
+    // Verify if the department exists
+    $dept_query = "SELECT department_name FROM departments WHERE department_name = '$department_name'";
     $dept_result = $conn->query($dept_query);
-    $department_name = $dept_result->num_rows > 0 ? $dept_result->fetch_assoc()['department_name'] : "Unknown Department";
 
-    // Fetch teachers in the department
-    $query = "SELECT * FROM faculty_table WHERE department_id = $department_id";
-    $result = $conn->query($query);
+    if ($dept_result->num_rows > 0) {
+        // Fetch teachers in the department using department_name
+        $query = "SELECT * FROM faculty_table WHERE department_name = '$department_name'";
+        $result = $conn->query($query);
+    } else {
+        die("Department not found.");
+    }
 } else {
-    die("Invalid Department ID.");
+    die("Invalid Department Name.");
 }
 ?>
 
