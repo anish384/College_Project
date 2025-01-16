@@ -143,7 +143,7 @@ $tables = [
                 echo "<td><strong>Name:</strong> " . htmlspecialchars($faculty['name']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
-                echo "<td><strong>Department:</strong> " . htmlspecialchars($faculty['Department']) . "</td>";
+                echo "<td><strong>Department:</strong> " . htmlspecialchars($faculty['department_name']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td><strong>Email:</strong> " . htmlspecialchars($faculty['email_id']) . "</td>";
