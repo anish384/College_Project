@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards Submission</title>
+    <style>
+        /* Reset body and layout styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #86baf4;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #333;
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section img {
+            width: 80px;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .institute-details {
+            text-align: center;
+            color: #fff;
+        }
+
+        .institute-details h1 {
+            font-size: 1.5rem;
+            margin: 5px 0;
+        }
+
+        .institute-details p {
+            font-size: 0.875rem;
+        }
+
+        /* Form Styling */
+        form {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        table td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        table label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        table input[type="text"],
+        table input[type="number"],
+        table input[type="date"],
+        table input[type="email"],
+        table textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #222;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        table input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        table button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        table button:hover {
+            background-color: #45a049;
+        }
+
+        /* Dynamic Form Containers */
+        .form-container {
+            margin-bottom: 40px;
+            padding: 15px;
+            background-color: #444;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container label {
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-container input[type="number"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            padding: 12px;
+            font-size: 1rem;
+            background-color: #3498db;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        
+        .form-container button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-section img {
+                margin-bottom: 15px;
+            }
+
+            .institute-details h1 {
+                font-size: 1.2rem;
+            }
+
+            form {
+                width: 95%;
+            }
+
+            .form-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-section">
+            <img src="images/angadi_img.jpg" alt="Founder Image">
+            <div class="institute-details">
+                <h1>SURESH ANGADI EDUCATION FOUNDATION'S</h1>
+                <h1>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h1>
+                <p>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi.</p>
+                <p>Accredited by <strong>*NBA</strong> and <strong>NAAC</strong></p>
+            </div>
+            <img src="images/aitm_logo.jpg" alt="Institute Logo">
+        </div>
+    </header>
+
+    <div class="form-container">
+        <h1>Information</h1>
+        <form action="phpCode/faculty.php" method="post">
+            <table>
+                <tr>
+                    <td><label for="faculty_id">Faculty ID: </label></td>
+                    <td><input type="text" id="faculty_id" name="faculty_id"></td>
+                </tr>
+                <tr>
+                    <td><label for="name">Name: </label></td>
+                    <td><input type="text" id="name" name="name"></td>
+                </tr>
+                <tr>
+                    <td><label for="Designation">Designation</label></td>
+                    <td><input type="text" id="Designation" name="Designation"></td>
+                </tr>
+                <tr>
+                    <td><label for="Department">Department</label></td>
+                    <td><input type="text" id="Department" name="Department"></td>
+                </tr>
+                <tr>
+                    <td><label for="date_of_joining">Date of Joining: </label></td>
+                    <td><input type="date" id="date_of_joining" name="date_of_joining"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email: </label></td>
+                    <td><input type="email" id="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="con">Contact No: </label></td>
+                    <td><input type="number" id="con" name="con"></td>
+                </tr>
+                <tr>
+                    <td><label for="img">Image: </label></td>
+                    <td><input type="text" id="img" name="img"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button>Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Dynamic Form Generators -->
+    <div class="form-container">
+        <h1>Awards</h1>
+        <label for="numAwards">Number of Awards:</label>
+        <input type="number" id="numAwards" placeholder="Enter number of awards">
+        <button type="button" onclick="generateAwardForms()">Generate Awards Forms</button>
+        <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm">
+            <div id="awardFormsContainer"></div>
+            <button type="submit" >Submit All Awards</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Books Submission</h1>
+        <div>
+            <label for="numBooks">Number of Books:</label>
+            <input type="number" id="numBooks" placeholder="Enter number of books">
+            <button type="button" onclick="generateBookForms()">Generate Book Forms</button>
+        </div>
+        <form action="phpCode/books.php" method="post" id="dynamicBooksForm">
+            <div id="bookFormsContainer"></div>
+            <button type="submit">Submit All Books</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Chair/Resource Submission</h1>
+        <div>
+            <label for="numResources">Number of Chair/Resources:</label>
+            <input type="number" id="numResources" placeholder="Enter number of entries">
+            <button type="button" onclick="generateChairResourceForms()">Generate Chair/Resource Forms</button>
+        </div>
+        <form action="phpCode/chair_resource.php" method="post" id="dynamicChairResourceForm">
+            <div id="chairResourceFormsContainer"></div>
+            <button type="submit">Submit All Chair/Resources</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Conference Submission</h1>
+        <div>
+            <label for="numConferences">Number of Conferences:</label>
+            <input type="number" id="numConferences" placeholder="Enter number of entries">
+            <button type="button" onclick="generateConferenceForms()">Generate Conference Forms</button>
+        </div>
+        <form action="phpCode/conference.php" method="post" id="dynamicConferenceForm">
+            <div id="conferenceFormsContainer"></div>
+            <button type="submit">Submit All Conferences</button>
+        </form>
+    </div>
+
+
+    <div class="form-container">
+        <h1>Experience Form</h1>
+        <div>
+            <label for="numExperiences">Number of Experience Entries:</label>
+            <input type="number" id="numExperiences" placeholder="Enter number of entries">
+            <button type="button" onclick="generateExperienceForms()">Generate Experience Forms</button>
+        </div>
+        <form action="phpCode/experience.php" method="post" id="dynamicExperienceForm">
+            <div id="experienceFormsContainer"></div>
+            <button type="submit">Submit All Experiences</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Dynamic Conference Form</h1>
+        <div>
+            <label for="numConferencesAttended">Number of Conferences:</label>
+            <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
+            <button type="button" onclick="generateConferenceAttendedForms()">Generate Conference Forms</button>
+        </div>
+        <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm">
+            <div id="conferenceAttendedFormsContainer"></div>
+            <button type="submit">Submit All Conferences</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Dynamic Scholars Form</h1>
+        <div>
+            <label for="numScholars">Number of Scholars:</label>
+            <input type="number" id="numScholars" placeholder="Enter number of scholars">
+            <button type="button" onclick="generateScholarsForms()">Generate Scholars Forms</button>
+    </div>
+        <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm">
+            <div id="scholarsFormsContainer"></div>
+            <button type="submit">Submit All Scholars</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
