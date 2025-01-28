@@ -88,6 +88,7 @@
         table input[type="date"],
         table input[type="email"],
         table input[type="file"],
+        select,
         table textarea {
             width: 100%;
             padding: 8px;
@@ -218,7 +219,25 @@
                 </tr>
                 <tr>
                     <td><label for="Department">Department</label></td>
-                    <td><input type="text" id="Department" name="Department"></td>
+                    <td><select id="Department" name="Department">
+                        <option value="NULL">Select</option>
+                        <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Electrical & Electronic Engineering">Electrical & Electronic Engineering </option>
+                        <option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
+                        <option value="M.Tech(Civil)">M.Tech(Civil)</option>
+                        <option value="M.Tech(Mechanical)">M.Tech(Mechanical)</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="MBA">MBA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Robotics & Automation">Robotics & Automation</option>
+                    </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="date_of_joining">Date of Joining: </label></td>
@@ -243,7 +262,6 @@
         </form>
     </div>
 
-    <!-- Dynamic Form Generators -->
     <div class="form-container">
         <h1>Awards</h1>
         <label for="numAwards">Number of Awards:</label>
@@ -309,7 +327,7 @@
     </div>
 
     <div class="form-container">
-        <h1>Dynamic Conference Form</h1>
+        <h1>Conference Form</h1>
         <div>
             <label for="numConferencesAttended">Number of Conferences:</label>
             <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
@@ -322,7 +340,7 @@
     </div>
 
     <div class="form-container">
-        <h1>Dynamic Scholars Form</h1>
+        <h1>Scholars Form</h1>
         <div>
             <label for="numScholars">Number of Scholars:</label>
             <input type="number" id="numScholars" placeholder="Enter number of scholars">
@@ -333,22 +351,34 @@
             <button type="submit">Submit All Scholars</button>
         </form>
     </div>
-<div class="form-container">
-    <h1>Dynamic Journals Form</h1>
-    <div>
-        <label for="numJournals">Number of Journals:</label>
-        <input type="number" id="numJournals" placeholder="Enter number of journals">
-        <button type="button" onclick="generateJournalForms()">Generate Journal Forms</button>
-    </div>
-    <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm">
-        <div id="journalsFormsContainer"></div>
-        <button type="submit">Submit All Journals</button>
-    </form>
-</div>
+<div class="form-container">
+
+    <h1>Journals Form</h1>
+
+    <div>
+
+        <label for="numJournals">Number of Journals:</label>
+
+        <input type="number" id="numJournals" placeholder="Enter number of journals">
+
+        <button type="button" onclick="generateJournalForms()">Generate Journal Forms</button>
+
+    </div>
+
+    <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm">
+
+        <div id="journalsFormsContainer"></div>
+
+        <button type="submit">Submit All Journals</button>
+
+    </form>
+
+</div>
+
 
 
 <div class="form-container">
-    <h1>Dynamic Mtech Generator</h1>
+    <h1>Mtech Form</h1>
     <div>
         <label for="numMtechGuided">Number of Journals:</label>
         <input type="number" id="numMtechGuided" placeholder="Enter number of journals" min="1">
@@ -361,22 +391,35 @@
     </form>
 </div>
 
-<div class="form-container">
-    <h1>Dynamic Patent Generator</h1>
-    <div>
-        <label for="numPatent">Number of Patents:</label>
-        <input type="number" id="numPatent" placeholder="Enter number of patents" min="1">
-        <button type="button" onclick="generatePatentsForms()">Generate Patent Forms</button>
-    </div>
-
-    <form action="phpCode/patents.php" method="post" id="dynamicPatentForm">
-        <div id="PatentContainer"></div>
-        <button type="submit">Submit All Patents</button>
-    </form>
-</div>
+<div class="form-container">
+
+    <h1>Patent Formr</h1>
+
+    <div>
+
+        <label for="numPatent">Number of Patents:</label>
+
+        <input type="number" id="numPatent" placeholder="Enter number of patents" min="1">
+
+        <button type="button" onclick="generatePatentsForms()">Generate Patent Forms</button>
+
+    </div>
+
+
+
+    <form action="phpCode/patents.php" method="post" id="dynamicPatentForm">
+
+        <div id="PatentContainer"></div>
+
+        <button type="submit">Submit All Patents</button>
+
+    </form>
+
+</div>
+
 
 <div class="form-container">
-    <h1>Dynamic PhD Guided Generator</h1>
+    <h1>PhD Guided Form </h1>
     <div>
         <label for="numPhdGuided">Number of PhD Guided:</label>
         <input type="number" id="numPhdGuided" placeholder="Enter number of PhD guided" min="1">
@@ -391,7 +434,7 @@
 
 
 <div class="form-container">
-    <h1>Dynamic Organization Generator</h1>
+    <h1>Organization Form</h1>
     <div>
         <label for="numOrganizations">Number of Organizations:</label>
         <input type="number" id="numOrganizations" placeholder="Enter number of organizations" min="1">
@@ -406,7 +449,7 @@
 
 
 <div class="form-container">
-    <h1>Dynamic Education Generator</h1>
+    <h1>Education Form</h1>
     <div>
         <label for="numEducation">Number of Education Records:</label>
         <input type="number" id="numEducation" placeholder="Enter number of records" min="1">
@@ -421,7 +464,7 @@
 
 
 <div class="form-container">
-    <h1>Dynamic Research Project Generator</h1>
+    <h1>Research Project Form</h1>
     <div>
         <label for="numResearch">Number of Research Projects:</label>
         <input type="number" id="numResearch" placeholder="Enter number of research projects" min="1">
@@ -436,7 +479,7 @@
 
 
 <div class="form-container">
-    <h1>Dynamic Funding Scheme Generator</h1>
+    <h1>Funding Scheme Form</h1>
     <div>
         <label for="numFunding">Number of Funding Schemes:</label>
         <input type="number" id="numFunding" placeholder="Enter number of funding schemes" min="1">
@@ -451,7 +494,7 @@
 
 
 <div class="form-container">
-    <h1>Dynamic Project Generator</h1>
+    <h1>Project Form</h1>
     <div>
         <label for="numProjects">Number of Projects:</label>
         <input type="number" id="numProjects" placeholder="Enter number of projects" min="1">
@@ -464,6 +507,19 @@
     </form>
 </div>
 
+<div class="form-container">
+    <h1>Others</h1>
+    <div>
+        <label for="numProjects">Other:</label>
+        <input type="number" id="other" placeholder="" min="1">
+        <button type="button" onclick="generateOtherForms()">Generate Forms</button>
+    </div>
+
+    <form action="phpCode/others.php" method="post" id="dynamicOtherForm">
+        <div id="OtherContainer"></div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
 <script>
 function generateAwardForms() {
@@ -802,113 +858,219 @@ function generateScholarsForms() {
     }
 }
 
-function generateJournalForms() {
-    const numScholars = document.getElementById("numJournals").value;
-    const container = document.getElementById("journalsFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
-    
-    container.innerHTML = "";
-    
-    for (let i = 1; i <= numScholars; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
-        <h3>Journal ${i}</h3>
-        <table>
-        <tr>
-        <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-        <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
-        </tr>
-        <tr>
-        <td><label for="title_${i}">Title</label></td>
-        <td><textarea name="title_${i}" id="title_${i}" cols="50" rows="4"></textarea></td>
-        </tr>
-        <tr>
-        <td><label for="name_of_journal_${i}">Name of Journal</label></td>
-        <td><textarea name="name_of_journal_${i}" id="name_of_journal_${i}" cols="50" rows="4"></textarea></td>
-        </tr>
-        <tr>
-        <td><label for="author_type_${i}">Author Type</label></td>
-        <td>
-        <select name="author_type_${i}" id="author_type_${i}">
-        <option value="first-author">First Author</option>
-        <option value="co-author">Co Author</option>
-        </select>
-        </td>
-        </tr>
-        <tr>
-        <td><label for="publisher_${i}">Publisher</label></td>
-        <td><textarea name="publisher_${i}" id="publisher_${i}" cols="50" rows="4"></textarea></td>
-        </tr>
-        <tr>
-        <td><label for="place_${i}">Place</label></td>
-        <td><input type="text" id="place_${i}" name="place_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="vol_no_issue_no_${i}">Volume No / Issue No</label></td>
-        <td><input type="text" id="vol_no_issue_no_${i}" name="vol_no_issue_no_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="ISSN_${i}">ISSN</label></td>
-        <td><input type="text" id="ISSN_${i}" name="ISSN_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="page_no_${i}">Page No</label></td>
-        <td><input type="text" id="page_no_${i}" name="page_no_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="year_${i}">Year</label></td>
-        <td><input type="number" id="year_${i}" name="year_${i}" min="1900" max="2100"></td>
-        </tr>
-        <tr>
-        <td><label for="website_link_${i}">Website Link</label></td>
-        <td><input type="url" id="website_link_${i}" name="website_link_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="international_national_${i}">International / National</label></td>
-        <td>
-        <select name="international_national_${i}" id="international_national_${i}">
-        <option value="international">International</option>
-        <option value="national">National</option>
-        </select>
-        </td>
-        </tr>
-        <tr>
-        <td><label for="free_paid_${i}">Free / Paid</label></td>
-        <td>
-        <select name="free_paid_${i}" id="free_paid_${i}">
-        <option value="free">Free</option>
-        <option value="paid">Paid</option>
-        </select>
-        </td>
-        </tr>
-        <tr>
-        <td><label for="indexing_${i}">Indexing</label></td>
-        <td><input type="text" id="indexing_${i}" name="indexing_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="impact_factor_${i}">Impact Factor</label></td>
-        <td><textarea name="impact_factor_${i}" id="impact_factor_${i}" cols="50" rows="4"></textarea></td>
-        </tr>
-        <tr>
-        <td><label for="SNIP_${i}">SNIP</label></td>
-        <td><input type="text" id="SNIP_${i}" name="SNIP_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="SJR_${i}">SJR</label></td>
-        <td><input type="text" id="SJR_${i}" name="SJR_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="h_index_${i}">H-index</label></td>
-        <td><input type="text" id="h_index_${i}" name="h_index_${i}"></td>
-        </tr>
-        <tr>
-        <td><label for="citations_${i}">Citations</label></td>
-        <td><input type="text" id="citations_${i}" name="citations_${i}"></td>
-        </tr>
-        </table>
+function generateJournalForms() {
+
+    const numScholars = document.getElementById("numJournals").value;
+
+    const container = document.getElementById("journalsFormsContainer");
+
+    const facultyID = document.getElementById("faculty_id").value;
+
+    
+
+    container.innerHTML = "";
+
+    
+
+    for (let i = 1; i <= numScholars; i++) {
+
+        const formSet = document.createElement("div");
+
+        formSet.classList.add("form-container");
+
+        formSet.innerHTML = `
+
+        <h3>Journal ${i}</h3>
+
+        <table>
+
+        <tr>
+
+        <td><label for="faculty_id_${i}">Faculty ID: </label></td>
+
+        <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="title_${i}">Title</label></td>
+
+        <td><textarea name="title_${i}" id="title_${i}" cols="50" rows="4"></textarea></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="name_of_journal_${i}">Name of Journal</label></td>
+
+        <td><textarea name="name_of_journal_${i}" id="name_of_journal_${i}" cols="50" rows="4"></textarea></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="author_type_${i}">Author Type</label></td>
+
+        <td>
+
+        <select name="author_type_${i}" id="author_type_${i}">
+
+        <option value="first-author">First Author</option>
+
+        <option value="co-author">Co Author</option>
+
+        </select>
+
+        </td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="publisher_${i}">Publisher</label></td>
+
+        <td><textarea name="publisher_${i}" id="publisher_${i}" cols="50" rows="4"></textarea></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="place_${i}">Place</label></td>
+
+        <td><input type="text" id="place_${i}" name="place_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="vol_no_issue_no_${i}">Volume No / Issue No</label></td>
+
+        <td><input type="text" id="vol_no_issue_no_${i}" name="vol_no_issue_no_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="ISSN_${i}">ISSN</label></td>
+
+        <td><input type="text" id="ISSN_${i}" name="ISSN_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="page_no_${i}">Page No</label></td>
+
+        <td><input type="text" id="page_no_${i}" name="page_no_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="year_${i}">Year</label></td>
+
+        <td><input type="number" id="year_${i}" name="year_${i}" min="1900" max="2100"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="website_link_${i}">Website Link</label></td>
+
+        <td><input type="url" id="website_link_${i}" name="website_link_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="international_national_${i}">International / National</label></td>
+
+        <td>
+
+        <select name="international_national_${i}" id="international_national_${i}">
+
+        <option value="international">International</option>
+
+        <option value="national">National</option>
+
+        </select>
+
+        </td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="free_paid_${i}">Free / Paid</label></td>
+
+        <td>
+
+        <select name="free_paid_${i}" id="free_paid_${i}">
+
+        <option value="free">Free</option>
+
+        <option value="paid">Paid</option>
+
+        </select>
+
+        </td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="indexing_${i}">Indexing</label></td>
+
+        <td><input type="text" id="indexing_${i}" name="indexing_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="impact_factor_${i}">Impact Factor</label></td>
+
+        <td><textarea name="impact_factor_${i}" id="impact_factor_${i}" cols="50" rows="4"></textarea></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="SNIP_${i}">SNIP</label></td>
+
+        <td><input type="text" id="SNIP_${i}" name="SNIP_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="SJR_${i}">SJR</label></td>
+
+        <td><input type="text" id="SJR_${i}" name="SJR_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="h_index_${i}">H-index</label></td>
+
+        <td><input type="text" id="h_index_${i}" name="h_index_${i}"></td>
+
+        </tr>
+
+        <tr>
+
+        <td><label for="citations_${i}">Citations</label></td>
+
+        <td><input type="text" id="citations_${i}" name="citations_${i}"></td>
+
+        </tr>
+
+        </table>
+
 `;
-container.appendChild(formSet);
+container.appendChild(formSet);
+
     }
 }
 
@@ -1055,45 +1217,83 @@ function generatePhdGuidedForms() {
 }
 
 
-function generateOrganizationForms() {
-    const numOrganizations = document.getElementById("numOrganizations").value;
-    const container = document.getElementById("OrganizationContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
-
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
-
-    if (numOrganizations < 1) {
-        alert("Please enter a valid number of organizations.");
-        return;
-    }
-
-    for (let i = 1; i <= numOrganizations; i++) {
-        const formSet = document.createElement("div");
+function generateOrganizationForms() {
+
+    const numOrganizations = document.getElementById("numOrganizations").value;
+
+    const container = document.getElementById("OrganizationContainer");
+
+    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+
+
+
+    container.innerHTML = ""; // Clear any existing forms before generating new ones
+
+
+
+    if (numOrganizations < 1) {
+
+        alert("Please enter a valid number of organizations.");
+
+        return;
+
+    }
+
+
+
+    for (let i = 1; i <= numOrganizations; i++) {
+
+        const formSet = document.createElement("div");
+
         formSet.classList.add("form-container");
-        formSet.innerHTML = `
-                <h3>Organization ${i}</h3>
-                <table>
-                    <tr>
-                        <td><label for="faculty_id_${i}">Faculty ID: </label></td>
-                        <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="organization_${i}">Organization: </label></td>
-                        <td><input type="text" id="organization_${i}" name="organization_${i}" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="member_category_${i}">Member Category: </label></td>
-                        <td><input type="text" id="member_category_${i}" name="member_category_${i}" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="since_${i}">Since: </label></td>
-                        <td><input type="number" id="since_${i}" name="since_${i}" min="1900" max="2100" required></td>
-                    </tr>
-                </table>
-        `;
-        container.appendChild(formSet);
-    }
-}
+        formSet.innerHTML = `
+
+                <h3>Organization ${i}</h3>
+
+                <table>
+
+                    <tr>
+
+                        <td><label for="faculty_id_${i}">Faculty ID: </label></td>
+
+                        <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}" required></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><label for="organization_${i}">Organization: </label></td>
+
+                        <td><input type="text" id="organization_${i}" name="organization_${i}" required></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><label for="member_category_${i}">Member Category: </label></td>
+
+                        <td><input type="text" id="member_category_${i}" name="member_category_${i}" required></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><label for="since_${i}">Since: </label></td>
+
+                        <td><input type="number" id="since_${i}" name="since_${i}" min="1900" max="2100" required></td>
+
+                    </tr>
+
+                </table>
+
+        `;
+
+        container.appendChild(formSet);
+
+    }
+
+}
+
 
 
     function generateEducationForms() {
@@ -1294,6 +1494,42 @@ function generateProjectForms() {
                         <td><input type="number" id="year_${i}" name="year_${i}" min="1900" max="2100" required></td>
                     </tr>
                 </table>
+        `;
+        container.appendChild(formSet);
+    }
+}
+
+function generateOtherForms() {
+    const numProjects = document.getElementById("other").value;
+    const container = document.getElementById("OtherContainer");
+    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+
+    container.innerHTML = ""; // Clear previous forms
+
+    if (numProjects < 1) {
+        alert("Please enter a valid number.");
+        return;
+    }
+
+    for (let i = 1; i <= numProjects; i++) {
+        const formSet = document.createElement("div");
+        formSet.classList.add("form-container");
+        formSet.innerHTML = `
+            <h3>Entry ${i}</h3>
+            <table>
+                <tr>
+                    <td><label for="faculty_id_${i}">Faculty ID: </label></td>
+                    <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}" required></td>
+                </tr>
+                <tr>
+                    <td><label for="any_other_information_${i}">Any other information: </label></td>
+                    <td><textarea id="any_other_information_${i}" name="any_other_information_${i}" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="areas_of_interests_${i}">Areas of interests: </label></td>
+                    <td><input type="text" id="areas_of_interests_${i}" name="areas_of_interests_${i}" required></td>
+                </tr>
+            </table>
         `;
         container.appendChild(formSet);
     }

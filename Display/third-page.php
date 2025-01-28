@@ -29,7 +29,8 @@ $tables = [
     'qualification',
     'research_grants',
     'research_grants_till_now',
-    'students_project_grants'
+    'students_project_grants',
+    'others'
 ];
 
 ?>
@@ -139,7 +140,7 @@ $tables = [
                 $faculty = $result->fetch_assoc();
                 echo "<table border='0' class='details'>";
                 echo "<tr>";
-                echo "<td rowspan='6'><img src='" . htmlspecialchars($faculty['image']) . "' alt='Faculty Image' style='max-width: auto; height: 200px ; border-radius: 5px;'></td>";
+                echo "<td rowspan='6'><img src='" . htmlspecialchars($faculty['image']) . "' alt='Faculty Image' style='max-width: auto; height: 200px; border-radius: 5px;'></td>";
                 echo "<td><strong>Name:</strong> " . htmlspecialchars($faculty['name']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
