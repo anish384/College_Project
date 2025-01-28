@@ -21,7 +21,7 @@ try {
     }
 
     // Prepare the SQL statement for inserting patent data
-    $stmt = $pdo->prepare("INSERT INTO phd_guided_guiding (faculty_id, year, college_university, status) 
+    $stmt = $pdo->prepare("INSERT INTO phd_guided_guiding (faculty_id, year, college_or_university, status) 
                            VALUES (:faculty_id, :year, :college_or_university, :status)");
 
     // Loop through each patent and execute the insert statement

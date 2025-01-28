@@ -393,7 +393,7 @@
 
 <div class="form-container">
 
-    <h1>Patent Formr</h1>
+    <h1>Patent Form</h1>
 
     <div>
 
@@ -686,6 +686,7 @@ function generateConferenceForms() {
                                     <td><label for="int_nat_${i}">International/National: </label></td>
                                     <td>
                                         <select name="int_nat_${i}" id="int_nat_${i}" required>
+                                            <option value="">Select</option>
                                             <option value="national">National</option>
                                             <option value="international">International</option>
                                         </select>
@@ -711,6 +712,7 @@ function generateConferenceForms() {
                                     <td><label for="author_type_${i}">Author Type: </label></td>
                                     <td>
                                         <select name="author_type_${i}" id="author_type_${i}" required>
+                                            <option value="">Select</option>
                                             <option value="first_author">First Author</option>
                                             <option value="co-author">Co-Author</option>
                                         </select>
@@ -915,7 +917,7 @@ function generateJournalForms() {
         <td>
 
         <select name="author_type_${i}" id="author_type_${i}">
-
+        <option value="">Select</option>
         <option value="first-author">First Author</option>
 
         <option value="co-author">Co Author</option>
@@ -989,7 +991,7 @@ function generateJournalForms() {
         <td>
 
         <select name="international_national_${i}" id="international_national_${i}">
-
+        <option value="">Select</option>
         <option value="international">International</option>
 
         <option value="national">National</option>
@@ -1007,7 +1009,7 @@ function generateJournalForms() {
         <td>
 
         <select name="free_paid_${i}" id="free_paid_${i}">
-
+        <option value="">Select</option>
         <option value="free">Free</option>
 
         <option value="paid">Paid</option>
@@ -1144,9 +1146,10 @@ function generatePatentsForms() {
                         <td><label for="ip_pct_${i}">IP Percent: </label></td>
                         <td>
                             <select id="ip_pct_${i}" name="ip_pct_${i}" required>
+                                <option value="">Select</option>
                                 <option value="indian patent">Indian Patent</option>
                                 <option value="pct">PCT</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1158,9 +1161,10 @@ function generatePatentsForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
+                                <option value="">Select</option>
                                 <option value="filed">Filed</option>
                                 <option value="granted">Granted</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1204,9 +1208,10 @@ function generatePhdGuidedForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
+                                <option value="">Select</option>
                                 <option value="granted">Granted</option>
                                 <option value="not-granted">Not granted</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1322,10 +1327,11 @@ function generateOrganizationForms() {
                         <td><label for="degree_${i}">Degree: </label></td>
                         <td>
                             <select id="degree_${i}" name="degree_${i}" required>
+                                <option value="">Select</option>
                                 <option value="phd">PhD</option>
                                 <option value="Mtech/ME">Mtech/ME</option>
                                 <option value="BE/Btech">BE/Btech</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1439,9 +1445,10 @@ function generateFundingForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
+                                <option value="">Select</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
