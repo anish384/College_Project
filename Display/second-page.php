@@ -35,7 +35,19 @@ if (isset($_GET['department_name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers in <?php echo htmlspecialchars($department_name); ?></title>
     <style>
-        /* Add your styles for the teacher cards here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
         .card {
             display: flex;
             border: 1px solid #ddd;
@@ -65,11 +77,52 @@ if (isset($_GET['department_name'])) {
         .card-content strong {
             font-weight: bold;
         }
+        .department-box {
+            width: 200px;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+            transition: all 0.3s ease;
+        }
+        .department-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .department-box a {
+            display: block;
+            color: #7b38f7;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .department-box a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .main {
+            background-color: rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
+            height: 250px;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <h1>Teachers in <?php echo htmlspecialchars($department_name); ?></h1>
-    <div class="teachers-container">
+    <div class="department-box">
         <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
