@@ -40,7 +40,7 @@ $result = $conn->query($sql);
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            color: #7b38f7;
+            color:rgb(0, 38, 255);
             font-size: 2em;
         }
 
@@ -107,7 +107,7 @@ $result = $conn->query($sql);
         .navbar {
             background-color: rgb(43, 69, 152);
             color: white;
-            height: 20px;
+            height: 30px;
             width: auto;
             text-decoration: none;
             font-size: medium;
@@ -163,7 +163,7 @@ $result = $conn->query($sql);
 
         .department-box a {
             display: block;
-            color: #7b38f7;
+            color:rgb(0, 34, 253);
             font-size: 1.2em;
             font-weight: bold;
             text-decoration: none;
@@ -173,7 +173,7 @@ $result = $conn->query($sql);
             text-decoration: underline;
         }
         footer {
-            background-color: rgb(43, 69, 152);
+            background-color: rgb(0, 94, 255);
             color: rgb(255, 255, 255);
             text-align: center;
             padding: 10px 20px;
@@ -191,12 +191,8 @@ $result = $conn->query($sql);
     <div class="row">
         <div class="site_topbar">
             <i class="phone"></i> <b>0831-2438100/123</b>
-            <i class="envelope_icon"></i> info@aitmbgm.ac.in
+            <i class="envelope_icon">info@aitmbgm.ac.in</i> 
         </div>
-    </div>
-
-    <div class="search-bar">
-        <input class="search-bar" type="text" placeholder="search">
     </div>
 
 </div>
@@ -240,16 +236,6 @@ $result = $conn->query($sql);
 
 </div>
 <nav class="navbar">
-    <ul class="nav">
-        <li><a href="home">home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="administrtion">adiministration</a></li>
-        <li><a href="academic">academic</a></li>
-        <li><a href="home">home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="administrtion">adiministration</a></li>
-        <li><a href="academic">academic</a></li>
-    </ul>
     </nav>
     <h1>Departments</h1>
     <div class="content">

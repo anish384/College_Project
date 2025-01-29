@@ -40,6 +40,14 @@ if (isset($_GET['department_name'])) {
             padding: 0;
             box-sizing: border-box;
         }
+        .container {
+            background-color: rgb(238, 235, 240);
+            height: 40px;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+        }
         body {
             padding: 20px;
             font-family: 'Arial', sans-serif;
@@ -48,14 +56,60 @@ if (isset($_GET['department_name'])) {
             flex-direction: column;
             min-height: 100vh;
         }
+        .site_header_1 {
+            height: 100px;
+            width: 100px;
+        }
+        .navbar {
+            background-color: rgb(43, 69, 152);
+            color: white;
+            height: 30px;
+            width: auto;
+            text-decoration: none;
+            font-size: medium;
+            padding: 10px 20px;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .nav li {
+            margin: o 15px;
+            justify-content: start;
+            color: rgb(254, 255, 255);
+            font-size: 14.5px;
+            background-color: rgb(43, 69, 152) ;
+        }
+        .row1 {
+            background-color: rgb(255, 255, 255);
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            margin-left: 10%;
+        }
         .card {
             display: flex;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 20px;
+            width: auto;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container1 {
+            background-color: rgb(255, 255, 255);
+            color: rgb(43, 69, 152);
+            height: 120px;
+            width: auto;
+            position: sticky;
         }
 
         .card img {
@@ -94,7 +148,7 @@ if (isset($_GET['department_name'])) {
         }
         .department-box a {
             display: block;
-            color: #7b38f7;
+            color:rgb(0, 0, 0);
             font-size: 1.2em;
             font-weight: bold;
             text-decoration: none;
@@ -121,7 +175,60 @@ if (isset($_GET['department_name'])) {
     </style>
 </head>
 <body>
-    <h1>Teachers in <?php echo htmlspecialchars($department_name); ?></h1>
+<div class="real">
+
+<div class="container">
+
+    <div class="row">
+        <div class="site_topbar">
+            <i class="phone"></i> <b>0831-2438100/123</b>
+            <i class="envelope_icon">info@aitmbgm.ac.in</i> 
+        </div>
+    </div>
+
+</div>
+
+<div class="container1">
+
+    <div class="row1">
+
+        <div class="site_header_1">
+            <h2 class="web_title">
+                <a class="back" href="https://aitmbgm.ac.in">
+                    <img class="photo"
+                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
+                        alt="AITMBGM" title="AITMBGM">
+                </a>
+            </h2>
+        </div>
+
+        <div class="site_header_2">
+            <h2 class="web_title ">
+                <a class="back" href="https://aitmbgm.ac.in">
+                    <img class="photo"
+                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
+                        alt="AITMBGM" title="AITMBGM">
+                </a>
+            </h2>
+        </div>
+
+        <div class="site_header_3">
+            <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+            <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+            <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
+                NAAC<br></span>
+        </div>
+
+        <div class="site_header_4 ">
+            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png"
+                alt="AITM" title="AITM">
+        </div>
+    </div>
+
+</div>
+<nav class="navbar">
+    </nav>
+    <h1><?php echo htmlspecialchars($department_name); ?></h1>
     <div class="department-box">
         <?php
             if ($result->num_rows > 0) {
