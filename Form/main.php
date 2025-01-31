@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,62 +17,91 @@
     <title>Awards Submission</title>
     <style>
         /* Reset body and layout styles */
-        body {
+        * {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #121212;
-            color: #fff;
-            line-height: 1.6;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        .container {
+            background-color: rgb(238, 235, 240);
+            height: 40px;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            margin: 0;
+            padding: 0;
+        }
+
+        .real {
+            background-color: white;
+            color: white;
+            padding: 0;
+            text-align: center;
+            height: auto;
+            width: auto;
+            margin: 0;
+
+        }
+
+        .row {
+            background-color: rgb(238, 235, 240);
+            color: rgb(29, 28, 28);
+            height: 50%;
+            width: 20%;
+            margin-right: 60%;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .container1 {
+            background-color: rgb(255, 255, 255);
+            color: rgb(43, 69, 152);
+            height: 120px;
+            width: auto;
+            position: sticky;
+        }
+
+        .row1 {
+            background-color: rgb(255, 255, 255);
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            margin-left: 10%;
+            
+        }
+
+        .site_header_1 {
+            height: 100px;
+            width: 100px;
+
+        }
+        
+        .photo {
+            height: 100%;
+            width: 100%;
+            margin-top: 2px;
+        }
+
+        /* Form Styling */
 
         h1 {
             text-align: center;
             font-size: 2rem;
-            color: #86baf4;
+            color: rgb(24, 95, 177);
         }
 
-        header {
-            background-color: #1a1a1a;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #333;
-        }
-
-        .logo-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo-section img {
-            width: 80px;
-            height: auto;
-            border-radius: 50%;
-        }
-
-        .institute-details {
-            text-align: center;
-            color: #fff;
-        }
-
-        .institute-details h1 {
-            font-size: 1.5rem;
-            margin: 5px 0;
-        }
-
-        .institute-details p {
-            font-size: 0.875rem;
-        }
-
-        /* Form Styling */
         form {
             width: 80%;
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background: #333;
+            background: #d7d1d1;
+            color: black;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -94,12 +133,12 @@
             padding: 8px;
             border: 1px solid #555;
             border-radius: 4px;
-            background: #222;
-            color: #fff;
+            background:#ebebeb;
+            color:#181717;
             font-size: 1rem;
         }
-        
-        textarea{
+
+        textarea {
             resize: none;
         }
 
@@ -125,9 +164,9 @@
 
         /* Dynamic Form Containers */
         .form-container {
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             padding: 15px;
-            background-color: #444;
+            background-color: #f1ecec;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
@@ -135,7 +174,8 @@
         .form-container label {
             display: inline-block;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+            color: black;
         }
 
         .form-container input[type="number"] {
@@ -163,16 +203,16 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .logo-section {
+            .container1 {
                 flex-direction: column;
                 text-align: center;
             }
 
-            .logo-section img {
+            .photo {
                 margin-bottom: 15px;
             }
 
-            .institute-details h1 {
+            .row1{
                 font-size: 1.2rem;
             }
 
@@ -184,22 +224,75 @@
                 width: 100%;
             }
         }
+
+        footer {
+         background-color: rgb(43, 69, 152);
+         color: rgb(255, 255, 255);
+         text-align: center;
+         padding: 10px 20px;
+         bottom: 0;
+         width: 100%;
+          position: relative;
+        }
     </style>
+
+
 </head>
 
 <body>
-    <header>
-        <div class="logo-section">
-            <img src="images/angadi_img.jpg" alt="Founder Image">
-            <div class="institute-details">
-                <h1>SURESH ANGADI EDUCATION FOUNDATION'S</h1>
-                <h1>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h1>
-                <p>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi.</p>
-                <p>Accredited by <strong>*NBA</strong> and <strong>NAAC</strong></p>
+
+    <div class="real">
+        <div class="container">
+
+            <div class="row">
+                <div class="site_topbar">
+                    <i class="phone"></i> <b>0831-2438100/123</b>
+                    <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                </div>
+
             </div>
-            <img src="images/aitm_logo.jpg" alt="Institute Logo">
+
+
         </div>
-    </header>
+    </div>
+
+    <div class="container1">
+
+<div class="row1">
+
+    <div class="site_header_1">
+        <h2 class="web_title">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
+    </div>
+
+    <div class="site_header_2">
+        <h2 class="web_title ">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
+    </div>
+
+    <div class="site_header_3">
+        <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+        <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+        <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
+            NAAC<br></span>
+    </div>
+
+    <div class="site_header_4 ">
+        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM"
+            title="AITM">
+    </div>
+</div>
+
+</div>
+
 
     <div class="form-container">
         <h1>Information</h1>
@@ -220,23 +313,26 @@
                 <tr>
                     <td><label for="Department">Department</label></td>
                     <td><select id="Department" name="Department">
-                        <option value="NULL">Select</option>
-                        <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
-                        <option value="Chemistry">Chemistry</option>
-                        <option value="Civil Engineering">Civil Engineering</option>
-                        <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                        <option value="Diploma">Diploma</option>
-                        <option value="Electrical & Electronic Engineering">Electrical & Electronic Engineering </option>
-                        <option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
-                        <option value="M.Tech(Civil)">M.Tech(Civil)</option>
-                        <option value="M.Tech(Mechanical)">M.Tech(Mechanical)</option>
-                        <option value="Mathematics">Mathematics</option>
-                        <option value="MBA">MBA</option>
-                        <option value="MCA">MCA</option>
-                        <option value="Mechanical Engineering">Mechanical Engineering</option>
-                        <option value="Physics">Physics</option>
-                        <option value="Robotics & Automation">Robotics & Automation</option>
-                    </select>
+                            <option value="NULL">Select</option>
+                            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data
+                                Science</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Electrical & Electronic Engineering">Electrical & Electronic Engineering
+                            </option>
+                            <option value="Electronics & Communication Engineering">Electronics & Communication
+                                Engineering</option>
+                            <option value="M.Tech(Civil)">M.Tech(Civil)</option>
+                            <option value="M.Tech(Mechanical)">M.Tech(Mechanical)</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="MBA">MBA</option>
+                            <option value="MCA">MCA</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Robotics & Automation">Robotics & Automation</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -269,7 +365,7 @@
         <button type="button" onclick="generateAwardForms()">Generate Awards Forms</button>
         <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm">
             <div id="awardFormsContainer"></div>
-            <button type="submit" >Submit All Awards</button>
+            <button type="submit">Submit All Awards</button>
         </form>
     </div>
 
@@ -345,196 +441,203 @@
             <label for="numScholars">Number of Scholars:</label>
             <input type="number" id="numScholars" placeholder="Enter number of scholars">
             <button type="button" onclick="generateScholarsForms()">Generate Scholars Forms</button>
-    </div>
+        </div>
         <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm">
             <div id="scholarsFormsContainer"></div>
             <button type="submit">Submit All Scholars</button>
         </form>
     </div>
-<div class="form-container">
+    <div class="form-container">
 
-    <h1>Journals Form</h1>
+        <h1>Journals Form</h1>
 
-    <div>
+        <div>
 
-        <label for="numJournals">Number of Journals:</label>
+            <label for="numJournals">Number of Journals:</label>
 
-        <input type="number" id="numJournals" placeholder="Enter number of journals">
+            <input type="number" id="numJournals" placeholder="Enter number of journals">
 
-        <button type="button" onclick="generateJournalForms()">Generate Journal Forms</button>
+            <button type="button" onclick="generateJournalForms()">Generate Journal Forms</button>
 
-    </div>
+        </div>
 
-    <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm">
+        <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm">
 
-        <div id="journalsFormsContainer"></div>
+            <div id="journalsFormsContainer"></div>
 
-        <button type="submit">Submit All Journals</button>
+            <button type="submit">Submit All Journals</button>
 
-    </form>
-
-</div>
-
-
-
-<div class="form-container">
-    <h1>Mtech Form</h1>
-    <div>
-        <label for="numMtechGuided">Number of Journals:</label>
-        <input type="number" id="numMtechGuided" placeholder="Enter number of journals" min="1">
-        <button type="button" onclick="generateMtechGuidedForms()">Generate Journal Forms</button>
-    </div>
-
-    <form action="phpCode/mtech_guided.php" method="post" id="dynamicJournalForm">
-        <div id="MtechGuidedContainer"></div>
-        <button type="submit">Submit All Mtech Guided</button>
-    </form>
-</div>
-
-<div class="form-container">
-
-    <h1>Patent Form</h1>
-
-    <div>
-
-        <label for="numPatent">Number of Patents:</label>
-
-        <input type="number" id="numPatent" placeholder="Enter number of patents" min="1">
-
-        <button type="button" onclick="generatePatentsForms()">Generate Patent Forms</button>
+        </form>
 
     </div>
 
 
 
-    <form action="phpCode/patents.php" method="post" id="dynamicPatentForm">
+    <div class="form-container">
+        <h1>Mtech Form</h1>
+        <div>
+            <label for="numMtechGuided">Number of Journals:</label>
+            <input type="number" id="numMtechGuided" placeholder="Enter number of journals" min="1">
+            <button type="button" onclick="generateMtechGuidedForms()">Generate Journal Forms</button>
+        </div>
 
-        <div id="PatentContainer"></div>
-
-        <button type="submit">Submit All Patents</button>
-
-    </form>
-
-</div>
-
-
-<div class="form-container">
-    <h1>PhD Guided Form </h1>
-    <div>
-        <label for="numPhdGuided">Number of PhD Guided:</label>
-        <input type="number" id="numPhdGuided" placeholder="Enter number of PhD guided" min="1">
-        <button type="button" onclick="generatePhdGuidedForms()">Generate PhD Guided Forms</button>
+        <form action="phpCode/mtech_guided.php" method="post" id="dynamicJournalForm">
+            <div id="MtechGuidedContainer"></div>
+            <button type="submit">Submit All Mtech Guided</button>
+        </form>
     </div>
 
-    <form action="phpCode/phd_guided.php" method="post" id="dynamicPhdGuidedForm">
-        <div id="PhdGuidedContainer"></div>
-        <button type="submit">Submit All PhD Guided</button>
-    </form>
-</div>
+    <div class="form-container">
+
+        <h1>Patent Form</h1>
+
+        <div>
+
+            <label for="numPatent">Number of Patents:</label>
+
+            <input type="number" id="numPatent" placeholder="Enter number of patents" min="1">
+
+            <button type="button" onclick="generatePatentsForms()">Generate Patent Forms</button>
+
+        </div>
 
 
-<div class="form-container">
-    <h1>Organization Form</h1>
-    <div>
-        <label for="numOrganizations">Number of Organizations:</label>
-        <input type="number" id="numOrganizations" placeholder="Enter number of organizations" min="1">
-        <button type="button" onclick="generateOrganizationForms()">Generate Organization Forms</button>
+
+        <form action="phpCode/patents.php" method="post" id="dynamicPatentForm">
+
+            <div id="PatentContainer"></div>
+
+            <button type="submit">Submit All Patents</button>
+
+        </form>
+
     </div>
 
-    <form action="phpCode/organization.php" method="post" id="dynamicOrganizationForm">
-        <div id="OrganizationContainer"></div>
-        <button type="submit">Submit All Organizations</button>
-    </form>
-</div>
 
+    <div class="form-container">
+        <h1>PhD Guided Form </h1>
+        <div>
+            <label for="numPhdGuided">Number of PhD Guided:</label>
+            <input type="number" id="numPhdGuided" placeholder="Enter number of PhD guided" min="1">
+            <button type="button" onclick="generatePhdGuidedForms()">Generate PhD Guided Forms</button>
+        </div>
 
-<div class="form-container">
-    <h1>Education Form</h1>
-    <div>
-        <label for="numEducation">Number of Education Records:</label>
-        <input type="number" id="numEducation" placeholder="Enter number of records" min="1">
-        <button type="button" onclick="generateEducationForms()">Generate Education Forms</button>
+        <form action="phpCode/phd_guided.php" method="post" id="dynamicPhdGuidedForm">
+            <div id="PhdGuidedContainer"></div>
+            <button type="submit">Submit All PhD Guided</button>
+        </form>
     </div>
 
-    <form action="phpCode/education.php" method="post" id="dynamicEducationForm">
-        <div id="EducationContainer"></div>
-        <button type="submit">Submit All Education Records</button>
-    </form>
-</div>
 
+    <div class="form-container">
+        <h1>Organization Form</h1>
+        <div>
+            <label for="numOrganizations">Number of Organizations:</label>
+            <input type="number" id="numOrganizations" placeholder="Enter number of organizations" min="1">
+            <button type="button" onclick="generateOrganizationForms()">Generate Organization Forms</button>
+        </div>
 
-<div class="form-container">
-    <h1>Research Project Form</h1>
-    <div>
-        <label for="numResearch">Number of Research Projects:</label>
-        <input type="number" id="numResearch" placeholder="Enter number of research projects" min="1">
-        <button type="button" onclick="generateResearchForms()">Generate Research Forms</button>
+        <form action="phpCode/organization.php" method="post" id="dynamicOrganizationForm">
+            <div id="OrganizationContainer"></div>
+            <button type="submit">Submit All Organizations</button>
+        </form>
     </div>
 
-    <form action="phpCode/research.php" method="post" id="dynamicResearchForm">
-        <div id="ResearchContainer"></div>
-        <button type="submit">Submit All Research Projects</button>
-    </form>
-</div>
 
+    <div class="form-container">
+        <h1>Education Form</h1>
+        <div>
+            <label for="numEducation">Number of Education Records:</label>
+            <input type="number" id="numEducation" placeholder="Enter number of records" min="1">
+            <button type="button" onclick="generateEducationForms()">Generate Education Forms</button>
+        </div>
 
-<div class="form-container">
-    <h1>Funding Scheme Form</h1>
-    <div>
-        <label for="numFunding">Number of Funding Schemes:</label>
-        <input type="number" id="numFunding" placeholder="Enter number of funding schemes" min="1">
-        <button type="button" onclick="generateFundingForms()">Generate Funding Forms</button>
+        <form action="phpCode/education.php" method="post" id="dynamicEducationForm">
+            <div id="EducationContainer"></div>
+            <button type="submit">Submit All Education Records</button>
+        </form>
     </div>
 
-    <form action="phpCode/funding.php" method="post" id="dynamicFundingForm">
-        <div id="FundingContainer"></div>
-        <button type="submit">Submit All Funding Schemes</button>
-    </form>
-</div>
 
+    <div class="form-container">
+        <h1>Research Project Form</h1>
+        <div>
+            <label for="numResearch">Number of Research Projects:</label>
+            <input type="number" id="numResearch" placeholder="Enter number of research projects" min="1">
+            <button type="button" onclick="generateResearchForms()">Generate Research Forms</button>
+        </div>
 
-<div class="form-container">
-    <h1>Project Form</h1>
-    <div>
-        <label for="numProjects">Number of Projects:</label>
-        <input type="number" id="numProjects" placeholder="Enter number of projects" min="1">
-        <button type="button" onclick="generateProjectForms()">Generate Project Forms</button>
+        <form action="phpCode/research.php" method="post" id="dynamicResearchForm">
+            <div id="ResearchContainer"></div>
+            <button type="submit">Submit All Research Projects</button>
+        </form>
     </div>
 
-    <form action="phpCode/projects.php" method="post" id="dynamicProjectForm">
-        <div id="ProjectContainer"></div>
-        <button type="submit">Submit All Projects</button>
-    </form>
-</div>
 
-<div class="form-container">
-    <h1>Others</h1>
-    <div>
-        <label for="numProjects">Other:</label>
-        <input type="number" id="other" placeholder="" min="1">
-        <button type="button" onclick="generateOtherForms()">Generate Forms</button>
+    <div class="form-container">
+        <h1>Funding Scheme Form</h1>
+        <div>
+            <label for="numFunding">Number of Funding Schemes:</label>
+            <input type="number" id="numFunding" placeholder="Enter number of funding schemes" min="1">
+            <button type="button" onclick="generateFundingForms()">Generate Funding Forms</button>
+        </div>
+
+        <form action="phpCode/funding.php" method="post" id="dynamicFundingForm">
+            <div id="FundingContainer"></div>
+            <button type="submit">Submit All Funding Schemes</button>
+        </form>
     </div>
 
-    <form action="phpCode/others.php" method="post" id="dynamicOtherForm">
-        <div id="OtherContainer"></div>
-        <button type="submit">Submit</button>
-    </form>
-</div>
 
-<script>
-function generateAwardForms() {
-    const numAwards = document.getElementById("numAwards").value;
-    const container = document.getElementById("awardFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+    <div class="form-container">
+        <h1>Project Form</h1>
+        <div>
+            <label for="numProjects">Number of Projects:</label>
+            <input type="number" id="numProjects" placeholder="Enter number of projects" min="1">
+            <button type="button" onclick="generateProjectForms()">Generate Project Forms</button>
+        </div>
 
-    // Clear existing forms
-    container.innerHTML = "";
+        <form action="phpCode/projects.php" method="post" id="dynamicProjectForm">
+            <div id="ProjectContainer"></div>
+            <button type="submit">Submit All Projects</button>
+        </form>
+    </div>
 
-    // Generate the required number of award forms
-    for (let i = 1; i <= numAwards; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+    <div class="form-container">
+        <h1>Others</h1>
+        <div>
+            <label for="numProjects">Other:</label>
+            <input type="number" id="other" placeholder="" min="1">
+            <button type="button" onclick="generateOtherForms()">Generate Forms</button>
+        </div>
+
+        <form action="phpCode/others.php" method="post" id="dynamicOtherForm">
+            <div id="OtherContainer"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <h2>Angadi Insitute Of Technology And Management</h2>
+    </footer>
+
+    
+
+
+    <script>
+        function generateAwardForms() {
+            const numAwards = document.getElementById("numAwards").value;
+            const container = document.getElementById("awardFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
+
+            // Clear existing forms
+            container.innerHTML = "";
+
+            // Generate the required number of award forms
+            for (let i = 1; i <= numAwards; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
             <h3>Award ${i}</h3>
                             <table>
                                 <tr>
@@ -559,24 +662,24 @@ function generateAwardForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
+                container.appendChild(formSet);
+            }
 
-}
+        }
 
-function generateBookForms() {
-    const numBooks = document.getElementById("numBooks").value;
-    const container = document.getElementById("bookFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateBookForms() {
+            const numBooks = document.getElementById("numBooks").value;
+            const container = document.getElementById("bookFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
-    container.innerHTML = "";
+            // Clear existing forms
+            container.innerHTML = "";
 
-    // Generate the required number of book forms
-    for (let i = 1; i <= numBooks; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            // Generate the required number of book forms
+            for (let i = 1; i <= numBooks; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Book ${i}</h3>
                             <table>
                                 <tr>
@@ -609,23 +712,23 @@ function generateBookForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateChairResourceForms() {
-    const numResources = document.getElementById("numResources").value;
-    const container = document.getElementById("chairResourceFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateChairResourceForms() {
+            const numResources = document.getElementById("numResources").value;
+            const container = document.getElementById("chairResourceFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
-    container.innerHTML = "";
+            // Clear existing forms
+            container.innerHTML = "";
 
-    // Generate the required number of chair/resource forms
-    for (let i = 1; i <= numResources; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            // Generate the required number of chair/resource forms
+            for (let i = 1; i <= numResources; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Chair/Resource ${i}</h3>
                             <table>
                                 <tr>
@@ -650,24 +753,24 @@ function generateChairResourceForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
 
-function generateConferenceForms() {
-    const numConferences = document.getElementById("numConferences").value;
-    const container = document.getElementById("conferenceFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateConferenceForms() {
+            const numConferences = document.getElementById("numConferences").value;
+            const container = document.getElementById("conferenceFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
-    container.innerHTML = "";
+            // Clear existing forms
+            container.innerHTML = "";
 
-    // Generate the required number of conference forms
-    for (let i = 1; i <= numConferences; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            // Generate the required number of conference forms
+            for (let i = 1; i <= numConferences; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Conference ${i}</h3>
                             <table>
                                 <tr>
@@ -686,7 +789,6 @@ function generateConferenceForms() {
                                     <td><label for="int_nat_${i}">International/National: </label></td>
                                     <td>
                                         <select name="int_nat_${i}" id="int_nat_${i}" required>
-                                            <option value="">Select</option>
                                             <option value="national">National</option>
                                             <option value="international">International</option>
                                         </select>
@@ -712,7 +814,6 @@ function generateConferenceForms() {
                                     <td><label for="author_type_${i}">Author Type: </label></td>
                                     <td>
                                         <select name="author_type_${i}" id="author_type_${i}" required>
-                                            <option value="">Select</option>
                                             <option value="first_author">First Author</option>
                                             <option value="co-author">Co-Author</option>
                                         </select>
@@ -724,22 +825,22 @@ function generateConferenceForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
 
-function generateExperienceForms() {
-    const numExperiences = document.getElementById("numExperiences").value;
-    const container = document.getElementById("experienceFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateExperienceForms() {
+            const numExperiences = document.getElementById("numExperiences").value;
+            const container = document.getElementById("experienceFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    container.innerHTML = "";
+            container.innerHTML = "";
 
-    for (let i = 1; i <= numExperiences; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numExperiences; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Experience ${i}</h3>
                             <table>
                                 <tr>
@@ -760,23 +861,23 @@ function generateExperienceForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateConferenceAttendedForms() {
-    const numConferences = document.getElementById("numConferencesAttended").value;
-    const container = document.getElementById("conferenceAttendedFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateConferenceAttendedForms() {
+            const numConferences = document.getElementById("numConferencesAttended").value;
+            const container = document.getElementById("conferenceAttendedFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    // Clear existing forms
-    container.innerHTML = "";
+            // Clear existing forms
+            container.innerHTML = "";
 
-    // Generate forms dynamically
-    for (let i = 1; i <= numConferences; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            // Generate forms dynamically
+            for (let i = 1; i <= numConferences; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Conference ${i}</h3>
                             <table>
                                 <tr>
@@ -805,21 +906,21 @@ function generateConferenceAttendedForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateScholarsForms() {
-    const numScholars = document.getElementById("numScholars").value;
-    const container = document.getElementById("scholarsFormsContainer");
-    const facultyID = document.getElementById("faculty_id").value;
+        function generateScholarsForms() {
+            const numScholars = document.getElementById("numScholars").value;
+            const container = document.getElementById("scholarsFormsContainer");
+            const facultyID = document.getElementById("faculty_id").value;
 
-    container.innerHTML = "";
+            container.innerHTML = "";
 
-    for (let i = 1; i <= numScholars; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numScholars; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                             <h3>Scholar ${i}</h3>
                             <table>
                                 <tr>
@@ -856,31 +957,31 @@ function generateScholarsForms() {
                                 </tr>
                             </table>
                         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateJournalForms() {
+        function generateJournalForms() {
 
-    const numScholars = document.getElementById("numJournals").value;
+            const numScholars = document.getElementById("numJournals").value;
 
-    const container = document.getElementById("journalsFormsContainer");
+            const container = document.getElementById("journalsFormsContainer");
 
-    const facultyID = document.getElementById("faculty_id").value;
+            const facultyID = document.getElementById("faculty_id").value;
 
-    
 
-    container.innerHTML = "";
 
-    
+            container.innerHTML = "";
 
-    for (let i = 1; i <= numScholars; i++) {
 
-        const formSet = document.createElement("div");
 
-        formSet.classList.add("form-container");
+            for (let i = 1; i <= numScholars; i++) {
 
-        formSet.innerHTML = `
+                const formSet = document.createElement("div");
+
+                formSet.classList.add("form-container");
+
+                formSet.innerHTML = `
 
         <h3>Journal ${i}</h3>
 
@@ -917,7 +1018,7 @@ function generateJournalForms() {
         <td>
 
         <select name="author_type_${i}" id="author_type_${i}">
-        <option value="">Select</option>
+
         <option value="first-author">First Author</option>
 
         <option value="co-author">Co Author</option>
@@ -991,7 +1092,7 @@ function generateJournalForms() {
         <td>
 
         <select name="international_national_${i}" id="international_national_${i}">
-        <option value="">Select</option>
+
         <option value="international">International</option>
 
         <option value="national">National</option>
@@ -1009,7 +1110,7 @@ function generateJournalForms() {
         <td>
 
         <select name="free_paid_${i}" id="free_paid_${i}">
-        <option value="">Select</option>
+
         <option value="free">Free</option>
 
         <option value="paid">Paid</option>
@@ -1071,27 +1172,27 @@ function generateJournalForms() {
         </table>
 
 `;
-container.appendChild(formSet);
+                container.appendChild(formSet);
 
-    }
-}
+            }
+        }
 
-function generateMtechGuidedForms() {
-    const numJournals = document.getElementById("numMtechGuided").value;
-    const container = document.getElementById("MtechGuidedContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateMtechGuidedForms() {
+            const numJournals = document.getElementById("numMtechGuided").value;
+            const container = document.getElementById("MtechGuidedContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numJournals < 1) {
-        alert("Please enter a valid number of journals.");
-        return;
-    }
+            if (numJournals < 1) {
+                alert("Please enter a valid number of journals.");
+                return;
+            }
 
-    for (let i = 1; i <= numJournals; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numJournals; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Journal ${i}</h3>
                 <table>
                     <tr>
@@ -1108,26 +1209,26 @@ function generateMtechGuidedForms() {
                     </tr>
                 </table>
             `;
-        container.appendChild(formSet);
-    }
-}  
+                container.appendChild(formSet);
+            }
+        }
 
-function generatePatentsForms() {
-    const numJournals = document.getElementById("numPatent").value;
-    const container = document.getElementById("PatentContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generatePatentsForms() {
+            const numJournals = document.getElementById("numPatent").value;
+            const container = document.getElementById("PatentContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numJournals < 1) {
-        alert("Please enter a valid number of journals.");
-        return;
-    }
+            if (numJournals < 1) {
+                alert("Please enter a valid number of journals.");
+                return;
+            }
 
-    for (let i = 1; i <= numJournals; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numJournals; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Journal ${i}</h3>
                 <table>
                     <tr>
@@ -1146,10 +1247,9 @@ function generatePatentsForms() {
                         <td><label for="ip_pct_${i}">IP Percent: </label></td>
                         <td>
                             <select id="ip_pct_${i}" name="ip_pct_${i}" required>
-                                <option value="">Select</option>
                                 <option value="indian patent">Indian Patent</option>
                                 <option value="pct">PCT</option>
-                                
+                                <option value="">None</option>
                             </select>
                         </td>
                     </tr>
@@ -1161,35 +1261,34 @@ function generatePatentsForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
-                                <option value="">Select</option>
                                 <option value="filed">Filed</option>
                                 <option value="granted">Granted</option>
-                                
+                                <option value="">None</option>
                             </select>
                         </td>
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generatePhdGuidedForms() {
-    const numPatents = document.getElementById("numPhdGuided").value;
-    const container = document.getElementById("PhdGuidedContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generatePhdGuidedForms() {
+            const numPatents = document.getElementById("numPhdGuided").value;
+            const container = document.getElementById("PhdGuidedContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numPatents < 1) {
-        alert("Please enter a valid number of patents.");
-        return;
-    }
+            if (numPatents < 1) {
+                alert("Please enter a valid number of patents.");
+                return;
+            }
 
-    for (let i = 1; i <= numPatents; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numPatents; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Patent ${i}</h3>
                 <table>
                     <tr>
@@ -1208,50 +1307,49 @@ function generatePhdGuidedForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
-                                <option value="">Select</option>
                                 <option value="granted">Granted</option>
                                 <option value="not-granted">Not granted</option>
-                                
+                                <option value="">None</option>
                             </select>
                         </td>
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
 
-function generateOrganizationForms() {
+        function generateOrganizationForms() {
 
-    const numOrganizations = document.getElementById("numOrganizations").value;
+            const numOrganizations = document.getElementById("numOrganizations").value;
 
-    const container = document.getElementById("OrganizationContainer");
+            const container = document.getElementById("OrganizationContainer");
 
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
-
-
-
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
 
 
-    if (numOrganizations < 1) {
-
-        alert("Please enter a valid number of organizations.");
-
-        return;
-
-    }
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
 
 
-    for (let i = 1; i <= numOrganizations; i++) {
+            if (numOrganizations < 1) {
 
-        const formSet = document.createElement("div");
+                alert("Please enter a valid number of organizations.");
 
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+                return;
+
+            }
+
+
+
+            for (let i = 1; i <= numOrganizations; i++) {
+
+                const formSet = document.createElement("div");
+
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
 
                 <h3>Organization ${i}</h3>
 
@@ -1293,30 +1391,30 @@ function generateOrganizationForms() {
 
         `;
 
-        container.appendChild(formSet);
+                container.appendChild(formSet);
 
-    }
+            }
 
-}
+        }
 
 
 
-    function generateEducationForms() {
-    const numEducations = document.getElementById("numEducation").value;
-    const container = document.getElementById("EducationContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateEducationForms() {
+            const numEducations = document.getElementById("numEducation").value;
+            const container = document.getElementById("EducationContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numEducations < 1) {
-        alert("Please enter a valid number of education records.");
-        return;
-    }
+            if (numEducations < 1) {
+                alert("Please enter a valid number of education records.");
+                return;
+            }
 
-    for (let i = 1; i <= numEducations; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numEducations; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Education ${i}</h3>
                 <table>
                     <tr>
@@ -1327,11 +1425,10 @@ function generateOrganizationForms() {
                         <td><label for="degree_${i}">Degree: </label></td>
                         <td>
                             <select id="degree_${i}" name="degree_${i}" required>
-                                <option value="">Select</option>
                                 <option value="phd">PhD</option>
                                 <option value="Mtech/ME">Mtech/ME</option>
                                 <option value="BE/Btech">BE/Btech</option>
-                                
+                                <option value="">None</option>
                             </select>
                         </td>
                     </tr>
@@ -1349,26 +1446,26 @@ function generateOrganizationForms() {
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateResearchForms() {
-    const numResearch = document.getElementById("numResearch").value;
-    const container = document.getElementById("ResearchContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateResearchForms() {
+            const numResearch = document.getElementById("numResearch").value;
+            const container = document.getElementById("ResearchContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numResearch < 1) {
-        alert("Please enter a valid number of research projects.");
-        return;
-    }
+            if (numResearch < 1) {
+                alert("Please enter a valid number of research projects.");
+                return;
+            }
 
-    for (let i = 1; i <= numResearch; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numResearch; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Research Project ${i}</h3>
                 <table>
                     <tr>
@@ -1393,28 +1490,28 @@ function generateResearchForms() {
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
 
 
-function generateFundingForms() {
-    const numFunding = document.getElementById("numFunding").value;
-    const container = document.getElementById("FundingContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateFundingForms() {
+            const numFunding = document.getElementById("numFunding").value;
+            const container = document.getElementById("FundingContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numFunding < 1) {
-        alert("Please enter a valid number of funding schemes.");
-        return;
-    }
+            if (numFunding < 1) {
+                alert("Please enter a valid number of funding schemes.");
+                return;
+            }
 
-    for (let i = 1; i <= numFunding; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numFunding; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Funding Scheme ${i}</h3>
                 <table>
                     <tr>
@@ -1445,35 +1542,34 @@ function generateFundingForms() {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
-                                <option value="">Select</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
-                                
+                                <option value="">None</option>
                             </select>
                         </td>
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateProjectForms() {
-    const numProjects = document.getElementById("numProjects").value;
-    const container = document.getElementById("ProjectContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateProjectForms() {
+            const numProjects = document.getElementById("numProjects").value;
+            const container = document.getElementById("ProjectContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear any existing forms before generating new ones
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
 
-    if (numProjects < 1) {
-        alert("Please enter a valid number of projects.");
-        return;
-    }
+            if (numProjects < 1) {
+                alert("Please enter a valid number of projects.");
+                return;
+            }
 
-    for (let i = 1; i <= numProjects; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numProjects; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
                 <h3>Project ${i}</h3>
                 <table>
                     <tr>
@@ -1502,26 +1598,26 @@ function generateProjectForms() {
                     </tr>
                 </table>
         `;
-        container.appendChild(formSet);
-    }
-}
+                container.appendChild(formSet);
+            }
+        }
 
-function generateOtherForms() {
-    const numProjects = document.getElementById("other").value;
-    const container = document.getElementById("OtherContainer");
-    const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+        function generateOtherForms() {
+            const numProjects = document.getElementById("other").value;
+            const container = document.getElementById("OtherContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
 
-    container.innerHTML = ""; // Clear previous forms
+            container.innerHTML = ""; // Clear previous forms
 
-    if (numProjects < 1) {
-        alert("Please enter a valid number.");
-        return;
-    }
+            if (numProjects < 1) {
+                alert("Please enter a valid number.");
+                return;
+            }
 
-    for (let i = 1; i <= numProjects; i++) {
-        const formSet = document.createElement("div");
-        formSet.classList.add("form-container");
-        formSet.innerHTML = `
+            for (let i = 1; i <= numProjects; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
             <h3>Entry ${i}</h3>
             <table>
                 <tr>
@@ -1538,10 +1634,10 @@ function generateOtherForms() {
                 </tr>
             </table>
         `;
-        container.appendChild(formSet);
-    }
-}
-    </script> 
+                container.appendChild(formSet);
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ if ($conn->connect_error) {
 }
 
 // Get the faculty_id from the URL
-$faculty_id = isset($_GET['faculty_id']) ? intval($_GET['faculty_id']) : null;
+$faculty_id = isset($_GET['faculty_id']) ? $_GET['faculty_id'] : null;
 if (!$faculty_id) {
     die("Error: Faculty ID not provided.");
 }
@@ -19,6 +19,7 @@ $tables = [
     'books_bookchapter',
     'chair_resource',
     'conference',
+    'experience',
     'fdp_conferences_attended',
     'for_scholars_dr',
     'journals',
@@ -42,17 +43,13 @@ $tables = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Details</title>
     <style>
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            justify-self: start;
-        }
+
         .container {
             background-color: rgb(238, 235, 240);
             height: 40px;
@@ -60,16 +57,31 @@ $tables = [
             display: flex;
             flex-direction: row;
             justify-content: start;
+            margin: 0;
+            padding: 0;
         }
+
+        .real {
+            background-color: white;
+            color: white;
+            padding: 0;
+            text-align: center;
+            height: auto;
+            width: auto;
+            margin: 0;
+
+        }
+
         .row {
             background-color: rgb(238, 235, 240);
-            color: rgb(11, 11, 12);
+            color: rgb(29, 28, 28);
             height: 50%;
             width: 20%;
             margin-right: 60%;
             margin-top: 10px;
             margin-left: 10px;
         }
+
         .container1 {
             background-color: rgb(255, 255, 255);
             color: rgb(43, 69, 152);
@@ -77,6 +89,7 @@ $tables = [
             width: auto;
             position: sticky;
         }
+
         .row1 {
             background-color: rgb(255, 255, 255);
             align-items: center;
@@ -86,44 +99,68 @@ $tables = [
             flex-direction: row;
             width: 80%;
             margin-left: 10%;
-        }
-        .navbar {
-            background-color: rgb(43, 69, 152);
-            color: white;
-            height: 30px;
-            width: auto;
-            text-decoration: none;
-            font-size: medium;
-            padding: 10px 20px;
+            
         }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            color: rgb(255, 255, 255);
-            display: flex;
-            flex-direction: row;
+        .site_header_1 {
+            height: 100px;
+            width: 100px;
+
+        }
+        
+        .photo {
+            height: 100%;
+            width: 100%;
+            margin-top: 2px;
         }
 
-        .nav li {
-            margin: o 15px;
-            justify-content: start;
-            color: rgb(254, 255, 255);
-            font-size: 14.5px;
-            background-color: rgb(43, 69, 152) ;
-        }
-        header, footer {
-            background-color: #0073e6;
-            color: white;
+        header {
+            background-color:rgb(255, 255, 255);
+            color:black;
             text-align: center;
             padding: 1rem;
-        }
+            height: 50px;
+           
+            font-size: small;
+  font-weight: normal;
+}
+        
         main {
             padding: 2rem;
         }
-        h1, h2 {
-            color: #333;
+        img {
+            width: 200px;
+            height: auto;
+            border: 1px  #ddd;
+            border-radius: 10px;
+
+
         }
+        
+        .details {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .faculty-details {
+            margin-bottom: 2rem;
+           
+        }
+        .faculty-details img {
+            margin-right: 1rem;
+            float: left;
+        }
+        p {
+            color: black;
+        }
+        
+        .details td {
+            border: 1px solid white;
+            padding: 4px;
+            
+        }
+        
+       
         .table-section {
             margin-bottom: 2rem;
             background-color: #fff;
@@ -144,99 +181,89 @@ $tables = [
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-            
+            width: 100px; 
+    word-wrap: break-word;
+    white-space: normal;
+    vertical-align: top;
+     
+
+           
         }
+
+
+       
         th {
             background-color: #4A90E2;
             color: white;
         }
-        img {
-            max-width: 180px;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+        
+       
 
-        }
-        .faculty-details {
-            margin-bottom: 2rem;
-            justify: Center;
-        }
-        .faculty-details img {
-            margin-right: 1rem;
-            float: left;
-        }
-        p {
-            color: black;
-        }
-        .details {
+        
+        footer {
+            background-color: rgb(43, 69, 152);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 10px 20px;
+            bottom: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
+            position: relative;
         }
-
-        .details th,
-        .details td {
-            border: 1px solid white;
-            padding: 4px;
-            text-align: left;
-        }
-
     </style>
 </head>
 <body>
 <div class="real">
+        <div class="container">
 
-<div class="container">
+            <div class="row">
+                <div class="site_topbar">
+                    <i class="phone"></i> <b>0831-2438100/123</b>
+                    <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                </div>
 
-    <div class="row">
-        <div class="site_topbar">
-            <i class="phone"></i> <b>0831-2438100/123</b>
-            <i class="envelope_icon">info@aitmbgm.ac.in</i> 
+            </div>
+
+
         </div>
     </div>
 
-</div>
+    <div class="container1">
 
-<div class="container1">
+<div class="row1">
 
-    <div class="row1">
-
-        <div class="site_header_1">
-            <h2 class="web_title">
-                <a class="back" href="https://aitmbgm.ac.in">
-                    <img class="photo"
-                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
-                        alt="AITMBGM" title="AITMBGM">
-                </a>
-            </h2>
-        </div>
-
-        <div class="site_header_2">
-            <h2 class="web_title ">
-                <a class="back" href="https://aitmbgm.ac.in">
-                    <img class="photo"
-                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
-                        alt="AITMBGM" title="AITMBGM">
-                </a>
-            </h2>
-        </div>
-
-        <div class="site_header_3">
-            <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
-            <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
-            <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
-                NAAC<br></span>
-        </div>
-
-        <div class="site_header_4 ">
-            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png"
-                alt="AITM" title="AITM">
-        </div>
+    <div class="site_header_1">
+        <h2 class="web_title">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
     </div>
 
+    <div class="site_header_2">
+        <h2 class="web_title ">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
+    </div>
+
+    <div class="site_header_3">
+        <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+        <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+        <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
+            NAAC<br></span>
+    </div>
+
+    <div class="site_header_4 ">
+        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM"
+            title="AITM">
+    </div>
 </div>
-<nav class="navbar">
-    </nav>
+
+</div>
+
     <main>
         <?php
         // Custom handling for `faculty_table`
@@ -252,25 +279,25 @@ $tables = [
 
             if ($result->num_rows > 0) {
                 $faculty = $result->fetch_assoc();
-                echo "<table border='0' class='details'>";
-                echo "<tr>";
-                echo "<td rowspan='6'><img src='" . htmlspecialchars($faculty['image']) . "' alt='Faculty Image' style='max-width: auto; height: 200px; border-radius: 5px;'></td>";
+                echo "<td rowspan='7'><img src='" . htmlspecialchars($faculty['image']) . "' 
+        alt='Faculty Image' style='height: 200px; border-radius: 5px;'></td>";
+
                 echo "<td><strong>Name:</strong> " . htmlspecialchars($faculty['name']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
-                echo "<td><strong>Designation:</strong> " . htmlspecialchars($faculty['Designation']) . "</td>";
+                echo "<td><strong>Faculty ID:</strong> " . htmlspecialchars($faculty['faculty_id']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td><strong>Department:</strong> " . htmlspecialchars($faculty['department_name']) . "</td>";
-                echo "</tr>";
-                echo "<tr>";
-                echo "<td><strong>Faculty-ID:</strong> " . htmlspecialchars($faculty['faculty_id']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td><strong>Email:</strong> " . htmlspecialchars($faculty['email_id']) . "</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td><strong>Phone:</strong> " . htmlspecialchars($faculty['contact_no']) . "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td><strong>Designation:</strong> " . htmlspecialchars($faculty['Designation']) . "</td>";
                 echo "</tr>";
                 echo "</table>";
 
@@ -341,7 +368,7 @@ $tables = [
         ?>
     </main>
     <footer>
-        <p>&copy; 2024 College Database</p>
+        <h2>Angadi Insitute Of Technology And Management</h2>
     </footer>
 </body>
 </html>

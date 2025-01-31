@@ -35,11 +35,12 @@ if (isset($_GET['department_name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers in <?php echo htmlspecialchars($department_name); ?></title>
     <style>
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         .container {
             background-color: rgb(238, 235, 240);
             height: 40px;
@@ -47,43 +48,39 @@ if (isset($_GET['department_name'])) {
             display: flex;
             flex-direction: row;
             justify-content: start;
-        }
-        body {
-            padding: 20px;
-            font-family: 'Arial', sans-serif;
-            color: #000000;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .site_header_1 {
-            height: 100px;
-            width: 100px;
-        }
-        .navbar {
-            background-color: rgb(43, 69, 152);
-            color: white;
-            height: 30px;
-            width: auto;
-            text-decoration: none;
-            font-size: medium;
-            padding: 10px 20px;
-        }
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            color: rgb(255, 255, 255);
-            display: flex;
-            flex-direction: row;
+            margin: 0;
+            padding: 0;
         }
 
-        .nav li {
-            margin: o 15px;
-            justify-content: start;
-            color: rgb(254, 255, 255);
-            font-size: 14.5px;
-            background-color: rgb(43, 69, 152) ;
+        .real {
+            background-color: white;
+            color: white;
+            padding: 0;
+            text-align: center;
+            height: auto;
+            width: auto;
+            margin: 0;
+
         }
+
+        .row {
+            background-color: rgb(238, 235, 240);
+            color: rgb(29, 28, 28);
+            height: 50%;
+            width: 20%;
+            margin-right: 60%;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .container1 {
+            background-color: rgb(255, 255, 255);
+            color: rgb(43, 69, 152);
+            height: 120px;
+            width: auto;
+            position: sticky;
+        }
+
         .row1 {
             background-color: rgb(255, 255, 255);
             align-items: center;
@@ -93,30 +90,44 @@ if (isset($_GET['department_name'])) {
             flex-direction: row;
             width: 80%;
             margin-left: 10%;
+            
         }
+
+        .site_header_1 {
+            height: 100px;
+            width: 100px;
+
+        }
+        
+        .photo {
+            height: 100%;
+            width: 100%;
+            margin-top: 2px;
+        }
+
+        /* Add your styles for the teacher cards here */
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: rgb(0, 0, 0);
+        }
+
         .card {
             display: flex;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 20px;
-            width: auto;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .container1 {
-            background-color: rgb(255, 255, 255);
-            color: rgb(43, 69, 152);
-            height: 120px;
-            width: auto;
-            position: sticky;
-        }
 
         .card img {
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 8px;
-            margin-right: 20px;
+            max-width: 200px;
+            max-height: 200px;
+           
+            margin-right: 120px;
         }
 
         .card-content {
@@ -131,105 +142,77 @@ if (isset($_GET['department_name'])) {
         .card-content strong {
             font-weight: bold;
         }
-        .department-box {
-            width: 200px;
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-            transition: all 0.3s ease;
-        }
-        .department-box img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        .department-box a {
-            display: block;
-            color:rgb(0, 0, 0);
-            font-size: 1.2em;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .department-box a:hover {
-            text-decoration: underline;
-        }
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .main {
-            background-color: rgb(255, 255, 255);
+
+        footer {
+            background-color: rgb(43, 69, 152);
             color: rgb(255, 255, 255);
-            height: 250px;
-            width: auto;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
+            text-align: center;
+            padding: 10px 20px;
+            bottom: 0;
+            width: 100%;
+            position: relative;
+             }
     </style>
 </head>
 <body>
 <div class="real">
+        <div class="container">
 
-<div class="container">
+            <div class="row">
+                <div class="site_topbar">
+                    <i class="phone"></i> <b>0831-2438100/123</b>
+                    <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                </div>
 
-    <div class="row">
-        <div class="site_topbar">
-            <i class="phone"></i> <b>0831-2438100/123</b>
-            <i class="envelope_icon">info@aitmbgm.ac.in</i> 
+            </div>
+
+
         </div>
     </div>
 
-</div>
+    <div class="container1">
 
-<div class="container1">
+<div class="row1">
 
-    <div class="row1">
-
-        <div class="site_header_1">
-            <h2 class="web_title">
-                <a class="back" href="https://aitmbgm.ac.in">
-                    <img class="photo"
-                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
-                        alt="AITMBGM" title="AITMBGM">
-                </a>
-            </h2>
-        </div>
-
-        <div class="site_header_2">
-            <h2 class="web_title ">
-                <a class="back" href="https://aitmbgm.ac.in">
-                    <img class="photo"
-                        src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
-                        alt="AITMBGM" title="AITMBGM">
-                </a>
-            </h2>
-        </div>
-
-        <div class="site_header_3">
-            <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
-            <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
-            <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
-                NAAC<br></span>
-        </div>
-
-        <div class="site_header_4 ">
-            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png"
-                alt="AITM" title="AITM">
-        </div>
+    <div class="site_header_1">
+        <h2 class="web_title">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
     </div>
 
+    <div class="site_header_2">
+        <h2 class="web_title ">
+            <a class="back" href="https://aitmbgm.ac.in">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
+                    alt="AITMBGM" title="AITMBGM">
+            </a>
+        </h2>
+    </div>
+
+    <div class="site_header_3">
+        <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+        <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+        <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
+            NAAC<br></span>
+    </div>
+
+    <div class="site_header_4 ">
+        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM"
+            title="AITM">
+    </div>
 </div>
-<nav class="navbar">
-    </nav>
-    <h1><?php echo htmlspecialchars($department_name); ?></h1>
-    <div class="department-box">
+
+</div>
+
+
+
+
+
+    <h1>Teachers in <?php echo htmlspecialchars($department_name); ?></h1>
+    <div class="teachers-container">
         <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -248,7 +231,13 @@ if (isset($_GET['department_name'])) {
                 echo "<p>No teachers found in this department.</p>";
             }
         ?>
-</div>
+      </div>
+
+
+      
+    <footer>
+        <h2>Angadi Insitute Of Technology And Management</h2>
+    </footer>
 
 </body>
 </html>

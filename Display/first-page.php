@@ -29,9 +29,9 @@ $result = $conn->query($sql);
             justify-content: start;
         }
         body {
-            padding: 20px;
+            padding: 0;
             font-family: 'Arial', sans-serif;
-            color: #000000;
+            color:rgb(255, 255, 255);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -40,7 +40,7 @@ $result = $conn->query($sql);
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            color:rgb(0, 38, 255);
+            color rgb(43, 69, 152);
             font-size: 2em;
         }
 
@@ -52,7 +52,7 @@ $result = $conn->query($sql);
         }
         .row {
             background-color: rgb(238, 235, 240);
-            color: rgb(11, 11, 12);
+            color: rgb(29, 28, 28);
             height: 50%;
             width: 20%;
             margin-right: 60%;
@@ -60,14 +60,12 @@ $result = $conn->query($sql);
             margin-left: 10px;
         }
 
-        .search-bar {
-            margin-top: 5px;
-        }
+        
 
         .real {
             background-color: white;
-            color: white;
-            padding: 10px 20px;
+            color: blue;
+            
             text-align: center;
             height: auto;
             width: auto;
@@ -97,17 +95,19 @@ $result = $conn->query($sql);
         .site_header_1 {
             height: 100px;
             width: 100px;
+
         }
 
         .photo {
             height: 100%;
             width: 100%;
+            margin-top:2px;
         }
 
         .navbar {
             background-color: rgb(43, 69, 152);
             color: white;
-            height: 30px;
+            height: 40px;
             width: auto;
             text-decoration: none;
             font-size: medium;
@@ -120,6 +120,7 @@ $result = $conn->query($sql);
             color: rgb(255, 255, 255);
             display: flex;
             flex-direction: row;
+           
         }
 
         .nav li {
@@ -128,6 +129,8 @@ $result = $conn->query($sql);
             color: rgb(254, 255, 255);
             font-size: 14.5px;
             background-color: rgb(43, 69, 152) ;
+            font-size:4rem;
+            font-weight:larger;
         }
 
         .department-box {
@@ -150,7 +153,7 @@ $result = $conn->query($sql);
             align-items: center;
         }
         .department-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             box-shadow: rgba(9, 30, 66, 0.35) 0px 3px 6px, rgba(9, 30, 66, 0.25) 0px 0px 2px 2px;
         }
 
@@ -163,7 +166,7 @@ $result = $conn->query($sql);
 
         .department-box a {
             display: block;
-            color:rgb(0, 34, 253);
+            color: #7b38f7;
             font-size: 1.2em;
             font-weight: bold;
             text-decoration: none;
@@ -173,13 +176,13 @@ $result = $conn->query($sql);
             text-decoration: underline;
         }
         footer {
-            background-color: rgb(0, 94, 255);
+            background-color: rgb(43, 69, 152);
             color: rgb(255, 255, 255);
             text-align: center;
             padding: 10px 20px;
             bottom: 0;
             width: 100%;
-            position: fixed;
+            position: relative;
         }
     </style>
 </head>
@@ -191,10 +194,11 @@ $result = $conn->query($sql);
     <div class="row">
         <div class="site_topbar">
             <i class="phone"></i> <b>0831-2438100/123</b>
-            <i class="envelope_icon">info@aitmbgm.ac.in</i> 
+            <i class="envelope_icon"></i> info@aitmbgm.ac.in
         </div>
     </div>
 
+   
 </div>
 
 <div class="container1">
@@ -236,6 +240,8 @@ $result = $conn->query($sql);
 
 </div>
 <nav class="navbar">
+   <ul>
+    <li>Department</li>
     </nav>
     <h1>Departments</h1>
     <div class="content">
@@ -255,6 +261,12 @@ $result = $conn->query($sql);
        }
         ?>
     </div>
+
+
+    <footer>
+        <h2>Angadi Insitute Of Technology And Management</h2>
+    </footer>
+
 </body>
 </html>
 <?php
