@@ -333,7 +333,7 @@ $tables = [
                 // Dynamically fetch and print column headers, excluding 'faculty_id'
                 $fields = $result->fetch_fields();
                 foreach ($fields as $field) {
-                    if ($field->name === 'faculty_id') continue; // Skip faculty_id
+                    if (in_array($field->name, ['faculty_id', 'sr_no'])) continue; // Correct
                     echo "<th>" . ucfirst(str_replace("_", " ", $field->name)) . "</th>";
                 }
                 echo "</tr></thead>";
@@ -346,12 +346,12 @@ $tables = [
         
                     // Print S.No
                     echo "<td>" . $serial_number++ . "</td>";
-        
                     // Print other columns
                     foreach ($row as $key => $value) {
-                        if ($key === 'faculty_id') continue; // Skip faculty_id
+                        if (in_array($key, ['faculty_id', 'sr_no'])) continue; // Skip faculty_id and sr_no
                         echo "<td>" . htmlspecialchars($value) . "</td>";
                     }
+
                     echo "</tr>";
                 }
                 echo "</tbody>";

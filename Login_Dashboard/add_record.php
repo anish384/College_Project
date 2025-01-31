@@ -5,29 +5,27 @@ header('Content-Type: application/json');
 // Get JSON data
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!$input || !isset($input['sr_no']) || !isset($input['table_name']) || !isset($input['fields'])) {
+if (!$input || !isset($input['table_name']) || !isset($input['faculty_id']) || !isset($input['fields'])) {
     echo json_encode(['success' => false, 'message' => 'Invalid input data']);
     exit;
 }
 
 // Sanitize inputs
-$sr_no = $conn->real_escape_string($input['sr_no']);
 $table_name = $conn->real_escape_string($input['table_name']);
+$faculty_id = $conn->real_escape_string($input['faculty_id']);
 
-// Build SET clause
-$sets = [];
+// Build INSERT query
+$fields = ['faculty_id'];
+$values = ["'$faculty_id'"];
+
 foreach ($input['fields'] as $field => $value) {
     $field = $conn->real_escape_string($field);
     $value = $conn->real_escape_string($value);
-    $sets[] = "`$field` = '$value'";
+    $fields[] = "`$field`";
+    $values[] = "'$value'";
 }
 
-if (empty($sets)) {
-    echo json_encode(['success' => false, 'message' => 'No fields to update']);
-    exit;
-}
-
-$query = "UPDATE $table_name SET " . implode(', ', $sets) . " WHERE sr_no = '$sr_no'";
+$query = "INSERT INTO $table_name (" . implode(', ', $fields) . ") VALUES (" . implode(', ', $values) . ")";
 
 try {
     if ($conn->query($query)) {
