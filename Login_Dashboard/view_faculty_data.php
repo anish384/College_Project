@@ -3,12 +3,28 @@ require_once 'config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Check if faculty_id is set in URL
 if (!isset($_GET['faculty_id'])) {
     header("Location: index.php");
     exit();
 }
 
-$faculty_id = isset($_GET['faculty_id']) ? $_GET['faculty_id'] : null;
+$faculty_id = $_GET['faculty_id'];
+
+// Check if faculty exists in faculty_table
+$check_faculty = $conn->prepare("SELECT faculty_id FROM faculty_table WHERE faculty_id = ?");
+$check_faculty->bind_param("s", $faculty_id);
+$check_faculty->execute();
+$result = $check_faculty->get_result();
+
+if ($result->num_rows === 0) {
+    // Faculty ID doesn't exist
+    header("Location: error.php?message=" . urlencode("Faculty ID not found"));
+    exit();
+}
+$check_faculty->close();
+
+// If we get here, faculty exists
 $current_user = 'vky6366';
 $current_time = date('Y-m-d H:i:s');
 
@@ -35,6 +51,19 @@ $expected_tables = [
     'research_grants_till_now',
     'students_project_grants'
 ];
+
+// Get faculty details
+$faculty_query = $conn->prepare("SELECT * FROM faculty_table WHERE faculty_id = ?");
+$faculty_query->bind_param("s", $faculty_id);
+$faculty_query->execute();
+$faculty_result = $faculty_query->get_result();
+$faculty_data = $faculty_result->fetch_assoc();
+$faculty_query->close();
+
+if (!$faculty_data) {
+    header("Location: error.php?message=" . urlencode("Error retrieving faculty data"));
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

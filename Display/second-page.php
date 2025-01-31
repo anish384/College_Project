@@ -9,15 +9,11 @@ if ($conn->connect_error) {
 
 // Get the department_name from the query string
 if (isset($_GET['department_name'])) {
-    // Escape the department_name to prevent SQL injection
     $department_name = $conn->real_escape_string($_GET['department_name']);
-
-    // Verify if the department exists
     $dept_query = "SELECT department_name FROM departments WHERE department_name = '$department_name'";
     $dept_result = $conn->query($dept_query);
 
     if ($dept_result->num_rows > 0) {
-        // Fetch teachers in the department using department_name
         $query = "SELECT * FROM faculty_table WHERE department_name = '$department_name'";
         $result = $conn->query($query);
     } else {
@@ -25,6 +21,31 @@ if (isset($_GET['department_name'])) {
     }
 } else {
     die("Invalid Department Name.");
+}
+
+// Function to check and format image path
+function getImagePath($imagePath) {
+    // If path is empty, return placeholder
+    if (empty($imagePath)) {
+        return 'placeholder.jpg';
+    }
+
+    // Check if file exists in different possible locations
+    $possiblePaths = [
+        $imagePath,
+        'img/' . basename($imagePath),
+        '../uploads/' . basename($imagePath),
+        './uploads/' . basename($imagePath)
+    ];
+
+    foreach ($possiblePaths as $path) {
+        if (file_exists($path)) {
+            return $path;
+        }
+    }
+
+    // If no valid path found, return placeholder
+    return 'placeholder.jpg';
 }
 ?>
 
@@ -34,11 +55,14 @@ if (isset($_GET['department_name'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers in <?php echo htmlspecialchars($department_name); ?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-* {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
         }
 
         .container {
@@ -60,7 +84,6 @@ if (isset($_GET['department_name'])) {
             height: auto;
             width: auto;
             margin: 0;
-
         }
 
         .row {
@@ -90,13 +113,11 @@ if (isset($_GET['department_name'])) {
             flex-direction: row;
             width: 80%;
             margin-left: 10%;
-            
         }
 
         .site_header_1 {
             height: 100px;
             width: 100px;
-
         }
         
         .photo {
@@ -105,12 +126,48 @@ if (isset($_GET['department_name'])) {
             margin-top: 2px;
         }
 
-        /* Add your styles for the teacher cards here */
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+        }
+
+        .time-display {
+            font-family: 'Roboto Mono', monospace;
+            color: #0d6efd;
+            background: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
 
         h1 {
             text-align: center;
             font-size: 2rem;
             color: rgb(0, 0, 0);
+            margin: 20px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .teachers-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s;
+        }
+
+        .card-link:hover {
+            transform: translateY(-5px);
         }
 
         .card {
@@ -121,13 +178,21 @@ if (isset($_GET['department_name'])) {
             margin-bottom: 20px;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: white;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card img {
-            max-width: 200px;
-            max-height: 200px;
-           
+            width: 200px;
+            height: 200px;
             margin-right: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
         }
 
         .card-content {
@@ -135,109 +200,126 @@ if (isset($_GET['department_name'])) {
         }
 
         .card-content p {
-            margin: 4px 0;
+            margin: 8px 0;
             font-size: 16px;
+            line-height: 1.5;
         }
 
         .card-content strong {
-            font-weight: bold;
+            font-weight: 500;
+            color: #2c3e50;
         }
 
         footer {
             background-color: rgb(43, 69, 152);
             color: rgb(255, 255, 255);
             text-align: center;
-            padding: 10px 20px;
-            bottom: 0;
-            width: 100%;
-            position: relative;
-             }
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card img {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="real">
+    <div class="real">
         <div class="container">
-
             <div class="row">
                 <div class="site_topbar">
-                    <i class="phone"></i> <b>0831-2438100/123</b>
-                    <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                    <i class="fas fa-phone"></i> <b>0831-2438100/123</b>
+                    <i class="fas fa-envelope"></i> info@aitmbgm.ac.in
                 </div>
-
             </div>
-
-
         </div>
     </div>
 
     <div class="container1">
+        <div class="row1">
+            <div class="site_header_1">
+                <h2 class="web_title">
+                    <a class="back" href="https://aitmbgm.ac.in">
+                        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
+                            alt="AITMBGM" title="AITMBGM">
+                    </a>
+                </h2>
+            </div>
 
-<div class="row1">
+            <div class="site_header_2">
+                <h2 class="web_title">
+                    <a class="back" href="https://aitmbgm.ac.in">
+                        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
+                            alt="AITMBGM" title="AITMBGM">
+                    </a>
+                </h2>
+            </div>
 
-    <div class="site_header_1">
-        <h2 class="web_title">
-            <a class="back" href="https://aitmbgm.ac.in">
-                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg"
-                    alt="AITMBGM" title="AITMBGM">
-            </a>
-        </h2>
+            <div class="site_header_3">
+                <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+                <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+                <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi.<br>Accredited by *NBA and NAAC</span>
+            </div>
+
+            <div class="site_header_4">
+                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" 
+                     alt="AITM" title="AITM">
+            </div>
+        </div>
     </div>
 
-    <div class="site_header_2">
-        <h2 class="web_title ">
-            <a class="back" href="https://aitmbgm.ac.in">
-                <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png"
-                    alt="AITMBGM" title="AITMBGM">
-            </a>
-        </h2>
-    </div>
+    <h1>Faculty Members - <?php echo htmlspecialchars($department_name); ?></h1>
 
-    <div class="site_header_3">
-        <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
-        <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
-        <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and
-            NAAC<br></span>
-    </div>
-
-    <div class="site_header_4 ">
-        <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM"
-            title="AITM">
-    </div>
-</div>
-
-</div>
-
-
-
-
-
-    <h1>Teachers in <?php echo htmlspecialchars($department_name); ?></h1>
     <div class="teachers-container">
         <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<a href='third-page.php?faculty_id=" . htmlspecialchars($row['faculty_id']) . "' class='card-link'>"; // Add link wrapping the card
-                    echo "<div class='card'>";
-                    echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
-                    echo "<div class='card-content'>";
-                    echo "<p><strong>Name:</strong> " . htmlspecialchars($row['name']) . "</p>";
-                    echo "<p><strong>Email:</strong> " . htmlspecialchars($row['email_id']) . "</p>";
-                    echo "<p><strong>Contact:</strong> " . htmlspecialchars($row['contact_no']) . "</p>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</a>"; // Close the link
-                }
-            } else {
-                echo "<p>No teachers found in this department.</p>";
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $imagePath = getImagePath($row['image']);
+                echo "<a href='third-page.php?faculty_id=" . htmlspecialchars($row['faculty_id']) . "' class='card-link'>";
+                echo "<div class='card'>";
+                echo "<img src='" . htmlspecialchars($imagePath) . "' 
+                      alt='" . htmlspecialchars($row['name']) . "' 
+                      onerror=\"this.src='placeholder.jpg'\">";
+                echo "<div class='card-content'>";
+                echo "<p><strong>Name:</strong> " . htmlspecialchars($row['name']) . "</p>";
+                echo "<p><strong>Designation:</strong> " . htmlspecialchars($row['Designation']) . "</p>";
+                echo "<p><strong>Email:</strong> " . htmlspecialchars($row['email_id']) . "</p>";
+                echo "<p><strong>Contact:</strong> " . htmlspecialchars($row['contact_no']) . "</p>";
+                echo "</div>";
+                echo "</div>";
+                echo "</a>";
             }
+        } else {
+            echo "<div class='no-results'>No faculty members found in this department.</div>";
+        }
         ?>
-      </div>
+    </div>
 
-
-      
     <footer>
-        <h2>Angadi Insitute Of Technology And Management</h2>
+        <h2>Angadi Institute Of Technology And Management</h2>
     </footer>
+
+    <script>
+    // Add JavaScript for image error handling
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.onerror = function() {
+                this.src = 'placeholder.jpg';
+                this.onerror = null; // Prevent infinite loop
+            }
+        });
+    });
+    </script>
 
 </body>
 </html>
+<?php $conn->close(); ?>
