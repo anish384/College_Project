@@ -1,0 +1,37 @@
+// index.php
+<?php
+require_once 'config.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Database Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2>Faculty Database Management</h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <p>Current User: <?php echo htmlspecialchars('vky6366'); ?></p>
+                <p>Current Time (UTC): <?php echo date('Y-m-d H:i:s'); ?></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="view_faculty_data.php" method="GET">
+                    <div class="mb-3">
+                        <label for="faculty_id" class="form-label">Enter Faculty ID</label>
+                        <input type="text" class="form-control" id="faculty_id" name="faculty_id" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">View Records</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
