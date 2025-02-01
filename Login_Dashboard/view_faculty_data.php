@@ -75,77 +75,365 @@ if (!$faculty_data) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        .table-container { margin-bottom: 30px; }
-        .info-header { 
-            background-color: #f8f9fa; 
-            padding: 15px; 
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f6fa;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Top Bar Styles */
+    .containerm {
+        background-color: #f8f9fa;
+        padding: 8px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .site_topbar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: #333;
+    }
+
+    .site_topbar i {
+        color: rgb(43, 69, 152);
+        margin-right: 5px;
+    }
+
+    /* Header Styles */
+    .container1 {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 15px 0;
+        margin-bottom: 30px;
+    }
+
+    .row1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    .site_header_3 {
+        color: rgb(43, 69, 152);
+        text-align: center;
+    }
+
+    .site_header_3 h6 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .site_header_3 h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .site_header_3 span {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    /* Main Content Styles */
+    .container-fluid {
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .info-header {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+    }
+
+    .user-info {
+        background: linear-gradient(to right, rgb(43, 69, 152), #4a69bd);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .time-display {
+        font-family: 'Courier New', monospace;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: white;
+    }
+
+    /* Card Styles */
+    .card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        border: none;
+    }
+
+    .card-header {
+        background: rgb(43, 69, 152);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px 10px 0 0;
+        border-bottom: none;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Table Styles */
+    .table {
+        margin-bottom: 0;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table th {
+        background: #f8f9fa;
+        color: #333;
+        font-weight: 600;
+        padding: 12px 15px;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: rgb(43, 69, 152);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: #34508a;
+    }
+
+    .btn-success {
+        background: #28a745;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background: #218838;
+    }
+
+    .btn-danger {
+        background: #dc3545;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background: #c82333;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+
+    /* Modal Styles */
+    .modal-content {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .modal-header {
+        background: rgb(43, 69, 152);
+        color: white;
+        border-radius: 10px 10px 0 0;
+        padding: 15px 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #eee;
+    }
+
+    /* Form Styles */
+    .form-control {
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+    }
+
+    .form-control:focus {
+        border-color: rgb(43, 69, 152);
+        box-shadow: 0 0 0 0.2rem rgba(43, 69, 152, 0.25);
+    }
+
+    /* Alert Styles */
+    .alert {
+        border-radius: 8px;
+        padding: 15px 20px;
+    }
+
+    .alert-info {
+        background-color: #e3f2fd;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .row1 {
+            flex-direction: column;
+            text-align: center;
         }
-        .card {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+
+        .site_header_3 {
+            margin: 15px 0;
         }
+    }
+
+    @media (max-width: 768px) {
+        .container-fluid {
+            padding: 0 10px;
+        }
+
         .card-header {
-            background-color: #f1f1f1;
-            padding: 15px;
+            flex-direction: column;
+            gap: 10px;
         }
-        .table th {
-            background-color: #f8f9fa;
-        }
-        .user-info {
-            font-size: 0.9rem;
-            color: #666;
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 4px solid #007bff;
-            margin-bottom: 15px;
-        }
-        .user-info p {
-            margin-bottom: 5px;
-        }
-        .time-display {
-            font-family: monospace;
-            font-weight: 600;
-            color: #007bff;
-        }
+
         .btn-group {
-            display: flex;
-            gap: 5px;
+            flex-direction: column;
         }
-        .btn-sm {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #bb2d3b;
-            border-color: #b02a37;
-        }
+    }
     </style>
 </head>
 <body>
     <div class="container-fluid mt-4 mb-5">
         <div class="info-header">
             <div class="row">
-                <div class="col-md-6">
-                    <h2>Faculty Database Records</h2>
-                    <h5>Faculty ID: <?php echo htmlspecialchars($faculty_id); ?></h5>
-                </div>
-                <div class="col-md-6 text-end">
-                    <div class="user-info">
-                        <p class="mb-2">Current Date and Time: <span class="time-display"><?php echo htmlspecialchars($current_time); ?></span></p>
-                        <p class="mb-3">Current User: <span class="time-display"><?php echo htmlspecialchars($current_user); ?></span></p>
+            <div class="real">
+            <div class="containerm">
+                <div class="row">
+                    <div class="site_topbar">
+                        <i class="phone"></i> <b>0831-2438100/123</b>
+                        <i class="envelope_icon"></i> info@aitmbgm.ac.in
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container1">
+            <div class="row1">
+                <div class="site_header_1">
+                    <h2 class="web_title">
+                        <a class="back" href="https://aitmbgm.ac.in">
+                            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg" alt="AITMBGM" title="AITMBGM">
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="site_header_2">
+                    <h2 class="web_title">
+                        <a class="back" href="https://aitmbgm.ac.in">
+                            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png" alt="AITMBGM" title="AITMBGM">
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="site_header_3">
+                    <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+                    <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+                    <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and NAAC</span>
+                </div>
+
+                <div class="site_header_4">
+                    <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM" title="AITM">
+                </div>
+            </div>
+        </div>
+
                     <a href="index.php" class="btn btn-secondary mt-2">Back to Search</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Faculty Information</h4>
+                    <button class="btn btn-primary" onclick='editFacultyInfo(<?php echo json_encode($faculty_data); ?>)'>
+                        <i class="fas fa-edit"></i> Edit Faculty Info
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 200px;">Faculty ID</th>
+                                <td><?php echo htmlspecialchars($faculty_data['faculty_id']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td><?php echo htmlspecialchars($faculty_data['name']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Designation</th>
+                                <td><?php echo htmlspecialchars($faculty_data['Designation']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Department</th>
+                                <td><?php echo htmlspecialchars($faculty_data['department_name']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Date of Joining</th>
+                                <td><?php echo htmlspecialchars($faculty_data['date_of_joining']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Email ID</th>
+                                <td><?php echo htmlspecialchars($faculty_data['email_id']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Contact No</th>
+                                <td><?php echo htmlspecialchars($faculty_data['contact_no']); ?></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,6 +562,51 @@ if (!$faculty_data) {
             </div>
         </div>
 
+        <!-- Faculty Edit Modal -->
+        <div class="modal fade" id="facultyEditModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Faculty Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="facultyEditForm">
+                            <input type="hidden" id="faculty_id" name="faculty_id">
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" id="faculty_name" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Designation</label>
+                                <input type="text" class="form-control" id="faculty_designation" name="designation">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Department</label>
+                                <input type="text" class="form-control" id="faculty_department" name="department_name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Date of Joining</label>
+                                <input type="date" class="form-control" id="faculty_doj" name="date_of_joining">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email ID</label>
+                                <input type="email" class="form-control" id="faculty_email" name="email_id">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Contact No</label>
+                                <input type="text" class="form-control" id="faculty_contact" name="contact_no">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="updateFacultyInfo()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Add New Record Modal -->
         <div class="modal fade" id="addModal" tabindex="-1">
             <div class="modal-dialog">
@@ -306,6 +639,67 @@ if (!$faculty_data) {
         editModal = new bootstrap.Modal(document.getElementById('editModal'));
         addModal = new bootstrap.Modal(document.getElementById('addModal'));
     });
+
+    let facultyEditModal;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add this line to your existing DOMContentLoaded handler
+        facultyEditModal = new bootstrap.Modal(document.getElementById('facultyEditModal'));
+    });
+
+    function editFacultyInfo(facultyData) {
+        document.getElementById('faculty_id').value = facultyData.faculty_id;
+        document.getElementById('faculty_name').value = facultyData.name;
+        document.getElementById('faculty_designation').value = facultyData.Designation;
+        document.getElementById('faculty_department').value = facultyData.department_name;
+        document.getElementById('faculty_doj').value = facultyData.date_of_joining;
+        document.getElementById('faculty_email').value = facultyData.email_id;
+        document.getElementById('faculty_contact').value = facultyData.contact_no;
+        
+        facultyEditModal.show();
+    }
+
+    function updateFacultyInfo() {
+        const formData = {
+            faculty_id: document.getElementById('faculty_id').value,
+            name: document.getElementById('faculty_name').value,
+            designation: document.getElementById('faculty_designation').value,
+            department_name: document.getElementById('faculty_department').value,
+            date_of_joining: document.getElementById('faculty_doj').value,
+            email_id: document.getElementById('faculty_email').value,
+            contact_no: document.getElementById('faculty_contact').value
+        };
+
+        facultyEditModal.hide();
+
+        fetch('update_faculty.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Faculty information updated successfully!',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                throw new Error(result.message || 'Update failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            location.reload();
+        });
+    }
 
     function editRecord(rowData, tableName) {
         try {

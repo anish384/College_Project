@@ -121,11 +121,13 @@ function check_image_path($path) {
         }
 
         .user-info {
+            font-size: 0.9rem;
+            color: #666;
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #0d6efd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 15px;
         }
 
         .time-display {
@@ -268,6 +270,7 @@ function check_image_path($path) {
         </div>
     </div>
     <main>
+        <div class='container3'>
         <?php
         // Custom handling for faculty_table
         if (in_array('faculty_table', $tables)) {
@@ -349,6 +352,7 @@ function check_image_path($path) {
             $stmt->close();
         }
         ?>
+    </div>
     </main>
 
     <footer>
