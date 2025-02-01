@@ -1,12 +1,6 @@
 <?php
 require_once 'config.php';
 
-// If already logged in, redirect to dashboard
-if (isset($_SESSION['faculty_id'])) {
-    header("Location: dashboard.php");
-    exit();
-}
-
 // Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $faculty_id = $_POST['faculty_id'];
@@ -22,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Login successful
         $_SESSION['faculty_id'] = $faculty_id;
         $_SESSION['login_time'] = date('Y-m-d H:i:s');
-        header("Location: dashboard.php");
+        header("Location: view_faculty_data.php?faculty_id=" . urlencode($faculty_id));
         exit();
     } else {
         $error_message = "Invalid Faculty ID or Date of Joining";
@@ -70,9 +64,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: 20px;
             color: #6c757d;
         }
+        .container1 {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 15px 0;
+        margin-bottom: 30px;
+    }
+
+    .row1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    .site_header_3 {
+        color: rgb(43, 69, 152);
+        text-align: center;
+    }
+
+    .site_header_3 h6 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .site_header_3 h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .site_header_3 span {
+        font-size: 0.9rem;
+        color: #666;
+    }
     </style>
 </head>
 <body>
+<div class="container-fluid mt-4 mb-5">
+        <div class="info-header">
+            <div class="row">
+            <div class="real">
+            <div class="containerm">
+                <div class="row">
+                    <div class="site_topbar">
+                        <i class="phone"></i> <b>0831-2438100/123</b>
+                        <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container1">
+            <div class="row1">
+                <div class="site_header_1">
+                    <h2 class="web_title">
+                        <a class="back" href="https://aitmbgm.ac.in">
+                            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg" alt="AITMBGM" title="AITMBGM">
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="site_header_2">
+                    <h2 class="web_title">
+                        <a class="back" href="https://aitmbgm.ac.in">
+                            <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png" alt="AITMBGM" title="AITMBGM">
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="site_header_3">
+                    <h6>SURESH ANGADI EDUCATION FOUNDATIONS</h6>
+                    <h2>ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h2>
+                    <span>Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi. <br>Accredited by *NBA and NAAC</span>
+                </div>
+
+                <div class="site_header_4">
+                    <img class="photo" src="https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png" alt="AITM" title="AITM">
+                </div>
+            </div>
+        </div>
     <div class="container login-container">
         <div class="card login-card">
             <div class="login-header">
@@ -101,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <div class="current-time">
-            Current Time (UTC): <?php echo date('Y-m-d H:i:s'); ?>
+            Current Time (UTC): <?php echo date('d-m-Y H:i:s'); ?>
         </div>
     </div>
 

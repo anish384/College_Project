@@ -294,84 +294,91 @@ $current_user = 'vky6366';
         </div>
     </div>
     <div class="main-content">
-        <div class="header">
-            <h1><?php echo ucwords(str_replace('_', ' ', $table)); ?></h1>
-            <a href="javascript:history.back()" class="back-button">← Back</a>
-        </div>
+        <div class="info-section">
+            <div class="header">
+                <h1><?php echo ucwords(str_replace('_', ' ', $table)); ?></h1>
+                <a href="javascript:history.back()" class="back-button">← Back</a>
+            </div>
 
-        <div class="table-container">
-            <?php
-            try {
-                // If the table is not faculty_table, join with faculty_table to get faculty name
-                if ($table != 'faculty_table' && $table != 'departments') {
-                    $sql = "SELECT t.*, f.name as faculty_name 
-                            FROM $table t 
-                            LEFT JOIN faculty_table f ON t.faculty_id = f.faculty_id";
-                } else {
-                    $sql = "SELECT * FROM $table";
-                }
-
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    echo "<table class='data-table'>";
-                    
-                    // Headers
-                    echo "<thead><tr>";
-                    echo "<th>Sr No</th>";
-                    
-                    // Get all fields
-                    $fields = $result->fetch_fields();
-                    
-                    // Create an ordered array of column headers
-                    $ordered_headers = array();
-                    foreach ($fields as $field) {
-                        $field_name = $field->name;
-                        if ($field_name == 'faculty_id') {
-                            $ordered_headers[1] = $field_name;
-                        } elseif ($field_name == 'name' || $field_name == 'faculty_name') {
-                            $ordered_headers[2] = $field_name;
-                        } else {
-                            $ordered_headers[] = $field_name;
-                        }
+            <div class="table-container">
+                <?php
+                try {
+                    // If the table is not faculty_table, join with faculty_table to get faculty name
+                    if ($table != 'faculty_table' && $table != 'departments') {
+                        $sql = "SELECT t.*, f.name as faculty_name 
+                                FROM $table t 
+                                LEFT JOIN faculty_table f ON t.faculty_id = f.faculty_id";
+                    } else {
+                        $sql = "SELECT faculty_id, name, department_name, Designation, date_of_joining, email_id, contact_no 
+                                FROM faculty_table"; // Explicitly select columns, excluding duplicates
                     }
-                    
-                    ksort($ordered_headers);
-                    
-                    foreach ($ordered_headers as $header) {
-                        if ($header == 'faculty_id') {
-                            echo "<th>Faculty ID</th>";
-                        } elseif ($header == 'name' || $header == 'faculty_name') {
-                            echo "<th>Faculty Name</th>";
-                        } else {
-                            echo "<th>" . ucwords(str_replace('_', ' ', $header)) . "</th>";
-                        }
-                    }
-                    echo "</tr></thead><tbody>";
 
-                    $sr_no = 1;
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $sr_no++ . "</td>";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        echo "<table class='data-table'>";
                         
-                        foreach ($ordered_headers as $field) {
-                            echo "<td>" . htmlspecialchars($row[$field] ?? '') . "</td>";
+                        // Headers
+                        echo "<thead><tr>";
+                        
+                        // Only add Sr No once
+                        echo "<th>Sr No</th>";
+                        
+                        // Get all fields
+                        $fields = $result->fetch_fields();
+                        
+                        // Create an ordered array of column headers
+                        $ordered_headers = array();
+                        foreach ($fields as $field) {
+                            $field_name = $field->name;
+                            // Skip adding faculty_id and name again if they're already added
+                            if ($field_name == 'faculty_id') {
+                                $ordered_headers[1] = $field_name;
+                            } elseif ($field_name == 'name' || $field_name == 'faculty_name') {
+                                $ordered_headers[2] = $field_name;
+                            } elseif ($field_name != 'sr_no') { // Skip sr_no field
+                                $ordered_headers[] = $field_name;
+                            }
                         }
-                        echo "</tr>";
-                    }
-                    
-                    echo "</tbody></table>";
-                } else {
-                    echo "<p style='text-align: center; padding: 20px; color: #666;'>
-                          No records found in " . ucwords(str_replace('_', ' ', $table)) . "</p>";
-                }
+                        
+                        ksort($ordered_headers);
+                        
+                        foreach ($ordered_headers as $header) {
+                            if ($header == 'faculty_id') {
+                                echo "<th>Faculty ID</th>";
+                            } elseif ($header == 'name' || $header == 'faculty_name') {
+                                echo "<th>Faculty Name</th>";
+                            } else {
+                                echo "<th>" . ucwords(str_replace('_', ' ', $header)) . "</th>";
+                            }
+                        }
+                        echo "</tr></thead><tbody>";
 
-            } catch (Exception $e) {
-                echo "<p style='text-align: center; padding: 20px; color: #dc3545;'>
-                      Error loading table data: " . htmlspecialchars($e->getMessage()) . "</p>";
-            }
-            ?>
-        </div>
+                        $sr_no = 1;
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $sr_no++ . "</td>";
+                            
+                            foreach ($ordered_headers as $field) {
+                                if ($field != 'sr_no') { // Skip sr_no field
+                                    echo "<td>" . htmlspecialchars($row[$field] ?? '') . "</td>";
+                                }
+                            }
+                            echo "</tr>";
+                        }
+                        
+                        echo "</tbody></table>";
+                    } else {
+                        echo "<p style='text-align: center; padding: 20px; color: #666;'>
+                            No records found in " . ucwords(str_replace('_', ' ', $table)) . "</p>";
+                    }
+
+                } catch (Exception $e) {
+                    echo "<p style='text-align: center; padding: 20px; color: #dc3545;'>
+                        Error loading table data: " . htmlspecialchars($e->getMessage()) . "</p>";
+                }
+                ?>
+            </div>
     </div>
 </body>
 </html>
