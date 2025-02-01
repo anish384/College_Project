@@ -89,7 +89,6 @@ if (!$faculty_data) {
         flex-direction: column;
     }
 
-    /* Top Bar Styles */
     .containerm {
         background-color: #f8f9fa;
         padding: 8px 0;
@@ -108,7 +107,6 @@ if (!$faculty_data) {
         margin-right: 5px;
     }
 
-    /* Header Styles */
     .container1 {
         background-color: white;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -177,7 +175,6 @@ if (!$faculty_data) {
         color: white;
     }
 
-    /* Card Styles */
     .card {
         background: white;
         border-radius: 10px;
@@ -198,7 +195,6 @@ if (!$faculty_data) {
         padding: 20px;
     }
 
-    /* Table Styles */
     .table {
         margin-bottom: 0;
         width: 100%;
@@ -224,7 +220,6 @@ if (!$faculty_data) {
         background-color: #f8f9fa;
     }
 
-    /* Button Styles */
     .btn {
         padding: 8px 16px;
         border-radius: 6px;
@@ -269,7 +264,6 @@ if (!$faculty_data) {
         font-size: 0.875rem;
     }
 
-    /* Modal Styles */
     .modal-content {
         border-radius: 10px;
         border: none;
@@ -291,7 +285,6 @@ if (!$faculty_data) {
         border-top: 1px solid #eee;
     }
 
-    /* Form Styles */
     .form-control {
         border-radius: 6px;
         border: 1px solid #ddd;
@@ -303,7 +296,6 @@ if (!$faculty_data) {
         box-shadow: 0 0 0 0.2rem rgba(43, 69, 152, 0.25);
     }
 
-    /* Alert Styles */
     .alert {
         border-radius: 8px;
         padding: 15px 20px;
@@ -315,7 +307,6 @@ if (!$faculty_data) {
         color: #0c5460;
     }
 
-    /* Responsive Design */
     @media (max-width: 1200px) {
         .row1 {
             flex-direction: column;
@@ -388,7 +379,7 @@ if (!$faculty_data) {
             </div>
         </div>
 
-                    <a href="index.php" class="btn btn-secondary mt-2">Back to Search</a>
+                    <a href="index.php" class="btn btn-secondary mt-2">Logout</a>
                 </div>
             </div>
         </div>
