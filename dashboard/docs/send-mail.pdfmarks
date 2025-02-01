@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [ /Title (Send Mail with PHP)
   /Author ()
   /Subject ()
@@ -7,3 +8,14 @@
   /Creator (Prawn 1.0.0)
   /Producer ()
   /DOCINFO pdfmark
+=======
+[ /Title (Send Mail with PHP)
+  /Author ()
+  /Subject ()
+  /Keywords ()
+  /ModDate (D:20221122153659)
+  /CreationDate (D:20221122153659)
+  /Creator (Prawn 1.0.0)
+  /Producer ()
+  /DOCINFO pdfmark
+>>>>>>> dd84abaed9d4712d03bb49a3b31e5bea4f119281

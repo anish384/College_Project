@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .module_top, .module_bottom{
   visibility: hidden;
 }
@@ -15,3 +16,22 @@ table {
 }
 
 
+=======
+.module_top, .module_bottom{
+  visibility: hidden;
+}
+
+table {
+  border: 0px !important;
+}
+
+.module_content img{
+  min-width: 70px;
+}
+
+.module_content h2{
+  font-size: 30px;
+}
+
+
+>>>>>>> dd84abaed9d4712d03bb49a3b31e5bea4f119281
