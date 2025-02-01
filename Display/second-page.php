@@ -291,8 +291,6 @@ function getImagePath($imagePath) {
                 echo "<div class='card-content'>";
                 echo "<p><strong>Name:</strong> " . htmlspecialchars($row['name']) . "</p>";
                 echo "<p><strong>Designation:</strong> " . htmlspecialchars($row['Designation']) . "</p>";
-                echo "<p><strong>Email:</strong> " . htmlspecialchars($row['email_id']) . "</p>";
-                echo "<p><strong>Contact:</strong> " . htmlspecialchars($row['contact_no']) . "</p>";
                 echo "</div>";
                 echo "</div>";
                 echo "</a>";
