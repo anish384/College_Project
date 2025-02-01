@@ -293,7 +293,7 @@ $result = $conn->query($sql);
             $tables = array_unique($tables);
 
             echo "<table class='table-list'>";
-            echo "<thead><tr><th>Table Name</th></tr></thead><tbody>";
+            echo "<thead><tr><th>Summary</th></tr></thead><tbody>";
             
             foreach ($tables as $table) {
                 echo "<tr>";
