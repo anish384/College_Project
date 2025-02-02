@@ -388,42 +388,74 @@ if (!$faculty_data) {
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Faculty Information</h4>
-                    <button class="btn btn-primary" onclick='editFacultyInfo(<?php echo json_encode($faculty_data); ?>)'>
+                    <a href="edit_faculty_info.php?faculty_id=<?php echo htmlspecialchars($faculty_id); ?>" class="btn btn-primary">
                         <i class="fas fa-edit"></i> Edit Faculty Info
-                    </button>
+                    </a>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 200px;">Faculty ID</th>
-                                <td><?php echo htmlspecialchars($faculty_data['faculty_id']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Name</th>
-                                <td><?php echo htmlspecialchars($faculty_data['name']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Designation</th>
-                                <td><?php echo htmlspecialchars($faculty_data['Designation']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Department</th>
-                                <td><?php echo htmlspecialchars($faculty_data['department_name']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Date of Joining</th>
-                                <td><?php echo htmlspecialchars($faculty_data['date_of_joining']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Email ID</th>
-                                <td><?php echo htmlspecialchars($faculty_data['email_id']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Contact No</th>
-                                <td><?php echo htmlspecialchars($faculty_data['contact_no']); ?></td>
-                            </tr>
-                        </table>
+                    <div class="row">
+                        <!-- Add image column -->
+                        <div class="col-md-3 text-center mb-3">
+                            <?php 
+                            if (!empty($faculty_data['image'])) {
+                                // Get relative path to Display/img directory
+                                $image_path = '../Display/' . $faculty_data['image'];
+                                if (file_exists($image_path)) {
+                                    echo '<img src="' . htmlspecialchars($image_path) . '" 
+                                        alt="Faculty Image" 
+                                        class="img-fluid rounded" 
+                                        style="max-width: 750px; max-height: 750px; object-fit: cover;">';
+                                } else {
+                                    // Fallback to default if file doesn't exist
+                                    echo '<img src="../Display/img/default_profile.png" 
+                                        alt="Default Profile" 
+                                        class="img-fluid rounded" 
+                                        style="max-width: 200px; max-height: 200px; object-fit: cover;">';
+                                }
+                            } else {
+                                // No image path in database
+                                echo '<img src="../Display/img/default_profile.png" 
+                                    alt="Default Profile" 
+                                    class="img-fluid rounded" 
+                                    style="max-width: 200px; max-height: 200px; object-fit: cover;">';
+                            }
+                            ?>
+                        </div>
+                        <!-- Faculty information table -->
+                        <div class="col-md-9">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th style="width: 200px;">Faculty ID</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['faculty_id']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['name']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Designation</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['Designation']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Department</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['department_name']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date of Joining</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['date_of_joining']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email ID</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['email_id']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact No</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['contact_no']); ?></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
