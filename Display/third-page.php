@@ -270,7 +270,20 @@ function check_image_path($path) {
         </div>
     </div>
     <main>
-        <div class='container3'>
+        <div class='container4'>
+        <div class="download-section" style="text-align: right; margin-bottom: 20px;">
+        <a href="download_faculty_data.php?faculty_id=<?php echo htmlspecialchars($faculty_id); ?>" 
+           class="download-btn" 
+           style="background-color: rgb(43, 69, 152); 
+                  color: white; 
+                  padding: 10px 20px; 
+                  text-decoration: none; 
+                  border-radius: 5px;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;">
+            <i class="fas fa-download"></i> Download Excel
+        </a>
         <?php
         // Custom handling for faculty_table
         if (in_array('faculty_table', $tables)) {
