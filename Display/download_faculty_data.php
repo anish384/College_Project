@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Constants for current time and user
-define('CURRENT_TIME', '2025-02-05 15:48:17');
-define('CURRENT_USER', 'vky6366');
+define('CURRENT_TIME', '.');
+define('CURRENT_USER', '.');
 
 require 'vendor/autoload.php';
 
