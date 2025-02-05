@@ -399,7 +399,7 @@ if (!$faculty_data) {
                             <?php 
                             if (!empty($faculty_data['image'])) {
                                 // Get relative path to Display/img directory
-                                $image_path = '../Display/' . $faculty_data['image'];
+                                $image_path = '../Display/img/' . $faculty_data['image'];
                                 if (file_exists($image_path)) {
                                     echo '<img src="' . htmlspecialchars($image_path) . '" 
                                         alt="Faculty Image" 

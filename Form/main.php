@@ -353,11 +353,12 @@
         <label for="numAwards">Number of Awards:</label>
         <input type="number" id="numAwards" placeholder="Enter number of awards">
         <button type="button" onclick="generateAwardForms()">Generate Awards Forms</button>
-        <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm">
+        <form action="phpCode/awards.php" method="post" id="dynamicAwardsForm" onsubmit="submitForm(event)">
             <div id="awardFormsContainer"></div>
             <button type="submit">Submit All Awards</button>
         </form>
     </div>
+
 
     <div class="form-container">
         <h1>Books Submission</h1>
@@ -366,7 +367,7 @@
             <input type="number" id="numBooks" placeholder="Enter number of books">
             <button type="button" onclick="generateBookForms()">Generate Book Forms</button>
         </div>
-        <form action="phpCode/books.php" method="post" id="dynamicBooksForm">
+        <form action="phpCode/books.php" method="post" id="dynamicBooksForm" onsubmit="submitForm(event)">
             <div id="bookFormsContainer"></div>
             <button type="submit">Submit All Books</button>
         </form>
@@ -379,7 +380,7 @@
             <input type="number" id="numResources" placeholder="Enter number of entries">
             <button type="button" onclick="generateChairResourceForms()">Generate Chair/Resource Forms</button>
         </div>
-        <form action="phpCode/chair_resource.php" method="post" id="dynamicChairResourceForm">
+        <form action="phpCode/chair_resource.php" method="post" id="dynamicChairResourceForm" onsubmit="submitForm(event)">
             <div id="chairResourceFormsContainer"></div>
             <button type="submit">Submit All Chair/Resources</button>
         </form>
@@ -392,7 +393,7 @@
             <input type="number" id="numConferences" placeholder="Enter number of entries">
             <button type="button" onclick="generateConferenceForms()">Generate Conference Forms</button>
         </div>
-        <form action="phpCode/conference.php" method="post" id="dynamicConferenceForm">
+        <form action="phpCode/conference.php" method="post" id="dynamicConferenceForm"   onsubmit="submitForm(event)">
             <div id="conferenceFormsContainer"></div>
             <button type="submit">Submit All Conferences</button>
         </form>
@@ -406,7 +407,7 @@
             <input type="number" id="numExperiences" placeholder="Enter number of entries">
             <button type="button" onclick="generateExperienceForms()">Generate Experience Forms</button>
         </div>
-        <form action="phpCode/experience.php" method="post" id="dynamicExperienceForm">
+        <form action="phpCode/experience.php" method="post" id="dynamicExperienceForm"  onsubmit="submitForm(event)">
             <div id="experienceFormsContainer"></div>
             <button type="submit">Submit All Experiences</button>
         </form>
@@ -419,7 +420,7 @@
             <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
             <button type="button" onclick="generateConferenceAttendedForms()">Generate Conference Forms</button>
         </div>
-        <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm">
+        <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm" onsubmit="submitForm(event)">
             <div id="conferenceAttendedFormsContainer"></div>
             <button type="submit">Submit All Conferences</button>
         </form>
@@ -432,7 +433,7 @@
             <input type="number" id="numScholars" placeholder="Enter number of scholars">
             <button type="button" onclick="generateScholarsForms()">Generate Scholars Forms</button>
         </div>
-        <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm">
+        <form action="phpCode/for_scholars.php" method="post" id="dynamicScholarsForm" onsubmit="submitForm(event)" >
             <div id="scholarsFormsContainer"></div>
             <button type="submit">Submit All Scholars</button>
         </form>
@@ -451,7 +452,7 @@
 
         </div>
 
-        <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm">
+        <form action="phpCode/journals.php" method="post" id="dynamicJournalsForm"  onsubmit="submitForm(event)">
 
             <div id="journalsFormsContainer"></div>
 
@@ -471,7 +472,7 @@
             <button type="button" onclick="generateMtechGuidedForms()">Generate Journal Forms</button>
         </div>
 
-        <form action="phpCode/mtech_guided.php" method="post" id="dynamicJournalForm">
+        <form action="phpCode/mtech_guided.php" method="post" id="dynamicJournalForm"  onsubmit="submitForm(event)">
             <div id="MtechGuidedContainer"></div>
             <button type="submit">Submit All Mtech Guided</button>
         </form>
@@ -493,7 +494,7 @@
 
 
 
-        <form action="phpCode/patents.php" method="post" id="dynamicPatentForm">
+        <form action="phpCode/patents.php" method="post" id="dynamicPatentForm" onsubmit="submitForm(event)">
 
             <div id="PatentContainer"></div>
 
@@ -512,7 +513,7 @@
             <button type="button" onclick="generatePhdGuidedForms()">Generate PhD Guided Forms</button>
         </div>
 
-        <form action="phpCode/phd_guided.php" method="post" id="dynamicPhdGuidedForm">
+        <form action="phpCode/phd_guided.php" method="post" id="dynamicPhdGuidedForm"  onsubmit="submitForm(event)">
             <div id="PhdGuidedContainer"></div>
             <button type="submit">Submit All PhD Guided</button>
         </form>
@@ -527,7 +528,7 @@
             <button type="button" onclick="generateOrganizationForms()">Generate Organization Forms</button>
         </div>
 
-        <form action="phpCode/organization.php" method="post" id="dynamicOrganizationForm">
+        <form action="phpCode/organization.php" method="post" id="dynamicOrganizationForm" onsubmit="submitForm(event)">
             <div id="OrganizationContainer"></div>
             <button type="submit">Submit All Organizations</button>
         </form>
@@ -542,7 +543,7 @@
             <button type="button" onclick="generateEducationForms()">Generate Education Forms</button>
         </div>
 
-        <form action="phpCode/education.php" method="post" id="dynamicEducationForm">
+        <form action="phpCode/education.php" method="post" id="dynamicEducationForm" onsubmit="submitForm(event)">
             <div id="EducationContainer"></div>
             <button type="submit">Submit All Education Records</button>
         </form>
@@ -557,7 +558,7 @@
             <button type="button" onclick="generateResearchForms()">Generate Research Forms</button>
         </div>
 
-        <form action="phpCode/research.php" method="post" id="dynamicResearchForm">
+        <form action="phpCode/research.php" method="post" id="dynamicResearchForm"  onsubmit="submitForm(event)">
             <div id="ResearchContainer"></div>
             <button type="submit">Submit All Research Projects</button>
         </form>
@@ -572,7 +573,7 @@
             <button type="button" onclick="generateFundingForms()">Generate Funding Forms</button>
         </div>
 
-        <form action="phpCode/funding.php" method="post" id="dynamicFundingForm">
+        <form action="phpCode/funding.php" method="post" id="dynamicFundingForm" onsubmit="submitForm(event)">
             <div id="FundingContainer"></div>
             <button type="submit">Submit All Funding Schemes</button>
         </form>
@@ -587,7 +588,7 @@
             <button type="button" onclick="generateProjectForms()">Generate Project Forms</button>
         </div>
 
-        <form action="phpCode/projects.php" method="post" id="dynamicProjectForm">
+        <form action="phpCode/projects.php" method="post" id="dynamicProjectForm" onsubmit="submitForm(event)">
             <div id="ProjectContainer"></div>
             <button type="submit">Submit All Projects</button>
         </form>
@@ -601,11 +602,15 @@
             <button type="button" onclick="generateOtherForms()">Generate Forms</button>
         </div>
 
-        <form action="phpCode/others.php" method="post" id="dynamicOtherForm">
+        <form action="phpCode/others.php" method="post" id="dynamicOtherForm" onsubmit="submitForm(event)">
             <div id="OtherContainer"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
+
+<div id="commonSuccessMessage" style="display: none; color: green; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #4CAF50; color: white; padding: 20px 30px; border-radius: 5px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1000;">
+    Submitted successfully!
+</div>
 
     <footer>
         <h2>Angadi Insitute Of Technology And Management</h2>
@@ -615,6 +620,33 @@
 
 
     <script>
+
+function submitForm(event) {
+    event.preventDefault();
+
+    // Create a FormData object from the form
+    var formData = new FormData(event.target);
+
+    // Send the form data to the PHP script using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", event.target.action, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // If the request was successful, show the success message
+            const successMessage = document.getElementById('commonSuccessMessage');
+            successMessage.style.display = "block";
+
+            // Hide the success message after 3 seconds
+            setTimeout(function () {
+                successMessage.style.display = "none";
+            }, 3000);
+        }
+    };
+
+    xhr.send(formData);
+}
+
+
         function generateAwardForms() {
             const numAwards = document.getElementById("numAwards").value;
             const container = document.getElementById("awardFormsContainer");
