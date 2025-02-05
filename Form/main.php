@@ -413,15 +413,15 @@
     </div>
 
     <div class="form-container">
-        <h1>Conference Form</h1>
+        <h1>FDP Conference Form</h1>
         <div>
-            <label for="numConferencesAttended">Number of Conferences:</label>
+            <label for="numConferencesAttended">Number of FDP Conferences:</label>
             <input type="number" id="numConferencesAttended" placeholder="Enter number of conferences">
-            <button type="button" onclick="generateConferenceAttendedForms()">Generate Conference Forms</button>
+            <button type="button" onclick="generateConferenceAttendedForms()">Generate FDP Conference Forms</button>
         </div>
         <form action="phpCode/conference_Attended.php" method="post" id="dynamicConferenceForm">
             <div id="conferenceAttendedFormsContainer"></div>
-            <button type="submit">Submit All Conferences</button>
+            <button type="submit">Submit All FDP Conferences</button>
         </form>
     </div>
 
@@ -1233,15 +1233,9 @@
                         <td><label for="co_inventors_${i}">Co-inventors (If any): </label></td>
                         <td><input type="text" id="co_inventors_${i}" name="co_inventors_${i}" required></td>
                     </tr>
-                    <tr>
-                        <td><label for="ip_pct_${i}">IP Percent: </label></td>
-                        <td>
-                            <select id="ip_pct_${i}" name="ip_pct_${i}" required>
-                                <option value="indian patent">Indian Patent</option>
-                                <option value="pct">PCT</option>
-                                <option value="">None</option>
-                            </select>
-                        </td>
+                   <tr>
+                        <td><label for="ip_pct_${i}">Patent filed in: </label></td>
+                        <td><input type="text" id="ip_pct_${i}" name="ip_pct_${i}" required placeholder=""></td>
                     </tr>
                     <tr>
                         <td><label for="year_of_publication_${i}">Year of Publication: </label></td>
