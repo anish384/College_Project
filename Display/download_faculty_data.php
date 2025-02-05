@@ -177,7 +177,7 @@ try {
     $sheet->getRowDimension(10)->setRowHeight(18);
     $sheet->getRowDimension(11)->setRowHeight(15);
     $sheet->getRowDimension(12)->setRowHeight(15);
-    $sheet->getRowDimension(13)->setRowHeight(10);
+    $sheet->getRowDimension(13)->setRowHeight(15);
 
     // Get faculty information
     $faculty_sql = "SELECT * FROM faculty_table WHERE faculty_id = ?";
@@ -188,47 +188,85 @@ try {
     $faculty_info = $faculty_result->fetch_assoc();
 
     if ($faculty_info) {
-        $currentRow = 13;
-
-        // Basic Info without extra header
-        $sheet->setCellValue('A' . $currentRow, 'Faculty ID:');
-        $sheet->setCellValue('B' . $currentRow, $faculty_info['faculty_id']);
-        $sheet->setCellValue('D' . $currentRow, 'Name:');
-        $sheet->setCellValue('E' . $currentRow, $faculty_info['name']);
-        $sheet->mergeCells('E' . $currentRow . ':F' . $currentRow);
-        
-        $currentRow++;
-        
-        $sheet->setCellValue('A' . $currentRow, 'Department:');
-        $sheet->setCellValue('B' . $currentRow, $faculty_info['department_name']);
-        $sheet->mergeCells('B' . $currentRow . ':C' . $currentRow);
-        $sheet->setCellValue('D' . $currentRow, 'Designation:');
-        $sheet->setCellValue('E' . $currentRow, $faculty_info['Designation']);
-        $sheet->mergeCells('E' . $currentRow . ':F' . $currentRow);
-        
-        $currentRow++;
-        
-        $sheet->setCellValue('A' . $currentRow, 'Email:');
-        $sheet->setCellValue('B' . $currentRow, $faculty_info['email_id']);
-        $sheet->mergeCells('B' . $currentRow . ':C' . $currentRow);
-        $sheet->setCellValue('D' . $currentRow, 'Contact:');
-        $sheet->setCellValue('E' . $currentRow, $faculty_info['contact_no']);
-        
-        $currentRow += 2;
-
-        // Apply style to faculty info section
-        $facultyInfoStyle = [
-            'font' => [
-                'size' => 10,
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-                'vertical' => Alignment::VERTICAL_CENTER,
-            ]
+        $startRow = 13;
+        $currentRow = $startRow;
+    
+        // Set column width for image
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+    
+        // Add faculty image if it exists
+        if (!empty($faculty_info['image'])) {
+            // Construct the correct image path
+            $baseDir = __DIR__;  // Gets the directory of current script (Display/)
+            $imagePath = $baseDir . '/' . $faculty_info['image'];  // Complete path to image
+    
+            if (file_exists($imagePath)) {
+                try {
+                    $drawing = new Drawing();
+                    $drawing->setName('Faculty Image');
+                    $drawing->setDescription('Faculty Image');
+                    $drawing->setPath($imagePath);  // Use direct path instead of copying
+                    $drawing->setCoordinates('G' . $startRow);
+                    $drawing->setWidth(150);
+                    $drawing->setHeight(180);
+                    $drawing->setOffsetX(2);
+                    $drawing->setWorksheet($sheet);
+                    
+                    // Merge cells for image area
+                    $sheet->mergeCells('G' . $startRow . ':H' . ($startRow + 6));
+                    
+                } catch (Exception $e) {
+                    error_log("Error adding faculty image: " . $e->getMessage());
+                }
+            } else {
+                error_log("Faculty image not found at: " . $imagePath);
+            }
+        }
+    
+        // Faculty Info Array - for easier management
+        $facultyDetails = [
+            'Faculty ID:' => 'faculty_id',
+            'Name:' => 'name',
+            'Department:' => 'department_name',
+            'Designation:' => 'Designation',
+            'Date of Joining:' => 'date_of_joining',
+            'Email:' => 'email_id',
+            'Contact:' => 'contact_no'
         ];
-        $sheet->getStyle('A13:F15')->applyFromArray($facultyInfoStyle);
+    
+        // Add faculty details
+        foreach ($facultyDetails as $label => $field) {
+            $sheet->setCellValue('A' . $currentRow, $label);
+            $sheet->setCellValue('B' . $currentRow, $faculty_info[$field]);
+            $sheet->mergeCells('B' . $currentRow . ':F' . $currentRow);
+    
+            // Apply style to current row
+            $sheet->getStyle('A' . $currentRow . ':F' . $currentRow)->applyFromArray([
+                'font' => [
+                    'size' => 10,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ],
+                'borders' => [
+                    'outline' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ]);
+    
+            // Set row height
+            $sheet->getRowDimension($currentRow)->setRowHeight(25);
+            
+            $currentRow++;
+        }
+    
+        // Add spacing after faculty info
+        $sheet->getRowDimension($currentRow)->setRowHeight(10);
+        $currentRow++;
     }
-
     // List of tables
     $tables_info = [
         'experience' => 'Professional Experience',
