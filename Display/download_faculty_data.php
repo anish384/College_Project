@@ -294,18 +294,21 @@ try {
         $sheet->mergeCells('A' . $currentRow . ':F' . $currentRow);
         $sheet->getStyle('A' . $currentRow . ':F' . $currentRow)->applyFromArray($headerStyle);
         $currentRow += 2;
-
+    
         $sql = "SELECT * FROM $table WHERE faculty_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $faculty_id);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         if ($result->num_rows > 0) {
-            // Get headers
+            // Add Sr.No header first
+            $sheet->setCellValue('A' . $currentRow, 'Sr.No');
+            
+            // Get other headers
             $headers = [];
             $fields = $result->fetch_fields();
-            $col = 'A';
+            $col = 'B'; // Start from B since A is for Sr.No
             foreach ($fields as $field) {
                 if (!in_array($field->name, ['faculty_id', 'sr_no'])) {
                     $headers[] = ucfirst(str_replace('_', ' ', $field->name));
@@ -329,10 +332,20 @@ try {
                 ]
             ]);
             $currentRow++;
-
-            // Add data rows with vertical wrapping
+    
+            // Add data rows with Sr.No
+            $srNo = 1;
             while ($row = $result->fetch_assoc()) {
-                $col = 'A';
+                // Add Sr.No
+                $sheet->setCellValue('A' . $currentRow, $srNo);
+                $sheet->getStyle('A' . $currentRow)->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER
+                    ]
+                ]);
+    
+                $col = 'B'; // Start from B for data
                 foreach ($row as $key => $value) {
                     if (!in_array($key, ['faculty_id', 'sr_no'])) {
                         $sheet->setCellValue($col . $currentRow, $value);
@@ -349,13 +362,14 @@ try {
                     }
                 }
                 $currentRow++;
+                $srNo++;
             }
         } else {
             $sheet->setCellValue('A' . $currentRow, 'No data available');
             $sheet->mergeCells('A' . $currentRow . ':F' . $currentRow);
             $currentRow++;
         }
-
+    
         $currentRow += 2;
         $stmt->close();
     }
