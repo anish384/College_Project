@@ -40,33 +40,29 @@ $result = $conn->query($sql);
             flex-direction: column;
             min-height: 100vh;
         }
-
         h1 {
             text-align: center;
             margin-bottom: 20px;
             color: rgb(43, 69, 152);
             font-size: 2em;
         }
-
         .main-content {
-            display: flex;
-            gap: 20px;
+            /* Removed 70-30 split, now using block layout for full width */
+            display: block;
             padding: 20px;
             width: 100%;
         }
-
         .department-section {
-            flex: 7;
+            /* Updated to take full width */
+            width: 100%;
             padding-right: 20px;
         }
-
         .content {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: flex-start;
         }
-
         .row {
             background-color: rgb(238, 235, 240);
             color: rgb(29, 28, 28);
@@ -76,7 +72,6 @@ $result = $conn->query($sql);
             margin-top: 10px;
             margin-left: 10px;
         }
-
         .real {
             background-color: white;
             color: blue;
@@ -86,7 +81,6 @@ $result = $conn->query($sql);
             margin: 0;
             padding: 0;
         }
-
         .container1 {
             background-color: rgb(255, 255, 255);
             color: rgb(43, 69, 152);
@@ -94,7 +88,6 @@ $result = $conn->query($sql);
             width: auto;
             position: sticky;
         }
-
         .row1 {
             background-color: rgb(255, 255, 255);
             align-items: center;
@@ -105,18 +98,15 @@ $result = $conn->query($sql);
             width: 80%;
             margin-left: 10%;
         }
-
         .site_header_1 {
             height: 100px;
             width: 100px;
         }
-
         .photo {
             height: 100%;
             width: 100%;
             margin-top:2px;
         }
-
         .navbar {
             background-color: rgb(43, 69, 152);
             color: white;
@@ -126,7 +116,6 @@ $result = $conn->query($sql);
             font-size: medium;
             padding: 10px 20px;
         }
-
         .department-box {
             width: 200px;
             background-color: #fff;
@@ -136,19 +125,16 @@ $result = $conn->query($sql);
             box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
             transition: all 0.3s ease;
         }
-
         .department-box:hover {
             transform: scale(1.1);
             box-shadow: rgba(9, 30, 66, 0.35) 0px 3px 6px, rgba(9, 30, 66, 0.25) 0px 0px 2px 2px;
         }
-
         .department-box img {
             width: 100%;
             height: auto;
             border-radius: 8px;
             margin-bottom: 10px;
         }
-
         .department-box a {
             display: block;
             color: #7b38f7;
@@ -156,43 +142,8 @@ $result = $conn->query($sql);
             font-weight: bold;
             text-decoration: none;
         }
-
         .department-box a:hover {
             text-decoration: underline;
-        }
-
-        .table-section {
-            flex: 3;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-            box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-        }
-
-        .table-list {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 15px;
-        }
-
-        .table-list th {
-            background: rgb(43, 69, 152);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .table-list td {
-            padding: 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table-list tr:hover {
-            background-color: #f5f5f5;
         }
         footer {
             background-color: rgb(43, 69, 152);
@@ -249,12 +200,11 @@ $result = $conn->query($sql);
 
     <nav class="navbar">
         <ul>
-            <li>Department</li>
+            <li></li>
         </ul>
     </nav>
 
     <div class="main-content">
-        <!-- Left side - Departments (70%) -->
         <div class="department-section">
             <h1>Departments</h1>
             <div class="content">
@@ -275,41 +225,7 @@ $result = $conn->query($sql);
                 ?>
             </div>
         </div>
-
-        <!-- Right side - Database Tables (30%) -->
-        <div class="table-section">
-            <h2>Database Tables</h2>
-            <?php
-            $tables = [
-                    'journals',
-                    'conference',
-                    'books_bookchapter',
-                    'patents',
-                    'fdp_conferences_attended',
-                    'chair_resource',
-                    'for_scholars_dr',
-            ];
-
-            $tables = array_unique($tables);
-
-            echo "<table class='table-list'>";
-            echo "<thead><tr><th>Summary</th></tr></thead><tbody>";
-            
-            foreach ($tables as $table) {
-                echo "<tr>";
-                echo "<td>";
-                echo "<a href='view_table_data.php?table=" . urlencode($table) . "' 
-                        style='color: #0066cc; text-decoration: none; display: block; padding: 12px;'>";
-                echo ucwords(str_replace('_', ' ', $table));
-                echo "</a></td>";
-                echo "</tr>";
-            }
-            
-            echo "</tbody></table>";
-            ?>
-        </div>
     </div>
-
     <footer>
         <h2>Angadi Institute Of Technology And Management</h2>
     </footer>

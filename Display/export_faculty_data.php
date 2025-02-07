@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -14,7 +15,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get department name
+// Get department name from POST request
 if (isset($_POST['department_name'])) {
     $department_name = $conn->real_escape_string($_POST['department_name']);
 } else {
@@ -77,19 +78,19 @@ $sheet->getStyle('A1:A2')->applyFromArray([
 
 // Set column widths
 $columnWidths = [
-    'A' => 8,  // Sr. No
-    'B' => 15, // Faculty ID
-    'C' => 25, // Name
-    'D' => 45, // Title
-    'E' => 45, // Organization/Journal/Conference
-    'F' => 20, // Various
-    'G' => 25, // Publisher
-    'H' => 20, // Place
-    'I' => 15, // Year/Vol
-    'J' => 35, // Website/ISSN
-    'K' => 20, // Author Type
-    'L' => 30, // Remarks
-    'M' => 35, // Additional columns for journals
+    'A' => 8,   // Sr. No
+    'B' => 15,  // Faculty ID
+    'C' => 25,  // Name
+    'D' => 45,  // Title
+    'E' => 45,  // Organization/Journal/Conference
+    'F' => 20,  // Various
+    'G' => 25,  // Publisher
+    'H' => 20,  // Place
+    'I' => 15,  // Year/Vol
+    'J' => 35,  // Website/ISSN
+    'K' => 20,  // Author Type
+    'L' => 30,  // Remarks
+    'M' => 35,  // Additional columns for journals
     'N' => 20,
     'O' => 15,
     'P' => 30,
@@ -104,8 +105,22 @@ foreach ($columnWidths as $col => $width) {
     $sheet->getColumnDimension($col)->setWidth($width);
 }
 
-// Current row tracker
 $currentRow = 3;
+// Write "Department of {department}" in the sheet
+// For instance, putting it in cell A3 and merging across a few columns for a header look.
+$deptHeaderCell = 'A3';
+$sheet->setCellValue($deptHeaderCell, "Department of " . $department_name);
+$sheet->mergeCells('A3:L3');
+$sheet->getStyle('A3')->applyFromArray($titleStyle);
+
+// You can save the spreadsheet to a file or output it to the browser as needed.
+// For example, to output it to the browser:
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="Department_Report.xlsx"');
+header('Cache-Control: max-age=0');
+
+// Current row tracker
+$currentRow += 2;
 
 // Faculty Summary Section
 $sheet->setCellValue('A' . $currentRow, 'Faculty Summary');
