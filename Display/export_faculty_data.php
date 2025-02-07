@@ -440,29 +440,63 @@ $sheet->getStyle('A' . ($startRow - 1) . ':H' . ($currentRow - 1))->applyFromArr
         ]
     ]
 ]);
-
 // Add spacing
 $currentRow += 3;
 
 // 4. Journals Section
-$sheet->setCellValue('A' . $currentRow, 'Journal Publications');
-$sheet->mergeCells('A' . $currentRow . ':U' . $currentRow);
+$sheet->setCellValue('A' . $currentRow, 'Journals');
+$sheet->mergeCells('A' . $currentRow . ':T' . $currentRow);
 $sheet->getStyle('A' . $currentRow)->applyFromArray($titleStyle);
 $currentRow++;
 
+// Define header columns for the Journals table
 $journalsHeaders = [
-    'Sr. No', 'Faculty ID', 'Name', 'Title', 'Journal Name', 'Author Type', 
-    'Publisher', 'Place', 'Vol/Issue No', 'ISSN', 'Page No', 'Year', 
-    'Website Link', 'International/National', 'Free/Paid', 'Indexing', 
-    'Impact Factor', 'SNIP', 'SJR', 'H-Index', 'Citations'
+    'Sr. No', 
+    'Faculty ID', 
+    'Title', 
+    'Name of Journal', 
+    'Author Type', 
+    'Publisher', 
+    'Place', 
+    'Vol/Issue', 
+    'ISSN', 
+    'Page No', 
+    'Year', 
+    'Website Link', 
+    'International/National', 
+    'Free/Paid', 
+    'Indexing', 
+    'Impact Factor', 
+    'SNIP', 
+    'SJR', 
+    'H-Index', 
+    'Citations'
 ];
 $sheet->fromArray([$journalsHeaders], NULL, 'A' . $currentRow);
-$sheet->getStyle('A' . $currentRow . ':U' . $currentRow)->applyFromArray($headerStyle);
+$sheet->getStyle('A' . $currentRow . ':T' . $currentRow)->applyFromArray($headerStyle);
 $currentRow++;
 
+// SQL query to fetch Journals data for all faculty in the department
 $journals_sql = "SELECT 
-    j.*,
-    ft.name
+    j.faculty_id,
+    j.Title,
+    j.name_of_journal,
+    j.author_type,
+    j.publisher,
+    j.place,
+    j.vol_no_issue_no,
+    j.ISSN,
+    j.page_no,
+    j.year,
+    j.website_link,
+    j.international_national,
+    j.free_paid,
+    j.indexing,
+    j.impact_factor,
+    j.SNIP,
+    j.SJR,
+    j.h_index,
+    j.citations
 FROM faculty_table ft
 JOIN journals j ON ft.faculty_id = j.faculty_id
 WHERE ft.department_name = ?";
@@ -474,36 +508,39 @@ $journals_result = $stmt->get_result();
 
 $sno = 1;
 $startRow = $currentRow;
-while ($journalData = $journals_result->fetch_assoc()) {
-    $sheet->setCellValue('A' . $currentRow, $sno++)
-          ->setCellValue('B' . $currentRow, $journalData['faculty_id'])
-          ->setCellValue('C' . $currentRow, $journalData['name'])
-          ->setCellValue('D' . $currentRow, $journalData['Title'])
-          ->setCellValue('E' . $currentRow, $journalData['name_of_journal'])
-          ->setCellValue('F' . $currentRow, $journalData['author_type'])
-          ->setCellValue('G' . $currentRow, $journalData['publisher'])
-          ->setCellValue('H' . $currentRow, $journalData['place'])
-          ->setCellValue('I' . $currentRow, $journalData['vol_no_issue_no'])
-          ->setCellValue('J' . $currentRow, $journalData['ISSN'])
-          ->setCellValue('K' . $currentRow, $journalData['page_no'])
-          ->setCellValue('L' . $currentRow, $journalData['year'])
-          ->setCellValue('M' . $currentRow, $journalData['website_link'])
-          ->setCellValue('N' . $currentRow, $journalData['international_national'])
-          ->setCellValue('O' . $currentRow, $journalData['free_paid'])
-          ->setCellValue('P' . $currentRow, $journalData['indexing'])
-          ->setCellValue('Q' . $currentRow, $journalData['impact_factor'])
-          ->setCellValue('R' . $currentRow, $journalData['SNIP'])
-          ->setCellValue('S' . $currentRow, $journalData['SJR'])
-          ->setCellValue('T' . $currentRow, $journalData['h_index'])
-          ->setCellValue('U' . $currentRow, $journalData['citations']);
 
+// Loop through each row of Journals data and add it to the sheet
+while ($journalsData = $journals_result->fetch_assoc()) {
+    $sheet->setCellValue('A' . $currentRow, $sno++)
+          ->setCellValue('B' . $currentRow, $journalsData['faculty_id'])
+          ->setCellValue('C' . $currentRow, $journalsData['Title'])
+          ->setCellValue('D' . $currentRow, $journalsData['name_of_journal'])
+          ->setCellValue('E' . $currentRow, $journalsData['author_type'])
+          ->setCellValue('F' . $currentRow, $journalsData['publisher'])
+          ->setCellValue('G' . $currentRow, $journalsData['place'])
+          ->setCellValue('H' . $currentRow, $journalsData['vol_no_issue_no'])
+          ->setCellValue('I' . $currentRow, $journalsData['ISSN'])
+          ->setCellValue('J' . $currentRow, $journalsData['page_no'])
+          ->setCellValue('K' . $currentRow, $journalsData['year'])
+          ->setCellValue('L' . $currentRow, $journalsData['website_link'])
+          ->setCellValue('M' . $currentRow, $journalsData['international_national'])
+          ->setCellValue('N' . $currentRow, $journalsData['free_paid'])
+          ->setCellValue('O' . $currentRow, $journalsData['indexing'])
+          ->setCellValue('P' . $currentRow, $journalsData['impact_factor'])
+          ->setCellValue('Q' . $currentRow, $journalsData['SNIP'])
+          ->setCellValue('R' . $currentRow, $journalsData['SJR'])
+          ->setCellValue('S' . $currentRow, $journalsData['h_index'])
+          ->setCellValue('T' . $currentRow, $journalsData['citations']);
+
+    // Adjust row height to accommodate text wrapping
     $sheet->getRowDimension($currentRow)->setRowHeight(-1);
-    $sheet->getStyle('A' . $currentRow . ':U' . $currentRow)->applyFromArray($dataStyle);
+    // Apply data style for the current row
+    $sheet->getStyle('A' . $currentRow . ':T' . $currentRow)->applyFromArray($dataStyle);
     $currentRow++;
 }
 
-// Add borders to Journals table
-$sheet->getStyle('A' . ($startRow - 1) . ':U' . ($currentRow - 1))->applyFromArray([
+// Add borders around the Journals table
+$sheet->getStyle('A' . ($startRow - 1) . ':T' . ($currentRow - 1))->applyFromArray([
     'borders' => [
         'allBorders' => [
             'borderStyle' => Border::BORDER_THIN
@@ -511,8 +548,6 @@ $sheet->getStyle('A' . ($startRow - 1) . ':U' . ($currentRow - 1))->applyFromArr
     ]
 ]);
 
-// Add spacing
-$currentRow += 3;
 
 // 5. Conference Section
 $sheet->setCellValue('A' . $currentRow, 'Conference Details');

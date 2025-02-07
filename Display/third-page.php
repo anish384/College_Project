@@ -41,6 +41,22 @@ function check_image_path($path) {
     if (!is_readable($path)) return false;
     return true;
 }
+function getValidImagePath($img_file_name) {
+    // Since we're in Display/third-page.php, the img directory is adjacent
+    $base_path = "img/";
+    
+    // Clean the filename to prevent directory traversal
+    $img_file_name = basename($img_file_name);
+    
+    // Construct and validate the path
+    $full_path = realpath(__DIR__ . '/' . $base_path . $img_file_name);
+    
+    if (!empty($img_file_name) && $full_path !== false && file_exists($full_path)) {
+        return $base_path . $img_file_name;
+    }
+    
+    return $base_path . "default.jpg"; // Default image in the img directory
+}
 ?>
 
 <!DOCTYPE html>
@@ -417,17 +433,19 @@ function check_image_path($path) {
                 
                 // Image handling with error checking
                 $img_file_name = $faculty['image'];
-                $image_path = "../Display/" . $img_file_name;
+                $image_path = "../Display/img" . $img_file_name;
                 echo "<tr>";
-                if (!empty($img_file_name) && file_exists($image_path)) {
+                if (!empty($img_file_name)) {
+                    $image_path = getValidImagePath($img_file_name);
                     echo "<td rowspan='7'><img src='" . htmlspecialchars($image_path) . "' 
-                          alt='Faculty Image' style='height: 200px; border-radius: 5px;'
-                          onerror=\"this.src='placeholder.jpg'\"></td>";
+                          alt='Faculty Image' 
+                          style='height: 200px; border-radius: 5px;'
+                          onerror=\"this.src='img/default.jpg'\"></td>";
                 } else {
-                    echo "<td rowspan='7'><img src='placeholder.jpg' 
-                          alt='No Image Available' style='height: 200px; border-radius: 5px;'></td>";
+                    echo "<td rowspan='7'><img src='img/default.jpg' 
+                          alt='No Image Available' 
+                          style='height: 200px; border-radius: 5px;'></td>";
                 }
-
                 echo "<td><strong>Name:</strong> " . htmlspecialchars($faculty['name']) . "</td></tr>";
                 echo "<tr><td><strong>Faculty ID:</strong> " . htmlspecialchars($faculty['faculty_id']) . "</td></tr>";
                 echo "<tr><td><strong>Department:</strong> " . htmlspecialchars($faculty['department_name']) . "</td></tr>";

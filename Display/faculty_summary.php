@@ -621,6 +621,103 @@ define('CURRENT_USER', 'vky6366');
     }
     ?>
     <br>
+    <?php
+        // Query to get Journal details for all faculty in the department
+        $journal_sql = "SELECT 
+            j.faculty_id,
+            ft.name AS faculty_name,
+            j.Title,
+            j.name_of_journal,
+            j.author_type,
+            j.publisher,
+            j.place,
+            j.vol_no_issue_no,
+            j.ISSN,
+            j.page_no,
+            j.year,
+            j.website_link,
+            j.international_national,
+            j.free_paid,
+            j.indexing,
+            j.impact_factor,
+            j.SNIP,
+            j.SJR,
+            j.h_index,
+            j.citations
+        FROM faculty_table ft
+        JOIN journals j ON ft.faculty_id = j.faculty_id
+        WHERE ft.department_name = ?";
+
+        $stmt = $conn->prepare($journal_sql);
+        $stmt->bind_param("s", $department_name);
+        $stmt->execute();
+        $journal_result = $stmt->get_result();
+
+        if ($journal_result->num_rows > 0) {
+            echo "<h1>Journal</h1>";
+            echo "<div class='journal-table-container'>
+                    <table class='fdp-table'>
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Faculty ID</th>
+                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Name of Journal</th>
+                                <th>Author Type</th>
+                                <th>Publisher</th>
+                                <th>Place</th>
+                                <th>Vol/Issue</th>
+                                <th>ISSN</th>
+                                <th>Page No</th>
+                                <th>Year</th>
+                                <th>Website Link</th>
+                                <th>International/National</th>
+                                <th>Free/Paid</th>
+                                <th>Indexing</th>
+                                <th>Impact Factor</th>
+                                <th>SNIP</th>
+                                <th>SJR</th>
+                                <th>H-Index</th>
+                                <th>Citations</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+            
+            $sno = 1;
+            while ($row = $journal_result->fetch_assoc()) {
+                echo "<tr>
+                    <td>" . $sno++ . "</td>
+                    <td>" . htmlspecialchars($row['faculty_id']) . "</td>
+                    <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                    <td>" . htmlspecialchars($row['Title']) . "</td>
+                    <td>" . htmlspecialchars($row['name_of_journal']) . "</td>
+                    <td>" . htmlspecialchars($row['author_type']) . "</td>
+                    <td>" . htmlspecialchars($row['publisher']) . "</td>
+                    <td>" . htmlspecialchars($row['place']) . "</td>
+                    <td>" . htmlspecialchars($row['vol_no_issue_no']) . "</td>
+                    <td>" . htmlspecialchars($row['ISSN']) . "</td>
+                    <td>" . htmlspecialchars($row['page_no']) . "</td>
+                    <td>" . htmlspecialchars($row['year']) . "</td>
+                    <td>" . htmlspecialchars($row['website_link']) . "</td>
+                    <td>" . htmlspecialchars($row['international_national']) . "</td>
+                    <td>" . htmlspecialchars($row['free_paid']) . "</td>
+                    <td>" . htmlspecialchars($row['indexing']) . "</td>
+                    <td>" . htmlspecialchars($row['impact_factor']) . "</td>
+                    <td>" . htmlspecialchars($row['SNIP']) . "</td>
+                    <td>" . htmlspecialchars($row['SJR']) . "</td>
+                    <td>" . htmlspecialchars($row['h_index']) . "</td>
+                    <td>" . htmlspecialchars($row['citations']) . "</td>
+                </tr>";
+            }
+            
+            echo "</tbody>
+                </table>
+                </div>";
+        } else {
+            echo "<p class='no-data'>No Journal data found for this department.</p>";
+        }
+        ?>
     <h1>FDP Conference Details</h1>
 
     <?php
