@@ -347,8 +347,8 @@ function check_image_path($path) {
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="fas fa-phone"></i> <b>0831-2438100/123</b>
-                    <i class="fas fa-envelope"></i> info@aitmbgm.ac.in
+                    <i class="fas fa-phone"></i> <b></b>
+                    <i class="fas fa-envelope"></i> 
                 </div>
             </div>
         </div>

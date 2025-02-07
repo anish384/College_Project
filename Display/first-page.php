@@ -210,8 +210,8 @@ $result = $conn->query($sql);
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="phone"></i> <b>0831-2438100/123</b>
-                    <i class="envelope_icon"></i> info@aitmbgm.ac.in
+                    <i class="phone"></i> <b>x</b>
+                    <i class="envelope_icon"></i> 
                 </div>
             </div>
         </div>

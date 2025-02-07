@@ -1,412 +1,268 @@
 <?php
-// Set time limit and error reporting
-set_time_limit(300);
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Constants for current time and user
-define('CURRENT_TIME', '.');
-define('CURRENT_USER', '.');
-
+// Include required PHPSpreadsheet classes
 require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-// Function to download and save image
-function downloadImage($url, $outputFile) {
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $image_data = curl_exec($ch);
-    curl_close($ch);
+// Create new Spreadsheet object
+$spreadsheet = new Spreadsheet();
+
+// Set document properties
+$spreadsheet->getProperties()
+    ->setCreator('Faculty Management System')
+    ->setLastModifiedBy('Faculty Management System')
+    ->setTitle('Faculty Department Report')
+    ->setSubject('Faculty Department Data')
+    ->setDescription('Export of all faculty department data');
+
+// FDP/Seminar/Workshop Details (First Sheet)
+$fdpSheet = $spreadsheet->getActiveSheet();
+$fdpSheet->setTitle('FDP Details');
+
+// Set headers for FDP sheet
+$fdpHeaders = ['Sr. No', 'Faculty ID', 'Name', 'Topic', 'Organizer', 'No. of Days', 'Place', 'Year'];
+$fdpSheet->fromArray([$fdpHeaders], NULL, 'A1');
+
+// Query and fill FDP data
+$fdp_sql = "SELECT 
+            f.faculty_id,
+            ft.name as faculty_name,
+            f.Topic,
+            f.Organizer,
+            f.no_of_days,
+            f.Place,
+            f.Year
+        FROM faculty_table ft
+        JOIN fdp_conferences_attended f ON ft.faculty_id = f.faculty_id
+        WHERE ft.department_name = ?";
+
+$stmt = $conn->prepare($fdp_sql);
+$stmt->bind_param("s", $department_name);
+$stmt->execute();
+$fdp_result = $stmt->get_result();
+
+$row = 2;
+$sno = 1;
+while ($fdpData = $fdp_result->fetch_assoc()) {
+    $fdpSheet->setCellValue('A'.$row, $sno++)
+             ->setCellValue('B'.$row, $fdpData['faculty_id'])
+             ->setCellValue('C'.$row, $fdpData['faculty_name'])
+             ->setCellValue('D'.$row, $fdpData['Topic'])
+             ->setCellValue('E'.$row, $fdpData['Organizer'])
+             ->setCellValue('F'.$row, $fdpData['no_of_days'])
+             ->setCellValue('G'.$row, $fdpData['Place'])
+             ->setCellValue('H'.$row, $fdpData['Year']);
+    $row++;
+}
+
+// Auto-size columns for FDP sheet
+foreach (range('A', 'H') as $col) {
+    $fdpSheet->getColumnDimension($col)->setAutoSize(true);
+}
+
+// Patents Details (Second Sheet)
+$patentSheet = $spreadsheet->createSheet();
+$patentSheet->setTitle('Patent Details');
+
+// Set headers for Patent sheet
+$patentHeaders = ['Sr. No', 'Faculty ID', 'Name', 'Title', 'Co-inventors', 'IP/PCT', 'Year of Publication', 'Status'];
+$patentSheet->fromArray([$patentHeaders], NULL, 'A1');
+
+// Query and fill Patent data
+$patent_sql = "SELECT 
+    p.faculty_id,
+    ft.name as faculty_name,
+    p.Title,
+    p.Co_inventors,
+    p.Ip_pct,
+    p.year_of_publication,
+    p.Status
+FROM faculty_table ft
+JOIN patents p ON ft.faculty_id = p.faculty_id
+WHERE ft.department_name = ?";
+
+$stmt = $conn->prepare($patent_sql);
+$stmt->bind_param("s", $department_name);
+$stmt->execute();
+$patent_result = $stmt->get_result();
+
+$row = 2;
+$sno = 1;
+while ($patentData = $patent_result->fetch_assoc()) {
+    $patentSheet->setCellValue('A'.$row, $sno++)
+                ->setCellValue('B'.$row, $patentData['faculty_id'])
+                ->setCellValue('C'.$row, $patentData['faculty_name'])
+                ->setCellValue('D'.$row, $patentData['Title'])
+                ->setCellValue('E'.$row, $patentData['Co_inventors'])
+                ->setCellValue('F'.$row, $patentData['Ip_pct'])
+                ->setCellValue('G'.$row, $patentData['year_of_publication'])
+                ->setCellValue('H'.$row, $patentData['Status']);
+    $row++;
+}
+
+// Auto-size columns for Patent sheet
+foreach (range('A', 'H') as $col) {
+    $patentSheet->getColumnDimension($col)->setAutoSize(true);
+}
+
+// Books/Book Chapters (Third Sheet)
+$booksSheet = $spreadsheet->createSheet();
+$booksSheet->setTitle('Books Details');
+
+// Set headers for Books sheet
+$booksHeaders = ['Sr. No', 'Faculty ID', 'Title', 'Publisher', 'Place', 'Year of Publication', 'ISBN', 'Book/Chapter'];
+$booksSheet->fromArray([$booksHeaders], NULL, 'A1');
+
+// Query and fill Books data
+$books_sql = "SELECT 
+    b.faculty_id,
+    b.Title,
+    b.Publisher,
+    b.Place,
+    b.Year_of_publication,
+    b.ISBN,
+    b.Book_Chapter
+FROM faculty_table ft
+JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
+WHERE ft.department_name = ?";
+
+$stmt = $conn->prepare($books_sql);
+$stmt->bind_param("s", $department_name);
+$stmt->execute();
+$books_result = $stmt->get_result();
+
+$row = 2;
+$sno = 1;
+while ($booksData = $books_result->fetch_assoc()) {
+    $booksSheet->setCellValue('A'.$row, $sno++)
+               ->setCellValue('B'.$row, $booksData['faculty_id'])
+               ->setCellValue('C'.$row, $booksData['Title'])
+               ->setCellValue('D'.$row, $booksData['Publisher'])
+               ->setCellValue('E'.$row, $booksData['Place'])
+               ->setCellValue('F'.$row, $booksData['Year_of_publication'])
+               ->setCellValue('G'.$row, $booksData['ISBN'])
+               ->setCellValue('H'.$row, $booksData['Book_Chapter']);
+    $row++;
+}
+
+// Auto-size columns for Books sheet
+foreach (range('A', 'H') as $col) {
+    $booksSheet->getColumnDimension($col)->setAutoSize(true);
+}
+
+// Conference Details (Fourth Sheet)
+$conferenceSheet = $spreadsheet->createSheet();
+$conferenceSheet->setTitle('Conference Details');
+
+// Set headers for Conference sheet
+$conferenceHeaders = ['Sr. No', 'Faculty ID', 'Name', 'Title', 'Name of Conference', 'International/National', 
+                     'Publisher', 'Place', 'Year', 'Website Link', 'Author Type', 'Remarks'];
+$conferenceSheet->fromArray([$conferenceHeaders], NULL, 'A1');
+
+// Query and fill Conference data
+$conference_sql = "SELECT 
+    c.faculty_id,
+    ft.name,
+    c.Title,
+    c.Name_of_the_Conference,
+    c.International_National,
+    c.publisher,
+    c.place,
+    c.year,
+    c.website_link,
+    c.author_type,
+    c.remarks
+FROM faculty_table ft
+JOIN conference c ON ft.faculty_id = c.faculty_id
+WHERE ft.department_name = ?";
+
+$stmt = $conn->prepare($conference_sql);
+$stmt->bind_param("s", $department_name);
+$stmt->execute();
+$conference_result = $stmt->get_result();
+
+$row = 2;
+$sno = 1;
+while ($conferenceData = $conference_result->fetch_assoc()) {
+    $conferenceSheet->setCellValue('A'.$row, $sno++)
+                   ->setCellValue('B'.$row, $conferenceData['faculty_id'])
+                   ->setCellValue('C'.$row, $conferenceData['name'])
+                   ->setCellValue('D'.$row, $conferenceData['Title'])
+                   ->setCellValue('E'.$row, $conferenceData['Name_of_the_Conference'])
+                   ->setCellValue('F'.$row, $conferenceData['International_National'])
+                   ->setCellValue('G'.$row, $conferenceData['publisher'])
+                   ->setCellValue('H'.$row, $conferenceData['place'])
+                   ->setCellValue('I'.$row, $conferenceData['year'])
+                   ->setCellValue('J'.$row, $conferenceData['website_link'])
+                   ->setCellValue('K'.$row, $conferenceData['author_type'])
+                   ->setCellValue('L'.$row, $conferenceData['remarks']);
+
+    // Add hyperlink for website_link
+    if (!empty($conferenceData['website_link'])) {
+        $conferenceSheet->getCell('J'.$row)
+            ->getHyperlink()
+            ->setUrl($conferenceData['website_link']);
+    }
     
-    if ($image_data) {
-        file_put_contents($outputFile, $image_data);
-        return true;
-    }
-    return false;
+    $row++;
 }
 
-// Create temp directory if it doesn't exist
-$tempDir = __DIR__ . '/temp_images';
-if (!file_exists($tempDir)) {
-    mkdir($tempDir, 0777, true);
+// Add export information at the bottom
+$infoRow = $row + 2; // Leave a blank row
+$conferenceSheet->setCellValue('A'.$infoRow, 'Export Information:');
+$conferenceSheet->setCellValue('A'.($infoRow+1), 'Generated on:');
+$conferenceSheet->setCellValue('B'.($infoRow+1), '2025-02-06 17:20:18 UTC');
+$conferenceSheet->setCellValue('A'.($infoRow+2), 'Generated by:');
+$conferenceSheet->setCellValue('B'.($infoRow+2), 'vky6366');
+
+// Style the export information
+$conferenceSheet->getStyle('A'.$infoRow)->getFont()->setBold(true);
+$conferenceSheet->getStyle('A'.($infoRow+1).':A'.($infoRow+2))->getFont()->setItalic(true);
+
+// Auto-size columns
+foreach (range('A', 'L') as $col) {
+    $conferenceSheet->getColumnDimension($col)->setAutoSize(true);
 }
 
-// Download images
-$image1Path = $tempDir . '/suresh-angadi.jpg';
-$image2Path = $tempDir . '/aitmbgm-logo.png';
-$image3Path = $tempDir . '/aitm-logo.png';
+// Style header row
+$headerRange = 'A1:L1';
+$conferenceSheet->getStyle($headerRange)->applyFromArray([
+    'font' => [
+        'bold' => true,
+        'color' => ['rgb' => 'FFFFFF']
+    ],
+    'fill' => [
+        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+        'startColor' => ['rgb' => '4472C4']
+    ],
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+    ]
+]);
 
-downloadImage('https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/Suresh-Angadi.jpg', $image1Path);
-downloadImage('https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitmbgm-logo.png', $image2Path);
-downloadImage('https://aitmbgm.ac.in/wp-content/themes/aitmbgm-20/images/aitm-logo.png', $image3Path);
-
-// Database connection
-$conn = new mysqli("localhost", "root", "", "college_database");
-if ($conn->connect_error) {
-    die(json_encode([
-        'success' => false,
-        'message' => "Connection failed: " . $conn->connect_error
-    ]));
-}
-
-try {
-    // Get faculty_id
-    $faculty_id = isset($_GET['faculty_id']) ? $_GET['faculty_id'] : null;
-    if (!$faculty_id) {
-        throw new Exception("Error: Faculty ID not provided.");
-    }
-
-    // Create new Spreadsheet
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
-
-    // Set fixed column widths for ALL columns (A-Z)
-    foreach (range('A', 'Z') as $column) {
-        $sheet->getColumnDimension($column)
-              ->setWidth(18)
-              ->setAutoSize(false);
-    }
-
-    // Add global style to force text wrapping vertically
-    $defaultStyle = [
-        'alignment' => [
-            'wrapText' => true,
-            'vertical' => Alignment::VERTICAL_TOP,
-            'horizontal' => Alignment::HORIZONTAL_LEFT
+// Add borders to data cells
+$dataRange = 'A1:L'.($row-1);
+$conferenceSheet->getStyle($dataRange)->applyFromArray([
+    'borders' => [
+        'allBorders' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
         ]
-    ];
-    $sheet->getStyle('A:Z')->applyFromArray($defaultStyle);
+    ],
+    'alignment' => [
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+    ]
+]);
 
-    // Left side images
-    if (file_exists($image1Path)) {
-        $drawing1 = new Drawing();
-        $drawing1->setName('Suresh Angadi');
-        $drawing1->setDescription('Suresh Angadi');
-        $drawing1->setPath($image1Path);
-        $drawing1->setCoordinates('A1');
-        $drawing1->setWidth(65);
-        $drawing1->setHeight(50);
-        $drawing1->setOffsetX(2);
-        $drawing1->setWorksheet($sheet);
-    }
+// Freeze panes
+$conferenceSheet->freezePane('A2');
 
-    if (file_exists($image2Path)) {
-        $drawing2 = new Drawing();
-        $drawing2->setName('AITM Logo');
-        $drawing2->setDescription('AITM Logo');
-        $drawing2->setPath($image2Path);
-        $drawing2->setCoordinates('B1');
-        $drawing2->setWidth(65);
-        $drawing2->setHeight(50);
-        $drawing2->setOffsetX(2);
-        $drawing2->setWorksheet($sheet);
-    }
+// Set zoom level
+$conferenceSheet->getSheetView()->setZoomScale(100);
 
-    // Right side image
-    if (file_exists($image3Path)) {
-        $drawing3 = new Drawing();
-        $drawing3->setName('AITM Small Logo');
-        $drawing3->setDescription('AITM Small Logo');
-        $drawing3->setPath($image3Path);
-        $drawing3->setCoordinates('F1');
-        $drawing3->setWidth(65);
-        $drawing3->setHeight(50);
-        $drawing3->setOffsetX(-2);
-        $drawing3->setWorksheet($sheet);
-    }
+// Set row height for header
+$conferenceSheet->getRowDimension(1)->setRowHeight(30);
 
-    // Set row heights
-    $sheet->getRowDimension(1)->setRowHeight(55);
-    $sheet->getRowDimension(2)->setRowHeight(10);
-
-    // Contact Information
-    $sheet->setCellValue('A7', 'Phone: 0831-2438100/123');
-    $sheet->setCellValue('D7', 'Email: info@aitmbgm.ac.in');
-    $sheet->mergeCells('A7:C7');
-    $sheet->mergeCells('D7:F7');
-    $sheet->getStyle('A7:F7')->getFont()->setSize(10);
-
-    // Header Style
-    $headerStyle = [
-        'font' => [
-            'bold' => true,
-            'size' => 10,
-            'color' => ['rgb' => '000000'],
-        ],
-        'alignment' => [
-            'horizontal' => Alignment::HORIZONTAL_CENTER,
-            'vertical' => Alignment::VERTICAL_CENTER,
-            'wrapText' => true,
-        ],
-        'borders' => [
-            'outline' => [
-                'borderStyle' => Border::BORDER_THIN,
-            ],
-        ],
-        'fill' => [
-            'fillType' => Fill::FILL_SOLID,
-            'startColor' => ['rgb' => 'FFFFFF'],
-        ],
-    ];
-
-    // Institute Header
-    $sheet->setCellValue('A9', 'SURESH ANGADI EDUCATION FOUNDATIONS');
-    $sheet->mergeCells('A9:F9');
-    $sheet->setCellValue('A10', 'ANGADI INSTITUTE OF TECHNOLOGY AND MANAGEMENT');
-    $sheet->mergeCells('A10:F10');
-    $sheet->setCellValue('A11', 'Approved by AICTE, New Delhi, Affiliated to VTU, Belagavi');
-    $sheet->mergeCells('A11:F11');
-    $sheet->setCellValue('A12', 'Accredited by *NBA and NAAC');
-    $sheet->mergeCells('A12:F12');
-
-    // Apply styles
-    $sheet->getStyle('A9:F9')->getFont()->setSize(12);
-    $sheet->getStyle('A9:F12')->applyFromArray($headerStyle);
-    $sheet->getStyle('A7:F7')->getFont()->setBold(true);
-
-    // Row heights for header section
-    $sheet->getRowDimension(8)->setRowHeight(10);
-    $sheet->getRowDimension(9)->setRowHeight(18);
-    $sheet->getRowDimension(10)->setRowHeight(18);
-    $sheet->getRowDimension(11)->setRowHeight(15);
-    $sheet->getRowDimension(12)->setRowHeight(15);
-    $sheet->getRowDimension(13)->setRowHeight(15);
-
-    // Get faculty information
-    $faculty_sql = "SELECT * FROM faculty_table WHERE faculty_id = ?";
-    $stmt = $conn->prepare($faculty_sql);
-    $stmt->bind_param("s", $faculty_id);
-    $stmt->execute();
-    $faculty_result = $stmt->get_result();
-    $faculty_info = $faculty_result->fetch_assoc();
-
-    if ($faculty_info) {
-        $startRow = 13;
-        $currentRow = $startRow;
-    
-        // Set column width for image
-        $sheet->getColumnDimension('G')->setWidth(20);
-        $sheet->getColumnDimension('H')->setWidth(20);
-    
-        // Add faculty image if it exists
-        if (!empty($faculty_info['image'])) {
-            // Construct the correct image path
-            $baseDir = __DIR__;  // Gets the directory of current script (Display/)
-            $imagePath = $baseDir . '/' . $faculty_info['image'];  // Complete path to image
-    
-            if (file_exists($imagePath)) {
-                try {
-                    $drawing = new Drawing();
-                    $drawing->setName('Faculty Image');
-                    $drawing->setDescription('Faculty Image');
-                    $drawing->setPath($imagePath);  // Use direct path instead of copying
-                    $drawing->setCoordinates('G' . $startRow);
-                    $drawing->setWidth(150);
-                    $drawing->setHeight(180);
-                    $drawing->setOffsetX(2);
-                    $drawing->setWorksheet($sheet);
-                    
-                    // Merge cells for image area
-                    $sheet->mergeCells('G' . $startRow . ':H' . ($startRow + 6));
-                    
-                } catch (Exception $e) {
-                    error_log("Error adding faculty image: " . $e->getMessage());
-                }
-            } else {
-                error_log("Faculty image not found at: " . $imagePath);
-            }
-        }
-    
-        // Faculty Info Array - for easier management
-        $facultyDetails = [
-            'Faculty ID:' => 'faculty_id',
-            'Name:' => 'name',
-            'Department:' => 'department_name',
-            'Designation:' => 'Designation',
-            'Date of Joining:' => 'date_of_joining',
-            'Email:' => 'email_id',
-            'Contact:' => 'contact_no'
-        ];
-    
-        // Add faculty details
-        foreach ($facultyDetails as $label => $field) {
-            $sheet->setCellValue('A' . $currentRow, $label);
-            $sheet->setCellValue('B' . $currentRow, $faculty_info[$field]);
-            $sheet->mergeCells('B' . $currentRow . ':F' . $currentRow);
-    
-            // Apply style to current row
-            $sheet->getStyle('A' . $currentRow . ':F' . $currentRow)->applyFromArray([
-                'font' => [
-                    'size' => 10,
-                ],
-                'alignment' => [
-                    'horizontal' => Alignment::HORIZONTAL_LEFT,
-                    'vertical' => Alignment::VERTICAL_CENTER,
-                ],
-                'borders' => [
-                    'outline' => [
-                        'borderStyle' => Border::BORDER_THIN,
-                    ],
-                ],
-            ]);
-    
-            // Set row height
-            $sheet->getRowDimension($currentRow)->setRowHeight(25);
-            
-            $currentRow++;
-        }
-    
-        // Add spacing after faculty info
-        $sheet->getRowDimension($currentRow)->setRowHeight(10);
-        $currentRow++;
-    }
-    // List of tables
-    $tables_info = [
-        'experience' => 'Professional Experience',
-        'awards' => 'Awards and Achievements',
-        'books_bookchapter' => 'Books & Book Chapters',
-        'chair_resource' => 'Resource Person Experience',
-        'conference' => 'Conference Publications',
-        'fdp_conferences_attended' => 'FDP & Conferences Attended',
-        'for_scholars_dr' => 'Scholar Guidance',
-        'journals' => 'Journal Publications',
-        'mtech_guided' => 'M.Tech Projects Guided',
-        'patents' => 'Patents',
-        'phd_guided_guiding' => 'PhD Guidance',
-        'professional_memberships' => 'Professional Memberships',
-        'qualification' => 'Academic Qualifications',
-        'research_grants' => 'Research Grants',
-        'research_grants_till_now' => 'Cumulative Research Grants',
-        'students_project_grants' => 'Student Project Grants',
-        'others' => 'Other Achievements'
-    ];
-
-    foreach ($tables_info as $table => $display_name) {
-        // Section header
-        $sheet->setCellValue('A' . $currentRow, strtoupper($display_name));
-        $sheet->mergeCells('A' . $currentRow . ':F' . $currentRow);
-        $sheet->getStyle('A' . $currentRow . ':F' . $currentRow)->applyFromArray($headerStyle);
-        $currentRow += 2;
-    
-        $sql = "SELECT * FROM $table WHERE faculty_id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $faculty_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        if ($result->num_rows > 0) {
-            // Add Sr.No header first
-            $sheet->setCellValue('A' . $currentRow, 'Sr.No');
-            
-            // Get other headers
-            $headers = [];
-            $fields = $result->fetch_fields();
-            $col = 'B'; // Start from B since A is for Sr.No
-            foreach ($fields as $field) {
-                if (!in_array($field->name, ['faculty_id', 'sr_no'])) {
-                    $headers[] = ucfirst(str_replace('_', ' ', $field->name));
-                    $sheet->setCellValue($col . $currentRow, $headers[count($headers)-1]);
-                    $col++;
-                }
-            }
-            
-            // Style headers
-            $lastCol = --$col;
-            $sheet->getStyle('A' . $currentRow . ':' . $lastCol . $currentRow)->applyFromArray([
-                'font' => ['bold' => true],
-                'fill' => [
-                    'fillType' => Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'F0F0F0'],
-                ],
-                'alignment' => [
-                    'wrapText' => true,
-                    'horizontal' => Alignment::HORIZONTAL_CENTER,
-                    'vertical' => Alignment::VERTICAL_CENTER
-                ]
-            ]);
-            $currentRow++;
-    
-            // Add data rows with Sr.No
-            $srNo = 1;
-            while ($row = $result->fetch_assoc()) {
-                // Add Sr.No
-                $sheet->setCellValue('A' . $currentRow, $srNo);
-                $sheet->getStyle('A' . $currentRow)->applyFromArray([
-                    'alignment' => [
-                        'horizontal' => Alignment::HORIZONTAL_CENTER,
-                        'vertical' => Alignment::VERTICAL_CENTER
-                    ]
-                ]);
-    
-                $col = 'B'; // Start from B for data
-                foreach ($row as $key => $value) {
-                    if (!in_array($key, ['faculty_id', 'sr_no'])) {
-                        $sheet->setCellValue($col . $currentRow, $value);
-                        $sheet->getStyle($col . $currentRow)->applyFromArray([
-                            'alignment' => [
-                                'wrapText' => true,
-                                'vertical' => Alignment::VERTICAL_TOP,
-                                'horizontal' => Alignment::HORIZONTAL_LEFT
-                            ]
-                        ]);
-                        // Set row height to accommodate wrapped text
-                        $sheet->getRowDimension($currentRow)->setRowHeight(-1);
-                        $col++;
-                    }
-                }
-                $currentRow++;
-                $srNo++;
-            }
-        } else {
-            $sheet->setCellValue('A' . $currentRow, 'No data available');
-            $sheet->mergeCells('A' . $currentRow . ':F' . $currentRow);
-            $currentRow++;
-        }
-    
-        $currentRow += 2;
-        $stmt->close();
-    }
-
-    // Add footer
-    $currentRow += 1;
-    $sheet->setCellValue('A' . $currentRow, 'Report Generated by: ' . CURRENT_USER);
-    $sheet->mergeCells('A' . $currentRow . ':C' . $currentRow);
-    $sheet->setCellValue('D' . $currentRow, 'Generated on: ' . CURRENT_TIME);
-    $sheet->mergeCells('D' . $currentRow . ':F' . $currentRow);
-    $sheet->getStyle('A' . $currentRow . ':F' . $currentRow)->applyFromArray([
-        'font' => ['italic' => true],
-        'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT],
-    ]);
-
-    // Create Excel file
-    $writer = new Xlsx($spreadsheet);
-
-    // Set headers for download
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="AITM_Faculty_Data_' . 
-        $faculty_id . '_' . date('Y-m-d', strtotime(CURRENT_TIME)) . '.xlsx"');
-    header('Cache-Control: max-age=0');
-
-    // Output file
-    $writer->save('php://output');
-
-    // Clean up temporary images
-    if (file_exists($image1Path)) unlink($image1Path);
-    if (file_exists($image2Path)) unlink($image2Path);
-    if (file_exists($image3Path)) unlink($image3Path);
-    if (is_dir($tempDir)) rmdir($tempDir);
-
-} catch (Exception $e) {
-    error_log("Error in faculty data download: " . $e->getMessage());
-    echo "An error occurred while generating the Excel file: " . $e->getMessage();
-}
-
-$conn->close();
-?>
+// Enable auto-filter
+$conferenceSheet->setAutoFilter($headerRange);

@@ -229,6 +229,78 @@ function getImagePath($imagePath) {
                 margin-bottom: 20px;
             }
         }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .summary-btn {
+            background-color: #2b4598;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .summary-btn:hover {
+            background-color: #1a2f6e;
+            transform: translateY(-2px);
+        }
+
+        .summary-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 8px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .meta-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
@@ -236,11 +308,11 @@ function getImagePath($imagePath) {
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="fas fa-phone"></i> <b>0831-2438100/123</b>
-                    <i class="fas fa-envelope"></i> info@aitmbgm.ac.in
+                    <i class="phone"></i> <b></b>
+                    <i class="envelope-mail"></i> 
                 </div>
             </div>
-        </div>
+    </div>
     </div>
 
     <div class="container1">
@@ -278,6 +350,12 @@ function getImagePath($imagePath) {
 
     <h1>Faculty Members - <?php echo htmlspecialchars($department_name); ?></h1>
 
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="faculty_summary.php?department_name=<?php echo urlencode($department_name); ?>" class="summary-btn">
+            <i class="fas fa-chart-bar"></i> View Department Summary
+        </a>
+    </div>
+
     <div class="teachers-container">
         <?php
         if ($result->num_rows > 0) {
@@ -306,16 +384,16 @@ function getImagePath($imagePath) {
     </footer>
 
     <script>
-    // Add JavaScript for image error handling
-    document.addEventListener('DOMContentLoaded', function() {
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            img.onerror = function() {
-                this.src = 'placeholder.jpg';
-                this.onerror = null; // Prevent infinite loop
-            }
+        // Add JavaScript for image error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.onerror = function() {
+                    this.src = 'placeholder.jpg';
+                    this.onerror = null; // Prevent infinite loop
+                }
+            });
         });
-    });
     </script>
 
 </body>
