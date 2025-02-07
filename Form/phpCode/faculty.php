@@ -1,9 +1,9 @@
 <?php
 // Database connection details
-$host = 'localhost'; // Database host
-$dbname = 'college_database'; // Database name
-$username = 'root'; // Database username
-$password = ''; // Database password
+$host = 'localhost';
+$dbname = 'college_database';
+$username = 'root';
+$password = '';
 
 // Create a new MySQLi connection
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -13,66 +13,77 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Prepare and bind
-$stmt = $conn->prepare("INSERT INTO faculty_table (faculty_id, name, Designation, department_name, date_of_joining, email_id, contact_no, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssss", $faculty_id, $name, $designation, $department, $date_of_joining, $email, $contact_no, $image);
+// Debugging: Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form values
+    $faculty_id = $_POST['faculty_id'];
+    $name = $_POST['name'];
+    $designation = $_POST['Designation'];
+    $department = $_POST['Department'];
+    $date_of_joining = $_POST['date_of_joining'];
+    $email = $_POST['email'];
+    $contact_no = $_POST['con'];
 
-// Set parameters and execute
-$faculty_id = $_POST['faculty_id'];
-$name = $_POST['name'];
-$designation = $_POST['Designation'];
-$department = $_POST['Department'];
-$date_of_joining = $_POST['date_of_joining'];
-$email = $_POST['email'];
-$contact_no = $_POST['con'];
+    // **Image Upload Handling**
+    // **Image Upload Handling**
+$image = "Display/img/default.jpg"; // Default image
+
 if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
-    // Define the target upload directory
-    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/Display/img/"; // Absolute path for Display/img
-    $relative_path = "img/"; // Path to store in the database
+    $upload_dir = "C:/xampp/htdocs/College_Project/Display/img/"; // Absolute path
+    $relative_path = "Display/img/"; // Path to store in DB
 
-    // Ensure the Display/img directory exists
+    // Ensure the folder exists
     if (!file_exists($upload_dir)) {
         mkdir($upload_dir, 0777, true);
     }
 
     $image_name = basename($_FILES['img']['name']);
-    $unique_name = time() . "_" . $image_name; // Make filename unique
+    $unique_name = time() . "_" . $image_name; // Unique filename to avoid overwriting
+    $target_path = $upload_dir . $unique_name; // Full storage path
 
-    // Define the full storage path
-    $target_path = $upload_dir . $unique_name;
-
-    // Allowed image types
+    // Allowed file types
     $file_type = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
     $allowed_types = ["jpg", "jpeg", "png", "gif"];
 
     if (in_array($file_type, $allowed_types)) {
-        // Move file to Display/img directory
         if (move_uploaded_file($_FILES['img']['tmp_name'], $target_path)) {
-            $image = $relative_path . $unique_name; // Store "img/filename.png" in the database
+            $image = $unique_name; // Store only filename in DB
         } else {
-            die("Error uploading image.");
+            die("Error uploading image. Check folder permissions.");
         }
     } else {
         die("Invalid file format. Only JPG, JPEG, PNG, and GIF allowed.");
     }
-} else {
-    $image = "img/default.jpg"; // Default image path
 }
 
 
+    // **Check if faculty_id already exists**
+    $check_stmt = $conn->prepare("SELECT * FROM faculty_table WHERE faculty_id = ?");
+    $check_stmt->bind_param("s", $faculty_id);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
 
-// **Insert into database**
-$stmt = $conn->prepare("INSERT INTO faculty_table (faculty_id, name, Designation, department_name, date_of_joining, email_id, contact_no, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssss", $faculty_id, $name, $designation, $department, $date_of_joining, $email, $contact_no, $image);
+    if ($result->num_rows > 0) {
+        // **UPDATE existing record**
+        $stmt = $conn->prepare("UPDATE faculty_table SET name=?, Designation=?, department_name=?, date_of_joining=?, email_id=?, contact_no=?, image=? WHERE faculty_id=?");
+        $stmt->bind_param("ssssssss", $name, $designation, $department, $date_of_joining, $email, $contact_no, $image, $faculty_id);
+    } else {
+        // **INSERT new record**
+        $stmt = $conn->prepare("INSERT INTO faculty_table (faculty_id, name, Designation, department_name, date_of_joining, email_id, contact_no, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $faculty_id, $name, $designation, $department, $date_of_joining, $email, $contact_no, $image);
+    }
 
-if ($stmt->execute()) {
-    echo "New faculty record created successfully!";
+    // **Execute the query**
+    if ($stmt->execute()) {
+        echo "Faculty record successfully saved!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close connections
+    $stmt->close();
+    $check_stmt->close();
+    $conn->close();
 } else {
-    echo "Error: " . $stmt->error;
+    echo "Invalid request!";
 }
-
-
-// Close connections
-$stmt->close();
-$conn->close();
-?>

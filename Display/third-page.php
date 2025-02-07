@@ -416,9 +416,10 @@ function check_image_path($path) {
                 echo "<table class='faculty_details'>";
                 
                 // Image handling with error checking
-                $image_path = $faculty['image'];
+                $img_file_name = $faculty['image'];
+                $image_path = "../Display/img/" . $img_file_name;
                 echo "<tr>";
-                if (!empty($image_path) && file_exists($image_path)) {
+                if (!empty($img_file_name) && file_exists($image_path)) {
                     echo "<td rowspan='7'><img src='" . htmlspecialchars($image_path) . "' 
                           alt='Faculty Image' style='height: 200px; border-radius: 5px;'
                           onerror=\"this.src='placeholder.jpg'\"></td>";
