@@ -6,12 +6,12 @@ try {
     // Get JSON data
     $input = json_decode(file_get_contents('php://input'), true);
 
-    if (!$input || !isset($input['faculty_id']) || !isset($input['table_name']) || !isset($input['fields'])) {
+    if (!$input || !isset($input['sr_no']) || !isset($input['table_name']) || !isset($input['fields'])) {
         throw new Exception('Invalid input data');
     }
 
     // Sanitize inputs
-    $faculty_id = $conn->real_escape_string($input['faculty_id']);
+    $sr_no = $conn->real_escape_string($input['sr_no']);
     $table_name = $conn->real_escape_string($input['table_name']);
 
     // Build SET clause
@@ -26,8 +26,8 @@ try {
         throw new Exception('No fields to update');
     }
 
-    // Update query using faculty_id
-    $query = "UPDATE $table_name SET " . implode(', ', $sets) . " WHERE faculty_id = '$faculty_id'";
+    // Update query using sr_no
+    $query = "UPDATE $table_name SET " . implode(', ', $sets) . " WHERE sr_no = '$sr_no'";
     
     if ($conn->query($query)) {
         echo json_encode(['success' => true]);
@@ -36,6 +36,7 @@ try {
     }
 
 } catch (Exception $e) {
+    error_log("Update Error: " . $e->getMessage());
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage()

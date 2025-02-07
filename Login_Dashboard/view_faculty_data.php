@@ -64,6 +64,7 @@ if (!$faculty_data) {
     header("Location: error.php?message=" . urlencode("Error retrieving faculty data"));
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -399,7 +400,7 @@ if (!$faculty_data) {
                             <?php 
                             if (!empty($faculty_data['image'])) {
                                 // Get relative path to Display/img directory
-                                $image_path = '../Display/img/' . $faculty_data['image'];
+                                $image_path = '../Display/' . $faculty_data['image'];
                                 if (file_exists($image_path)) {
                                     echo '<img src="' . htmlspecialchars($image_path) . '" 
                                         alt="Faculty Image" 
@@ -517,31 +518,35 @@ if (!$faculty_data) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            while ($row = $result->fetch_assoc()) {
-                                                if ($debug) {
-                                                    echo "<!-- Row data for $table_name: " . json_encode($row) . " -->";
+                                                // Initialize display counter for each table
+                                                $display_sno = 1;
+
+                                                while ($row = $result->fetch_assoc()) {
+                                                    if ($debug) {
+                                                        echo "<!-- Row data for $table_name: " . json_encode($row) . " -->";
+                                                    }
+                                                    echo "<tr>";
+                                                    echo "<td>{$display_sno}</td>";  // Display sequential number
+                                                    foreach ($columns as $column) {
+                                                        echo "<td>" . htmlspecialchars($row[$column]) . "</td>";
+                                                    }
+                                                    ?>
+                                                    <td class="text-center">
+                                                        <div class="btn-group" role="group">
+                                                            <button class="btn btn-primary btn-sm" 
+                                                                    onclick='editRecord(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>, <?php echo json_encode($table_name); ?>)'>
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </button>
+                                                            <button class="btn btn-danger btn-sm" 
+                                                                    onclick='deleteRecord(<?php echo $row["sr_no"]; ?>, <?php echo json_encode($table_name); ?>)'>
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                    <?php
+                                                    echo "</tr>";
+                                                    $display_sno++; // Increment the display counter
                                                 }
-                                                echo "<tr>";
-                                                echo "<td>{$row['sr_no']}</td>";
-                                                foreach ($columns as $column) {
-                                                    echo "<td>" . htmlspecialchars($row[$column]) . "</td>";
-                                                }
-                                                ?>
-                                                <td class="text-center">
-                                                    <div class="btn-group" role="group">
-                                                        <button class="btn btn-primary btn-sm" 
-                                                                onclick='editRecord(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>, <?php echo json_encode($table_name); ?>)'>
-                                                            <i class="fas fa-edit"></i> Edit
-                                                        </button>
-                                                        <button class="btn btn-danger btn-sm" 
-                                                                onclick='deleteRecord(<?php echo $row["sr_no"]; ?>, <?php echo json_encode($table_name); ?>)'>
-                                                            <i class="fas fa-trash"></i> Delete
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <?php
-                                                echo "</tr>";
-                                            }
                                             ?>
                                         </tbody>
                                     </table>
@@ -595,7 +600,9 @@ if (!$faculty_data) {
                     </div>
                     <div class="modal-body">
                         <form id="facultyEditForm">
+                            <div class="mb-3">
                             <input type="hidden" id="faculty_id" name="faculty_id">
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
                                 <input type="text" class="form-control" id="faculty_name" name="name">
@@ -671,7 +678,7 @@ if (!$faculty_data) {
     });
 
     function editFacultyInfo(facultyData) {
-        document.getElementById('faculty_id').value = facultyData.faculty_id;
+            document.getElementById('faculty_id').value = facultyData.faculty_id;
         document.getElementById('faculty_name').value = facultyData.name;
         document.getElementById('faculty_designation').value = facultyData.Designation;
         document.getElementById('faculty_department').value = facultyData.department_name;
@@ -680,7 +687,7 @@ if (!$faculty_data) {
         document.getElementById('faculty_contact').value = facultyData.contact_no;
         
         facultyEditModal.show();
-    }
+}
 
     function updateFacultyInfo() {
         const formData = {
@@ -814,6 +821,8 @@ if (!$faculty_data) {
             data.fields[fieldName] = field.value;
         }
 
+        console.log('Sending data:', data); // Debug log
+
         editModal.hide();
 
         fetch('update_record.php', {
@@ -841,7 +850,13 @@ if (!$faculty_data) {
         })
         .catch(error => {
             console.error('Error:', error);
-            location.reload(); // Reload anyway as the update might have succeeded
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message || 'Failed to update record'
+            }).then(() => {
+                location.reload();
+            });
         });
     }
 
@@ -932,6 +947,65 @@ if (!$faculty_data) {
                     location.reload();
                 });
             }
+        });
+    }
+    function updateFacultyInfo() {
+        const formData = new FormData();
+        const currentFacultyId = document.getElementById('faculty_id').value;
+        
+        const fields = {
+            faculty_id: document.getElementById('faculty_id').value, // Include faculty_id in fields
+            name: document.getElementById('faculty_name').value,
+            Designation: document.getElementById('faculty_designation').value,
+            department_name: document.getElementById('faculty_department').value,
+            date_of_joining: document.getElementById('faculty_doj').value,
+            email_id: document.getElementById('faculty_email').value,
+            contact_no: document.getElementById('faculty_contact').value
+        };
+
+        formData.append('faculty_id', currentFacultyId);
+        formData.append('fields', JSON.stringify(fields));
+
+        // Add image if present
+        const imageInput = document.getElementById('faculty_image');
+        if (imageInput && imageInput.files.length > 0) {
+            formData.append('faculty_image', imageInput.files[0]);
+        }
+
+        facultyEditModal.hide();
+
+        fetch('update_faculty.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Faculty information updated successfully!',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Redirect if faculty_id changed
+                    if (result.new_faculty_id && result.new_faculty_id !== currentFacultyId) {
+                        window.location.href = `view_faculty_data.php?faculty_id=${result.new_faculty_id}`;
+                    } else {
+                        location.reload();
+                    }
+                });
+            } else {
+                throw new Error(result.message || 'Update failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message || 'Failed to update faculty information'
+            });
         });
     }
     </script>
