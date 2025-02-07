@@ -384,12 +384,6 @@ define('CURRENT_USER', 'vky6366');
     <br>
     <h1>Faculty Summary</h1>
     <?php
-    // First, let's show the timestamp and user info in the correct format
-    echo "<div class='meta-info'>";
-    echo "<span class='timestamp'>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): " . date('Y-m-d H:i:s') . "</span><br>";
-    echo "<span class='user-login'>Current User's Login: vky6366</span>";
-    echo "</div>";
-
     // Query to get faculty summary - simplified and corrected
     $summary_sql = "SELECT 
         ft.faculty_id,
