@@ -417,7 +417,7 @@ function check_image_path($path) {
                 
                 // Image handling with error checking
                 $img_file_name = $faculty['image'];
-                $image_path = "../Display/img/" . $img_file_name;
+                $image_path = "../Display/" . $img_file_name;
                 echo "<tr>";
                 if (!empty($img_file_name) && file_exists($image_path)) {
                     echo "<td rowspan='7'><img src='" . htmlspecialchars($image_path) . "' 
