@@ -363,8 +363,6 @@ function getValidImagePath($img_file_name) {
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="fas fa-phone"></i> <b></b>
-                    <i class="fas fa-envelope"></i> 
                 </div>
             </div>
         </div>

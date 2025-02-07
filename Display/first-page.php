@@ -210,7 +210,7 @@ $result = $conn->query($sql);
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="phone"></i> <b>x</b>
+                    <i class="phone"></i> <b></b>
                     <i class="envelope_icon"></i> 
                 </div>
             </div>
