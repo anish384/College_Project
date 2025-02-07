@@ -113,11 +113,42 @@ function check_image_path($path) {
             height: 100px;
             width: 100px;
         }
-        
+
         .photo {
             height: 100%;
             width: 100%;
             margin-top: 2px;
+        }
+
+        /* New styles for timestamp and user info */
+        .meta-info {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .timestamp, .user-login {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timestamp i, .user-login i {
+            color: #4A90E2;
+        }
+
+        .time-value, .user-value {
+            font-family: 'Roboto Mono', monospace;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
         }
 
         .user-info {
@@ -149,7 +180,7 @@ function check_image_path($path) {
             font-size: small;
             font-weight: normal;
         }
-        
+
         main {
             padding: 2rem;
         }
@@ -161,7 +192,7 @@ function check_image_path($path) {
             border-radius: 10px;
             object-fit: cover;
         }
-        
+
         .details {
             width: 100%;
             border-collapse: collapse;
@@ -181,21 +212,39 @@ function check_image_path($path) {
             float: left;
         }
 
+        /* Updated table section styles */
         .table-section {
             margin-bottom: 2rem;
             background-color: #fff;
             border-radius: 12px;
             padding: 25px;
             box-shadow: rgba(9, 30, 66, 0.4) 0px 1px 1px, rgba(9, 30, 66, 0.4) 0px 0px 1px 1px;
+            text-align: center;  /* Changed from left to center */
+            overflow-x: auto;
+            max-width: 100%;
         }
 
+        /* Scroll indicator */
+        .scroll-indicator {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .scroll-indicator i {
+            color: #4A90E2;
+        }
+
+        /* Table styles */
         table {
             width: 100%;
+            min-width: 800px;
             border-collapse: collapse;
             background-color: #fff;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin: 0 auto;
         }
 
@@ -203,15 +252,83 @@ function check_image_path($path) {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-            width: 100px; 
+            min-width: 150px;
             word-wrap: break-word;
             white-space: normal;
             vertical-align: top;
         }
 
+        /* Sticky first column */
+        th:first-child,
+        td:first-child {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 1;
+            min-width: 70px;
+            max-width: 70px;
+        }
+
         th {
             background-color: #4A90E2;
             color: white;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        th:first-child {
+            z-index: 3;
+            background: #4A90E2;
+        }
+
+        tr:nth-child(even) td:first-child {
+            background: #fff;
+        }
+
+        tr:nth-child(odd) td:first-child {
+            background: #fff;
+        }
+
+        /* Scrollbar styling */
+        .table-section::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-section::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .table-section::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Download button styling */
+        .download-section {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            background-color: #2b4598;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #1a2f6e;
         }
 
         footer {
@@ -230,8 +347,8 @@ function check_image_path($path) {
         <div class="container">
             <div class="row">
                 <div class="site_topbar">
-                    <i class="fas fa-phone"></i> <b>0831-2438100/123</b>
-                    <i class="fas fa-envelope"></i> info@aitmbgm.ac.in
+                    <i class="fas fa-phone"></i> <b></b>
+                    <i class="fas fa-envelope"></i> 
                 </div>
             </div>
         </div>
@@ -270,7 +387,20 @@ function check_image_path($path) {
         </div>
     </div>
     <main>
-        <div class='container3'>
+        <div class='container4'>
+        <div class="download-section" style="text-align: right; margin-bottom: 20px;">
+        <a href="download_faculty_data.php?faculty_id=<?php echo htmlspecialchars($faculty_id); ?>" 
+           class="download-btn" 
+           style="background-color: rgb(43, 69, 152); 
+                  color: white; 
+                  padding: 10px 20px; 
+                  text-decoration: none; 
+                  border-radius: 5px;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;">
+            <i class="fas fa-download"></i> Download Excel
+        </a>
         <?php
         // Custom handling for faculty_table
         if (in_array('faculty_table', $tables)) {

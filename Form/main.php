@@ -1269,9 +1269,10 @@ function submitForm(event) {
                         <td><label for="ip_pct_${i}">IP Percent: </label></td>
                         <td>
                             <select id="ip_pct_${i}" name="ip_pct_${i}" required>
+                                <option value="">None</option>
                                 <option value="indian patent">Indian Patent</option>
                                 <option value="pct">PCT</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1283,9 +1284,10 @@ function submitForm(event) {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
+                                <option value="">None</option>
                                 <option value="filed">Filed</option>
                                 <option value="granted">Granted</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1329,9 +1331,10 @@ function submitForm(event) {
                         <td><label for="status_${i}">Status: </label></td>
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
+                                <option value="">None</option>
                                 <option value="granted">Granted</option>
                                 <option value="not-granted">Not granted</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>
@@ -1447,10 +1450,11 @@ function submitForm(event) {
                         <td><label for="degree_${i}">Degree: </label></td>
                         <td>
                             <select id="degree_${i}" name="degree_${i}" required>
+                                <option value="">None</option>
                                 <option value="phd">PhD</option>
                                 <option value="Mtech/ME">Mtech/ME</option>
                                 <option value="BE/Btech">BE/Btech</option>
-                                <option value="">None</option>
+                                
                             </select>
                         </td>
                     </tr>

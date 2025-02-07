@@ -29,7 +29,7 @@ try {
         $stmt->execute([
             ':faculty_id' => $education['faculty_id'],
             ':degree' => $education['degree'],
-            ':university_institution' => $education['university'],
+            ':University_institution' => $education['university'],
             ':specialization' => $education['specialization'],
             ':year_of_passing' => $education['year_of_passing']
         ]);

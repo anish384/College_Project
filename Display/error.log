@@ -1,0 +1,15 @@
+[06-Feb-2025 17:05:31 UTC] PHP Fatal error:  Uncaught TypeError: PhpOffice\PhpSpreadsheet\Style\Fill::setStartColor(): Argument #1 ($color) must be of type PhpOffice\PhpSpreadsheet\Style\Color, array given, called in C:\xampp\htdocs\Display\export_faculty_data.php on line 406 and defined in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php:226
+Stack trace:
+#0 C:\xampp\htdocs\Display\export_faculty_data.php(406): PhpOffice\PhpSpreadsheet\Style\Fill->setStartColor(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php on line 226
+[06-Feb-2025 17:06:54 UTC] PHP Fatal error:  Uncaught TypeError: PhpOffice\PhpSpreadsheet\Style\Fill::setStartColor(): Argument #1 ($color) must be of type PhpOffice\PhpSpreadsheet\Style\Color, array given, called in C:\xampp\htdocs\Display\export_faculty_data.php on line 406 and defined in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php:226
+Stack trace:
+#0 C:\xampp\htdocs\Display\export_faculty_data.php(406): PhpOffice\PhpSpreadsheet\Style\Fill->setStartColor(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php on line 226
+[06-Feb-2025 17:09:25 UTC] PHP Fatal error:  Uncaught TypeError: PhpOffice\PhpSpreadsheet\Style\Fill::setStartColor(): Argument #1 ($color) must be of type PhpOffice\PhpSpreadsheet\Style\Color, array given, called in C:\xampp\htdocs\Display\export_faculty_data.php on line 406 and defined in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php:226
+Stack trace:
+#0 C:\xampp\htdocs\Display\export_faculty_data.php(406): PhpOffice\PhpSpreadsheet\Style\Fill->setStartColor(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\Display\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\Fill.php on line 226

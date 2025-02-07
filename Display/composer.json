@@ -1,0 +1,17 @@
+{
+    "name": "vishw/display",
+    "autoload": {
+        "psr-4": {
+            "Vishw\\Display\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vky6366",
+            "email": "vishwakalyanpatil@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^3.9"
+    }
+}
