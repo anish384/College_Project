@@ -635,15 +635,7 @@ define('CURRENT_USER', 'vky6366');
             j.ISSN,
             j.page_no,
             j.year,
-            j.website_link,
-            j.international_national,
-            j.free_paid,
-            j.indexing,
-            j.impact_factor,
-            j.SNIP,
-            j.SJR,
-            j.h_index,
-            j.citations
+            j.website_link
         FROM faculty_table ft
         JOIN journals j ON ft.faculty_id = j.faculty_id
         WHERE ft.department_name = ?";
@@ -672,20 +664,15 @@ define('CURRENT_USER', 'vky6366');
                                 <th>Page No</th>
                                 <th>Year</th>
                                 <th>Website Link</th>
-                                <th>International/National</th>
-                                <th>Free/Paid</th>
-                                <th>Indexing</th>
-                                <th>Impact Factor</th>
-                                <th>SNIP</th>
-                                <th>SJR</th>
-                                <th>H-Index</th>
-                                <th>Citations</th>
                             </tr>
                         </thead>
                         <tbody>";
             
             $sno = 1;
             while ($row = $journal_result->fetch_assoc()) {
+                // Get the website link
+                $website_link = htmlspecialchars($row['website_link']);
+                
                 echo "<tr>
                     <td>" . $sno++ . "</td>
                     <td>" . htmlspecialchars($row['faculty_id']) . "</td>
@@ -699,26 +686,32 @@ define('CURRENT_USER', 'vky6366');
                     <td>" . htmlspecialchars($row['ISSN']) . "</td>
                     <td>" . htmlspecialchars($row['page_no']) . "</td>
                     <td>" . htmlspecialchars($row['year']) . "</td>
-                    <td>" . htmlspecialchars($row['website_link']) . "</td>
-                    <td>" . htmlspecialchars($row['international_national']) . "</td>
-                    <td>" . htmlspecialchars($row['free_paid']) . "</td>
-                    <td>" . htmlspecialchars($row['indexing']) . "</td>
-                    <td>" . htmlspecialchars($row['impact_factor']) . "</td>
-                    <td>" . htmlspecialchars($row['SNIP']) . "</td>
-                    <td>" . htmlspecialchars($row['SJR']) . "</td>
-                    <td>" . htmlspecialchars($row['h_index']) . "</td>
-                    <td>" . htmlspecialchars($row['citations']) . "</td>
+                    <td>" . (!empty($website_link) ? 
+                            "<a href='" . $website_link . "' target='_blank' class='journal-link'>" . $website_link . "</a>" 
+                            : "N/A") . "</td>
                 </tr>";
             }
             
             echo "</tbody>
                 </table>
                 </div>";
+            
+            // Add CSS for the link styling
+            echo "<style>
+                .journal-link {
+                    color: #0066cc;
+                    text-decoration: none;
+                }
+                .journal-link:hover {
+                    text-decoration: underline;
+                    color: #003399;
+                }
+            </style>";
         } else {
             echo "<p class='no-data'>No Journal data found for this department.</p>";
         }
-        ?>
-    <h1>FDP Conference Details</h1>
+    ?>
+    <h1>FDP Attended</h1>
 
     <?php
     // Query to get FDP Conference details
