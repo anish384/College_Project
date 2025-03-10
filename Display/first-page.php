@@ -9,9 +9,15 @@ if ($conn->connect_error) {
 $current_time = gmdate('Y-m-d H:i:s');
 $current_user = 'vky6366';
 
-// Fetch departments
-$sql = "SELECT department_name, department_img FROM departments";
+// Fetch departments grouped by type
+$sql = "SELECT department_name, department_img, department_type FROM departments ORDER BY department_type";
 $result = $conn->query($sql);
+
+// Group departments by type
+$departments = [];
+while ($row = $result->fetch_assoc()) {
+    $departments[$row['department_type']][] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -154,6 +160,42 @@ $result = $conn->query($sql);
             width: 100%;
             position: relative;
         }
+        .department-section {
+            width: 100%;
+            padding-right: 20px;
+            margin-bottom: 30px;
+        }
+
+        .department-type {
+            margin-bottom: 40px;
+        }
+
+        .department-type h2 {
+            color: rgb(43, 69, 152);
+            margin-bottom: 20px;
+            padding-left: 20px;
+            font-size: 1.5em;
+            position: relative;
+        }
+
+        .department-type h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 4px;
+            height: 20px;
+            background-color: rgb(43, 69, 152);
+            transform: translateY(-50%);
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
@@ -205,26 +247,32 @@ $result = $conn->query($sql);
     </nav>
 
     <div class="main-content">
-        <div class="department-section">
-            <h1>Departments</h1>
-            <div class="content">
-                <?php
-                $query = "SELECT department_name, department_img FROM departments";
-                $result = $conn->query($query);
+        <h1>Departments</h1>
+        <?php
+        // Define the display order and labels for department types
+        $typeOrder = ['UG' => 'Undergraduate Departments', 
+                     'PG' => 'Postgraduate Departments', 
+                     'PCM' => 'Pre-University Departments'];
+
+        foreach ($typeOrder as $type => $label) {
+            if (isset($departments[$type])) {
+                echo "<div class='department-type'>";
+                echo "<h2>{$label}</h2>";
+                echo "<div class='content'>";
                 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<div class='department-box'>";
-                        echo "<img src='" . htmlspecialchars($row['department_img']) . "' alt='" . htmlspecialchars($row['department_name']) . " Image'>";
-                        echo "<a href='second-page.php?department_name=" . urlencode($row['department_name']) . "'>" . htmlspecialchars($row['department_name']) . "</a>";
-                        echo "</div>";
-                    }
-                } else {
-                    echo "<p>No departments found.</p>";
+                foreach ($departments[$type] as $dept) {
+                    echo "<div class='department-box'>";
+                    echo "<img src='" . htmlspecialchars($dept['department_img']) . "' 
+                              alt='" . htmlspecialchars($dept['department_name']) . " Image'>";
+                    echo "<a href='second-page.php?department_name=" . urlencode($dept['department_name']) . "'>" 
+                         . htmlspecialchars($dept['department_name']) . "</a>";
+                    echo "</div>";
                 }
-                ?>
-            </div>
-        </div>
+                
+                echo "</div></div>";
+            }
+        }
+        ?>
     </div>
     <footer>
         <h2>Angadi Institute Of Technology And Management</h2>

@@ -460,14 +460,13 @@ $currentRow += 3;
 
 // 4. Journals Section
 $sheet->setCellValue('A' . $currentRow, 'Journals');
-$sheet->mergeCells('A' . $currentRow . ':T' . $currentRow);
+$sheet->mergeCells('A' . $currentRow . ':L' . $currentRow); // Changed from T to L since we have 12 columns
 $sheet->getStyle('A' . $currentRow)->applyFromArray($titleStyle);
 $currentRow++;
 
 // Define header columns for the Journals table
 $journalsHeaders = [
     'Sr. No', 
-    'Faculty ID', 
     'Title', 
     'Name of Journal', 
     'Author Type', 
@@ -477,23 +476,14 @@ $journalsHeaders = [
     'ISSN', 
     'Page No', 
     'Year', 
-    'Website Link', 
-    'International/National', 
-    'Free/Paid', 
-    'Indexing', 
-    'Impact Factor', 
-    'SNIP', 
-    'SJR', 
-    'H-Index', 
-    'Citations'
+    'Website Link'
 ];
 $sheet->fromArray([$journalsHeaders], NULL, 'A' . $currentRow);
-$sheet->getStyle('A' . $currentRow . ':T' . $currentRow)->applyFromArray($headerStyle);
+$sheet->getStyle('A' . $currentRow . ':L' . $currentRow)->applyFromArray($headerStyle); // Changed from T to L
 $currentRow++;
 
 // SQL query to fetch Journals data for all faculty in the department
 $journals_sql = "SELECT 
-    j.faculty_id,
     j.Title,
     j.name_of_journal,
     j.author_type,
@@ -503,15 +493,7 @@ $journals_sql = "SELECT
     j.ISSN,
     j.page_no,
     j.year,
-    j.website_link,
-    j.international_national,
-    j.free_paid,
-    j.indexing,
-    j.impact_factor,
-    j.SNIP,
-    j.SJR,
-    j.h_index,
-    j.citations
+    j.website_link
 FROM faculty_table ft
 JOIN journals j ON ft.faculty_id = j.faculty_id
 WHERE ft.department_name = ?";
@@ -537,25 +519,17 @@ while ($journalsData = $journals_result->fetch_assoc()) {
           ->setCellValue('I' . $currentRow, $journalsData['ISSN'])
           ->setCellValue('J' . $currentRow, $journalsData['page_no'])
           ->setCellValue('K' . $currentRow, $journalsData['year'])
-          ->setCellValue('L' . $currentRow, $journalsData['website_link'])
-          ->setCellValue('M' . $currentRow, $journalsData['international_national'])
-          ->setCellValue('N' . $currentRow, $journalsData['free_paid'])
-          ->setCellValue('O' . $currentRow, $journalsData['indexing'])
-          ->setCellValue('P' . $currentRow, $journalsData['impact_factor'])
-          ->setCellValue('Q' . $currentRow, $journalsData['SNIP'])
-          ->setCellValue('R' . $currentRow, $journalsData['SJR'])
-          ->setCellValue('S' . $currentRow, $journalsData['h_index'])
-          ->setCellValue('T' . $currentRow, $journalsData['citations']);
+          ->setCellValue('L' . $currentRow, $journalsData['website_link']);
 
     // Adjust row height to accommodate text wrapping
     $sheet->getRowDimension($currentRow)->setRowHeight(-1);
     // Apply data style for the current row
-    $sheet->getStyle('A' . $currentRow . ':T' . $currentRow)->applyFromArray($dataStyle);
+    $sheet->getStyle('A' . $currentRow . ':L' . $currentRow)->applyFromArray($dataStyle); // Changed from T to L
     $currentRow++;
 }
 
 // Add borders around the Journals table
-$sheet->getStyle('A' . ($startRow - 1) . ':T' . ($currentRow - 1))->applyFromArray([
+$sheet->getStyle('A' . ($startRow - 1) . ':L' . ($currentRow - 1))->applyFromArray([ // Changed from T to L
     'borders' => [
         'allBorders' => [
             'borderStyle' => Border::BORDER_THIN
@@ -563,6 +537,33 @@ $sheet->getStyle('A' . ($startRow - 1) . ':T' . ($currentRow - 1))->applyFromArr
     ]
 ]);
 
+// Auto-size columns to fit content
+foreach (range('A', 'L') as $column) { // Changed range from T to L
+    $sheet->getColumnDimension($column)->setAutoSize(true);
+}
+
+// Add hyperlinks to website links
+$lastRow = $currentRow - 1;
+for ($row = $startRow; $row <= $lastRow; $row++) {
+    $websiteLink = $sheet->getCell('L' . $row)->getValue();
+    if (!empty($websiteLink)) {
+        // Add http:// if no protocol is specified
+        if (!preg_match("~^(?:f|ht)tps?://~i", $websiteLink)) {
+            $websiteLink = "http://" . $websiteLink;
+        }
+        
+        if (filter_var($websiteLink, FILTER_VALIDATE_URL)) {
+            $sheet->getCell('L' . $row)->getHyperlink()->setUrl($websiteLink);
+            // Style for hyperlinks
+            $sheet->getStyle('L' . $row)->applyFromArray([
+                'font' => [
+                    'color' => ['rgb' => '0563C1'],
+                    'underline' => true
+                ]
+            ]);
+        }
+    }
+}
 
 // 5. Conference Section
 $sheet->setCellValue('A' . $currentRow, 'Conference Details');
