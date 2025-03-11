@@ -512,7 +512,6 @@ define('CURRENT_USER', 'vky6366');
             ft.name AS faculty_name,
             j.Title,
             j.name_of_journal,
-            j.author_type,
             j.publisher,
             j.place,
             j.vol_no_issue_no,
@@ -522,7 +521,8 @@ define('CURRENT_USER', 'vky6366');
             j.website_link
         FROM faculty_table ft
         JOIN journals j ON ft.faculty_id = j.faculty_id
-        WHERE ft.department_name = ?";
+        WHERE ft.department_name = ?
+        ORDER BY j.year ASC"; // Added ORDER BY clause to sort by year in ascending order
 
         $stmt = $conn->prepare($journal_sql);
         $stmt->bind_param("s", $department_name);
@@ -539,7 +539,6 @@ define('CURRENT_USER', 'vky6366');
                                 <th>Name</th>
                                 <th>Title</th>
                                 <th>Name of Journal</th>
-                                <th>Author Type</th>
                                 <th>Publisher</th>
                                 <th>Place</th>
                                 <th>Vol/Issue</th>
@@ -561,7 +560,6 @@ define('CURRENT_USER', 'vky6366');
                     <td>" . htmlspecialchars($row['faculty_name']) . "</td>
                     <td>" . htmlspecialchars($row['Title']) . "</td>
                     <td>" . htmlspecialchars($row['name_of_journal']) . "</td>
-                    <td>" . htmlspecialchars($row['author_type']) . "</td>
                     <td>" . htmlspecialchars($row['publisher']) . "</td>
                     <td>" . htmlspecialchars($row['place']) . "</td>
                     <td>" . htmlspecialchars($row['vol_no_issue_no']) . "</td>
@@ -579,16 +577,6 @@ define('CURRENT_USER', 'vky6366');
                 </div>";
             
             // Add CSS for the link styling
-            echo "<style>
-                .journal-link {
-                    color: #0066cc;
-                    text-decoration: none;
-                }
-                .journal-link:hover {
-                    text-decoration: underline;
-                    color: #003399;
-                }
-            </style>";
         } else {
             echo "<p class='no-data'>No Journal data found for this department.</p>";
         }
@@ -607,7 +595,8 @@ define('CURRENT_USER', 'vky6366');
         f.Year
     FROM faculty_table ft
     JOIN fdp_conferences_attended f ON ft.faculty_id = f.faculty_id
-    WHERE ft.department_name = ?";
+    WHERE ft.department_name = ?
+    ORDER BY f.Year ASC"; // Added ORDER BY clause to sort by year in ascending order
 
     $stmt = $conn->prepare($fdp_sql);
     $stmt->bind_param("s", $department_name);
@@ -654,13 +643,12 @@ define('CURRENT_USER', 'vky6366');
         p.faculty_id,
         ft.name as faculty_name,
         p.Title,
-        p.Co_inventors,
-        p.Ip_pct,
         p.year_of_publication,
         p.Status
     FROM faculty_table ft
     JOIN patents p ON ft.faculty_id = p.faculty_id
-    WHERE ft.department_name = ?";
+    WHERE ft.department_name = ?
+    ORDER BY p.year_of_publication ASC"; // Added ORDER BY clause to sort by year in ascending order
 
     $stmt = $conn->prepare($patent_sql);
     $stmt->bind_param("s", $department_name);
@@ -675,8 +663,6 @@ define('CURRENT_USER', 'vky6366');
                         <th>Sr. No</th>
                         <th>Name</th>
                         <th>Title</th>
-                        <th>Co-inventors</th>
-                        <th>IP/PCT</th>
                         <th>Year of Publication</th>
                         <th>Status</th>
                     </tr>
@@ -689,8 +675,6 @@ define('CURRENT_USER', 'vky6366');
                 <td>" . $sno++ . "</td>
                 <td>" . htmlspecialchars($row['faculty_name']) . "</td>
                 <td>" . htmlspecialchars($row['Title']) . "</td>
-                <td>" . htmlspecialchars($row['Co_inventors']) . "</td>
-                <td>" . htmlspecialchars($row['Ip_pct']) . "</td>
                 <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
                 <td>" . htmlspecialchars($row['Status']) . "</td>
             </tr>";
@@ -702,85 +686,85 @@ define('CURRENT_USER', 'vky6366');
     ?>
     <br>
     <?php
-// Query to get Books/Book Chapters details
-$books_sql = "SELECT 
-    b.faculty_id,
-    b.Title,
-    b.Publisher,
-    b.Place,
-    b.Year_of_publication,
-    b.ISBN,
-    b.Book_Chapter
-FROM faculty_table ft
-JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
-WHERE ft.department_name = ?
-ORDER BY b.Book_Chapter, b.Year_of_publication DESC"; // Added ordering
+    // Query to get Books/Book Chapters details
+    $books_sql = "SELECT 
+        b.faculty_id,
+        b.Title,
+        b.Publisher,
+        b.Place,
+        b.Year_of_publication,
+        b.ISBN,
+        b.Book_Chapter
+    FROM faculty_table ft
+    JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
+    WHERE ft.department_name = ?
+    ORDER BY b.Year_of_publication ASC"; // Modified to sort by year in ascending order
 
-$stmt = $conn->prepare($books_sql);
-$stmt->bind_param("s", $department_name);
-$stmt->execute();
-$books_result = $stmt->get_result();
+    $stmt = $conn->prepare($books_sql);
+    $stmt->bind_param("s", $department_name);
+    $stmt->execute();
+    $books_result = $stmt->get_result();
 
-// Initialize arrays to store books and chapters separately
-$books = [];
-$chapters = [];
+    // Initialize arrays to store books and chapters separately
+    $books = [];
+    $chapters = [];
 
-// Separate the results into books and chapters
-while ($row = $books_result->fetch_assoc()) {
-    if (strtolower($row['Book_Chapter']) == 'book') {
-        $books[] = $row;
-    } else if (strtolower($row['Book_Chapter']) == 'chapter') {
-        $chapters[] = $row;
-    }
-}
-
-// Function to generate table
-function generateTable($data, $type) {
-    if (count($data) > 0) {
-        echo "<h2>" . ucfirst($type) . "s</h2>";
-        echo "<div class='" . strtolower($type) . "s-table-container'>
-            <table class='fdp-table'>
-                <thead>
-                    <tr>
-                        <th>Sr. No</th>
-                        <th>Title</th>
-                        <th>Publisher</th>
-                        <th>Place</th>
-                        <th>Year of Publication</th>
-                        <th>ISBN</th>
-                    </tr>
-                </thead>
-                <tbody>";
-        
-        $sno = 1;
-        foreach ($data as $row) {
-            echo "<tr>
-                <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['Title']) . "</td>
-                <td>" . htmlspecialchars($row['Publisher']) . "</td>
-                <td>" . htmlspecialchars($row['Place']) . "</td>
-                <td>" . htmlspecialchars($row['Year_of_publication']) . "</td>
-                <td>" . htmlspecialchars($row['ISBN']) . "</td>
-            </tr>";
+    // Separate the results into books and chapters
+    while ($row = $books_result->fetch_assoc()) {
+        if (strtolower($row['Book_Chapter']) == 'book') {
+            $books[] = $row;
+        } else if (strtolower($row['Book_Chapter']) == 'chapter') {
+            $chapters[] = $row;
         }
-        echo "</tbody></table></div><br>";
     }
-}
 
-// Display header
-echo "<h1>Books and Book Chapters</h1>";
+    // Function to generate table
+    function generateTable($data, $type) {
+        if (count($data) > 0) {
+            echo "<h2>" . ucfirst($type) . "s</h2>";
+            echo "<div class='" . strtolower($type) . "s-table-container'>
+                <table class='fdp-table'>
+                    <thead>
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Title</th>
+                            <th>Publisher</th>
+                            <th>Place</th>
+                            <th>Year of Publication</th>
+                            <th>ISBN</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+            
+            $sno = 1;
+            foreach ($data as $row) {
+                echo "<tr>
+                    <td>" . $sno++ . "</td>
+                    <td>" . htmlspecialchars($row['Title']) . "</td>
+                    <td>" . htmlspecialchars($row['Publisher']) . "</td>
+                    <td>" . htmlspecialchars($row['Place']) . "</td>
+                    <td>" . htmlspecialchars($row['Year_of_publication']) . "</td>
+                    <td>" . htmlspecialchars($row['ISBN']) . "</td>
+                </tr>";
+            }
+            echo "</tbody></table></div><br>";
+        }
+    }
 
-// Check if any data exists
-if ($books_result->num_rows > 0) {
-    // Display Books table
-    generateTable($books, 'Book');
-    
-    // Display Chapters table
-    generateTable($chapters, 'Chapter');
-} else {
-    echo "<p class='no-data'>No Books/Book Chapters data found for this department.</p>";
-}
-?>
+    // Display header
+    echo "<h1>Books and Book Chapters</h1>";
+
+    // Check if any data exists
+    if ($books_result->num_rows > 0) {
+        // Display Books table
+        generateTable($books, 'Book');
+        
+        // Display Chapters table
+        generateTable($chapters, 'Chapter');
+    } else {
+        echo "<p class='no-data'>No Books/Book Chapters data found for this department.</p>";
+    }
+    ?>
     
     <br>
     <h1>Chair/Resource Person Details</h1>
@@ -795,7 +779,8 @@ if ($books_result->num_rows > 0) {
         cr.Year
     FROM faculty_table ft
     JOIN chair_resource cr ON ft.faculty_id = cr.faculty_id
-    WHERE ft.department_name = ?";
+    WHERE ft.department_name = ?
+    ORDER BY cr.Year ASC"; // Added ORDER BY clause to sort by year in ascending order
 
     $stmt = $conn->prepare($chair_sql);
     $stmt->bind_param("s", $department_name);
@@ -831,7 +816,76 @@ if ($books_result->num_rows > 0) {
         echo "<p class='no-data'>No Chair/Resource Person data found for this department.</p>";
     }
     ?>
+    <br>
+    <h1>Research Grants Details</h1>
+    <?php
+        // Query to get Research Grants details for all faculty in the department
+        $grants_sql = "SELECT 
+            rg.faculty_id,
+            ft.name AS faculty_name,
+            rg.research_title,
+            rg.funding_organization,
+            rg.amount,
+            rg.year
+        FROM faculty_table ft
+        JOIN research_grants rg ON ft.faculty_id = rg.faculty_id
+        WHERE ft.department_name = ?
+        ORDER BY rg.year ASC";
 
+        $stmt = $conn->prepare($grants_sql);
+        $stmt->bind_param("s", $department_name);
+        $stmt->execute();
+        $grants_result = $stmt->get_result();
+
+        if ($grants_result->num_rows > 0) {
+            // Calculate department total
+            $dept_total_sql = "SELECT SUM(rg.amount) as dept_total
+                            FROM research_grants rg
+                            JOIN faculty_table ft ON ft.faculty_id = rg.faculty_id
+                            WHERE ft.department_name = ?";
+            $total_stmt = $conn->prepare($dept_total_sql);
+            $total_stmt->bind_param("s", $department_name);
+            $total_stmt->execute();
+            $total_result = $total_stmt->get_result();
+            $total_row = $total_result->fetch_assoc();
+
+            echo "<h1>Research Grants</h1>";
+            echo "<div class='journal-table-container'>
+                    <table class='fdp-table'>
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Name</th>
+                                <th>Research Title</th>
+                                <th>Funding Organization</th>
+                                <th>Amount (₹)</th>
+                                <th>Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+            
+            $sno = 1;
+            while ($row = $grants_result->fetch_assoc()) {
+                echo "<tr>
+                    <td>" . $sno++ . "</td>
+                    <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                    <td>" . htmlspecialchars($row['research_title']) . "</td>
+                    <td>" . htmlspecialchars($row['funding_organization']) . "</td>
+                    <td>" . number_format($row['amount'], 2) . "</td>
+                    <td>" . htmlspecialchars($row['year']) . "</td>
+                </tr>";
+            }
+            
+            echo "</tbody>
+                </table>
+                <div class='total-section'>
+                    <p><strong>Department Total Research Grants: ₹" . number_format($total_row['dept_total'], 2) . "</strong></p>
+                </div>
+                </div>";
+        } else {
+            echo "<p class='no-data'>No Research Grants data found for this department.</p>";
+        }
+    ?>
     <footer>
         <h2>Angadi Institute Of Technology And Management</h2>
     </footer>

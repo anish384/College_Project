@@ -513,6 +513,19 @@
 
     </div>
 
+    <div class="form-container">
+        <h1>Certification Form</h1>
+        <div>
+            <label for="numCertificates">Number of Certificates:</label>
+            <input type="number" id="numCertificates" placeholder="Enter number of certificates" min="1">
+            <button type="button" onclick="generateCertificatesForms()">Generate Certification Forms</button>
+        </div>
+
+        <form action="phpCode/certificate.php" method="post" id="dynamicCertificateForm" onsubmit="submitForm(event)">
+            <div id="certificateContainer"></div>
+            <button type="submit">Submit All Certificates</button>
+        </form>
+    </div>
 
     <div class="form-container">
         <h1>PhD Guided Form </h1>
@@ -950,6 +963,107 @@ function submitForm(event) {
                 container.appendChild(formSet);
             }
         }
+
+        function generateCertificatesForms() {
+            const numCertificates = document.getElementById("numCertificates").value;
+            const container = document.getElementById("certificateContainer");
+            const facultyID = document.getElementById("faculty_id") ? document.getElementById("faculty_id").value : '';
+
+            container.innerHTML = ""; // Clear any existing forms before generating new ones
+
+            if (numCertificates < 1) {
+                alert("Please enter a valid number of certificates.");
+                return;
+            }
+
+            const currentYear = new Date().getFullYear();
+
+            for (let i = 1; i <= numCertificates; i++) {
+                const formSet = document.createElement("div");
+                formSet.classList.add("form-container");
+                formSet.innerHTML = `
+                    <h3>Certificate ${i}</h3>
+                    <table>
+                        <tr>
+                            <td><label for="faculty_id_${i}">Faculty ID: </label></td>
+                            <td><input type="text" id="faculty_id_${i}" name="faculty_id_${i}" value="${facultyID}" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="certification_on_${i}">Certificate On: </label></td>
+                            <td><input type="text" id="certification_on_${i}" name="certification_on_${i}" placeholder="Enter certificate topic/subject" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="source_${i}">Source: </label></td>
+                            <td><input type="text" id="source_${i}" name="source_${i}" placeholder="Enter certification provider" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="year_${i}">Year: </label></td>
+                            <td><input type="number" id="year_${i}" name="year_${i}" 
+                                min="2000" max="${currentYear}" 
+                                value="${currentYear}"
+                                required></td>
+                        </tr>
+                    </table>
+                    <hr>
+                `;
+                container.appendChild(formSet);
+            }
+        }
+
+        // Add submit form function
+        function submitForm(event) {
+            event.preventDefault();
+            const form = document.getElementById('dynamicCertificateForm');
+            form.submit();
+        }
+
+        // Add the styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .form-container {
+                margin-bottom: 20px;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            .form-container h3 {
+                color: #333;
+                margin-top: 0;
+            }
+            .form-container table {
+                width: 100%;
+            }
+            .form-container td {
+                padding: 8px;
+            }
+            .form-container input[type="text"],
+            .form-container input[type="number"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            hr {
+                margin-top: 20px;
+                border: 0;
+                border-top: 1px solid #eee;
+            }
+            button {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin: 10px 0;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        `;
+        document.head.appendChild(style);
 
         function generateScholarsForms() {
             const numScholars = document.getElementById("numScholars").value;

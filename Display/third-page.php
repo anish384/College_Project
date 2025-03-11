@@ -15,6 +15,7 @@ if (!$faculty_id) {
 $tables = [
     'faculty_table',
     'experience',
+    'certificates',
     'awards',
     'books_bookchapter',
     'chair_resource',
