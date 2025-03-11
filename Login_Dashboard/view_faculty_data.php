@@ -451,6 +451,14 @@ if (!$faculty_data) {
                                         <td><?php echo htmlspecialchars($faculty_data['email_id']); ?></td>
                                     </tr>
                                     <tr>
+                                        <th>Orchid ID</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['orchid_id']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Google Scholar</th>
+                                        <td><?php echo htmlspecialchars($faculty_data['scholar']); ?></td>
+                                    </tr>
+                                    <tr>
                                         <th>Contact No</th>
                                         <td><?php echo htmlspecialchars($faculty_data['contact_no']); ?></td>
                                     </tr>

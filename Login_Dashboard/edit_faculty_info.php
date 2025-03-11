@@ -366,6 +366,24 @@ $faculty_data = $result->fetch_assoc();
                     </div>
 
                     <div class="form-group">
+                        <label for="orchid_id">Email ID:</label>
+                        <input type="text" 
+                               id="orchid_id" 
+                               class="form-control" 
+                               value="<?php echo htmlspecialchars($faculty_data['orchid_id']); ?>" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scholar">Email ID:</label>
+                        <input type="text" 
+                               id="scholar" 
+                               class="form-control" 
+                               value="<?php echo htmlspecialchars($faculty_data['scholar']); ?>" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="contact_no">Contact No:</label>
                         <input type="text" 
                                id="contact_no" 
