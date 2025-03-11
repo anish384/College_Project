@@ -1,5 +1,4 @@
 <?php
-// Database connection details
 $host = 'localhost';
 $dbname = 'college_database';
 $username = 'root';
@@ -23,35 +22,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date_of_joining = $_POST['date_of_joining'];
     $email           = $_POST['email'];
     $contact_no      = $_POST['con'];
+    
+    // Handle optional fields
+    $orchid_id = $_POST['orchid_id'] ?? NULL;
+    $scholar = $_POST['scholar'] ?? NULL;
 
     // Set default image path (relative to Display/img)
     $image = "img/default.jpg"; // Default image
 
     // **Image Upload Handling**
     if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
-        // Set the absolute upload directory path relative from this file location.
-        // This file is in Form/phpCode/ and images are in Display/img/
-        $upload_dir = __DIR__ . '/../../Display/img/'; // Absolute path to Display/img
-        
-        // Relative path to store in the database
-        $relative_path = "img/"; // This will be stored as img/(image name)
+        $upload_dir = __DIR__ . '/../../Display/img/';
+        $relative_path = "img/";
 
-        // Ensure the folder exists
         if (!file_exists($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
 
         $image_name  = basename($_FILES['img']['name']);
-        $unique_name = time() . "_" . $image_name; // Unique filename to avoid overwriting
-        $target_path = $upload_dir . $unique_name;   // Full storage path
+        $unique_name = time() . "_" . $image_name; 
+        $target_path = $upload_dir . $unique_name;  
 
-        // Allowed file types
         $file_type     = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
         $allowed_types = ["jpg", "jpeg", "png", "gif"];
 
         if (in_array($file_type, $allowed_types)) {
             if (move_uploaded_file($_FILES['img']['tmp_name'], $target_path)) {
-                // Store relative image path in DB, e.g., img/1738911475_images.png
                 $image = $relative_path . $unique_name;
             } else {
                 die("Error uploading image. Check folder permissions.");
@@ -69,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dept_result = $dept_check_stmt->get_result();
 
     if ($dept_result->num_rows === 0) {
-        // Department does not exist, so we cannot save this record due to the foreign key constraint.
         die("Error: The department '$department' does not exist. Please provide a valid department.");
     }
     $dept_check_stmt->close();
@@ -83,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         // **UPDATE existing record**
-        $stmt = $conn->prepare("UPDATE faculty_table SET name=?, Designation=?, department_name=?, date_of_joining=?, email_id=?, contact_no=?, image=? WHERE faculty_id=?");
-        $stmt->bind_param("ssssssss", $name, $designation, $department, $date_of_joining, $email, $contact_no, $image, $faculty_id);
+        $stmt = $conn->prepare("UPDATE faculty_table SET name=?, Designation=?, department_name=?, date_of_joining=?, email_id=?, scholar=?, contact_no=?, orchid_id=?, image=? WHERE faculty_id=?");
+        $stmt->bind_param("ssssssssss", $name, $designation, $department, $date_of_joining, $email, $scholar, $contact_no, $orchid_id, $image, $faculty_id);
     } else {
         // **INSERT new record**
-        $stmt = $conn->prepare("INSERT INTO faculty_table (faculty_id, name, Designation, department_name, date_of_joining, email_id, contact_no, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssss", $faculty_id, $name, $designation, $department, $date_of_joining, $email, $contact_no, $image);
+        $stmt = $conn->prepare("INSERT INTO faculty_table (faculty_id, name, Designation, department_name, date_of_joining, email_id, contact_no, orchid_id, scholar, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssssss", $faculty_id, $name, $designation, $department, $date_of_joining, $email, $contact_no, $orchid_id, $scholar, $image);
     }
 
     // **Execute the query**

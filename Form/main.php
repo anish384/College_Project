@@ -338,9 +338,18 @@
                     <td><input type="number" id="con" name="con"></td>
                 </tr>
                 <tr>
+                    <td><label for="orchid_id">Orchid ID: </label></td>
+                    <td><input type="text" id="orchid_id" name="orchid_id"></td>
+                </tr>
+                <tr>
+                    <td><label for="scholar">Google Scholar: </label></td>
+                    <td><input type="text" id="scholar" name="scholar"></td>
+                </tr>
+                <tr>
                     <td><label for="img">Image: </label></td>
                     <td><input type="file" id="img" name="img"></td>
                 </tr>
+                
                 <tr>
                     <td colspan="2"><button>Submit</button></td>
                 </tr>
@@ -730,7 +739,13 @@ function submitForm(event) {
                                 </tr>
                                 <tr>
                                     <td><label for="book_chapter_${i}">Book/Chapter</label></td>
-                                    <td><textarea name="book_chapter_${i}" id="book_chapter_${i}" cols="50" rows="4" maxlength="255"></textarea></td>
+                                    <td>
+                                        <select name="book_chapter_${i}" id="book_chapter_${i}">
+                                            <option value="">Select Type</option>
+                                            <option value="Book">Book</option>
+                                            <option value="Chapter">Chapter</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </table>
                         `;
@@ -1285,8 +1300,10 @@ function submitForm(event) {
                         <td>
                             <select id="status_${i}" name="status_${i}" required>
                                 <option value="">None</option>
-                                <option value="filed">Filed</option>
-                                <option value="granted">Granted</option>
+                                <option value="Filed">Filed</option>
+                                <option value="Granted">Granted</option>
+                                <option value="Registered">Registered</option>
+                                <option value="Published">Published</option>
                                 
                             </select>
                         </td>

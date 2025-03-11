@@ -505,123 +505,7 @@ define('CURRENT_USER', 'vky6366');
         echo "<p class='no-data'>No faculty data found for this department.</p>";
     }
     ?>
-
-    <br>
-    <h1>Patent Details</h1>
-
-    <?php
-    // Query to get Patent details for all faculty in the department
-    $patent_sql = "SELECT 
-        p.faculty_id,
-        ft.name as faculty_name,
-        p.Title,
-        p.Co_inventors,
-        p.Ip_pct,
-        p.year_of_publication,
-        p.Status
-    FROM faculty_table ft
-    JOIN patents p ON ft.faculty_id = p.faculty_id
-    WHERE ft.department_name = ?";
-
-    $stmt = $conn->prepare($patent_sql);
-    $stmt->bind_param("s", $department_name);
-    $stmt->execute();
-    $patent_result = $stmt->get_result();
-
-    if ($patent_result->num_rows > 0) {
-        echo "<div class='patent-table-container'>
-            <table class='fdp-table'> <!-- Using same table styling as FDP -->
-                <thead>
-                    <tr>
-                        <th>Sr. No</th>
-                        <th>Faculty ID</th>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th>Co-inventors</th>
-                        <th>IP/PCT</th>
-                        <th>Year of Publication</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>";
-        
-        $sno = 1;
-        while ($row = $patent_result->fetch_assoc()) {
-            echo "<tr>
-                <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['faculty_id']) . "</td>
-                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
-                <td>" . htmlspecialchars($row['Title']) . "</td>
-                <td>" . htmlspecialchars($row['Co_inventors']) . "</td>
-                <td>" . htmlspecialchars($row['Ip_pct']) . "</td>
-                <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
-                <td>" . htmlspecialchars($row['Status']) . "</td>
-            </tr>";
-        }
-        echo "</tbody></table></div>";
-    } else {
-        echo "<p class='no-data'>No Patent data found for this department.</p>";
-    }
-    ?>
-    <br>
-    <h1>Books/Book Chapters</h1>
-
-    <?php
-    // Query to get Books/Book Chapters details
-    $books_sql = "SELECT 
-        b.faculty_id,
-        b.Title,
-        b.Publisher,
-        b.Place,
-        b.Year_of_publication,
-        b.ISBN,
-        b.Book_Chapter
-    FROM faculty_table ft
-    JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
-    WHERE ft.department_name = ?";
-
-    $stmt = $conn->prepare($books_sql);
-    $stmt->bind_param("s", $department_name);
-    $stmt->execute();
-    $books_result = $stmt->get_result();
-
-    if ($books_result->num_rows > 0) {
-        echo "<div class='books-table-container'>
-            <table class='fdp-table'> <!-- Using same table styling as before -->
-                <thead>
-                    <tr>
-                        <th>Sr. No</th>
-                        <th>Faculty ID</th>
-                        <th>Title</th>
-                        <th>Publisher</th>
-                        <th>Place</th>
-                        <th>Year of Publication</th>
-                        <th>ISBN</th>
-                        <th>Book/Chapter</th>
-                    </tr>
-                </thead>
-                <tbody>";
-        
-        $sno = 1;
-        while ($row = $books_result->fetch_assoc()) {
-            echo "<tr>
-                <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['faculty_id']) . "</td>
-                <td>" . htmlspecialchars($row['Title']) . "</td>
-                <td>" . htmlspecialchars($row['Publisher']) . "</td>
-                <td>" . htmlspecialchars($row['Place']) . "</td>
-                <td>" . htmlspecialchars($row['Year_of_publication']) . "</td>
-                <td>" . htmlspecialchars($row['ISBN']) . "</td>
-                <td>" . htmlspecialchars($row['Book_Chapter']) . "</td>
-            </tr>";
-        }
-        echo "</tbody></table></div>";
-    } else {
-        echo "<p class='no-data'>No Books/Book Chapters data found for this department.</p>";
-    }
-    ?>
-    <br>
-    <?php
+<?php
         // Query to get Journal details for all faculty in the department
         $journal_sql = "SELECT 
             j.faculty_id,
@@ -652,7 +536,6 @@ define('CURRENT_USER', 'vky6366');
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
-                                <th>Faculty ID</th>
                                 <th>Name</th>
                                 <th>Title</th>
                                 <th>Name of Journal</th>
@@ -675,7 +558,6 @@ define('CURRENT_USER', 'vky6366');
                 
                 echo "<tr>
                     <td>" . $sno++ . "</td>
-                    <td>" . htmlspecialchars($row['faculty_id']) . "</td>
                     <td>" . htmlspecialchars($row['faculty_name']) . "</td>
                     <td>" . htmlspecialchars($row['Title']) . "</td>
                     <td>" . htmlspecialchars($row['name_of_journal']) . "</td>
@@ -711,8 +593,8 @@ define('CURRENT_USER', 'vky6366');
             echo "<p class='no-data'>No Journal data found for this department.</p>";
         }
     ?>
+    <br>
     <h1>FDP Attended</h1>
-
     <?php
     // Query to get FDP Conference details
     $fdp_sql = "SELECT 
@@ -738,7 +620,6 @@ define('CURRENT_USER', 'vky6366');
                 <thead>
                     <tr>
                         <th>Sr. No</th>
-                        <th>Faculty ID</th>
                         <th>Topic</th>
                         <th>Organizer</th>
                         <th>No. of Days</th>
@@ -752,7 +633,6 @@ define('CURRENT_USER', 'vky6366');
         while ($row = $fdp_result->fetch_assoc()) {
             echo "<tr>
                 <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['faculty_id']) . "</td>
                 <td>" . htmlspecialchars($row['Topic']) . "</td>
                 <td>" . htmlspecialchars($row['Organizer']) . "</td>
                 <td>" . htmlspecialchars($row['no_of_days']) . "</td>
@@ -765,7 +645,143 @@ define('CURRENT_USER', 'vky6366');
         echo "<p class='no-data'>No FDP Conference data found for this department.</p>";
     }
     ?>
+    <br>
+    <h1>Patent Details</h1>
 
+    <?php
+    // Query to get Patent details for all faculty in the department
+    $patent_sql = "SELECT 
+        p.faculty_id,
+        ft.name as faculty_name,
+        p.Title,
+        p.Co_inventors,
+        p.Ip_pct,
+        p.year_of_publication,
+        p.Status
+    FROM faculty_table ft
+    JOIN patents p ON ft.faculty_id = p.faculty_id
+    WHERE ft.department_name = ?";
+
+    $stmt = $conn->prepare($patent_sql);
+    $stmt->bind_param("s", $department_name);
+    $stmt->execute();
+    $patent_result = $stmt->get_result();
+
+    if ($patent_result->num_rows > 0) {
+        echo "<div class='patent-table-container'>
+            <table class='fdp-table'> <!-- Using same table styling as FDP -->
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Co-inventors</th>
+                        <th>IP/PCT</th>
+                        <th>Year of Publication</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+        $sno = 1;
+        while ($row = $patent_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Title']) . "</td>
+                <td>" . htmlspecialchars($row['Co_inventors']) . "</td>
+                <td>" . htmlspecialchars($row['Ip_pct']) . "</td>
+                <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
+                <td>" . htmlspecialchars($row['Status']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table></div>";
+    } else {
+        echo "<p class='no-data'>No Patent data found for this department.</p>";
+    }
+    ?>
+    <br>
+    <?php
+// Query to get Books/Book Chapters details
+$books_sql = "SELECT 
+    b.faculty_id,
+    b.Title,
+    b.Publisher,
+    b.Place,
+    b.Year_of_publication,
+    b.ISBN,
+    b.Book_Chapter
+FROM faculty_table ft
+JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
+WHERE ft.department_name = ?
+ORDER BY b.Book_Chapter, b.Year_of_publication DESC"; // Added ordering
+
+$stmt = $conn->prepare($books_sql);
+$stmt->bind_param("s", $department_name);
+$stmt->execute();
+$books_result = $stmt->get_result();
+
+// Initialize arrays to store books and chapters separately
+$books = [];
+$chapters = [];
+
+// Separate the results into books and chapters
+while ($row = $books_result->fetch_assoc()) {
+    if (strtolower($row['Book_Chapter']) == 'book') {
+        $books[] = $row;
+    } else if (strtolower($row['Book_Chapter']) == 'chapter') {
+        $chapters[] = $row;
+    }
+}
+
+// Function to generate table
+function generateTable($data, $type) {
+    if (count($data) > 0) {
+        echo "<h2>" . ucfirst($type) . "s</h2>";
+        echo "<div class='" . strtolower($type) . "s-table-container'>
+            <table class='fdp-table'>
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Place</th>
+                        <th>Year of Publication</th>
+                        <th>ISBN</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+        $sno = 1;
+        foreach ($data as $row) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['Title']) . "</td>
+                <td>" . htmlspecialchars($row['Publisher']) . "</td>
+                <td>" . htmlspecialchars($row['Place']) . "</td>
+                <td>" . htmlspecialchars($row['Year_of_publication']) . "</td>
+                <td>" . htmlspecialchars($row['ISBN']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table></div><br>";
+    }
+}
+
+// Display header
+echo "<h1>Books and Book Chapters</h1>";
+
+// Check if any data exists
+if ($books_result->num_rows > 0) {
+    // Display Books table
+    generateTable($books, 'Book');
+    
+    // Display Chapters table
+    generateTable($chapters, 'Chapter');
+} else {
+    echo "<p class='no-data'>No Books/Book Chapters data found for this department.</p>";
+}
+?>
+    
     <br>
     <h1>Chair/Resource Person Details</h1>
 
@@ -792,7 +808,6 @@ define('CURRENT_USER', 'vky6366');
                 <thead>
                     <tr>
                         <th>Sr. No</th>
-                        <th>Faculty ID</th>
                         <th>Organization</th>
                         <th>Chair/Resource</th>
                         <th>Place</th>
@@ -805,7 +820,6 @@ define('CURRENT_USER', 'vky6366');
         while ($row = $chair_result->fetch_assoc()) {
             echo "<tr>
                 <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['faculty_id']) . "</td>
                 <td>" . htmlspecialchars($row['Organization']) . "</td>
                 <td>" . htmlspecialchars($row['Chair_Resource']) . "</td>
                 <td>" . htmlspecialchars($row['Place']) . "</td>

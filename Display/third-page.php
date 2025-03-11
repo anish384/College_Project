@@ -435,12 +435,12 @@ function getValidImagePath($img_file_name) {
                 echo "<tr>";
                 if (!empty($img_file_name)) {
                     $image_path = getValidImagePath($img_file_name);
-                    echo "<td rowspan='7'><img src='" . htmlspecialchars($image_path) . "' 
+                    echo "<td rowspan='9'><img src='" . htmlspecialchars($image_path) . "' 
                           alt='Faculty Image' 
                           style='height: 200px; border-radius: 5px;'
                           onerror=\"this.src='img/default.jpg'\"></td>";
                 } else {
-                    echo "<td rowspan='7'><img src='img/default.jpg' 
+                    echo "<td rowspan='9'><img src='img/default.jpg' 
                           alt='No Image Available' 
                           style='height: 200px; border-radius: 5px;'></td>";
                 }
@@ -450,6 +450,9 @@ function getValidImagePath($img_file_name) {
                 echo "<tr><td><strong>Email:</strong> " . htmlspecialchars($faculty['email_id']) . "</td></tr>";
                 echo "<tr><td><strong>Phone:</strong> " . htmlspecialchars($faculty['contact_no']) . "</td></tr>";
                 echo "<tr><td><strong>Designation:</strong> " . htmlspecialchars($faculty['Designation']) . "</td></tr>";
+                echo "<tr><td><strong>Date Of Joining:</strong> " . htmlspecialchars($faculty['date_of_joining']) . "</td></tr>";
+                echo "<tr><td><strong>Orchid ID:</strong> " . htmlspecialchars($faculty['orchid_id']) . "</td></tr>";
+                echo "<tr><td><strong>Scholar:</strong> <a href='" . htmlspecialchars($faculty['scholar']) . "' target='_blank'>" . htmlspecialchars($faculty['scholar']) . "</a></td></tr>";
                 echo "</table>";
                 echo "</div>";
             } else {
