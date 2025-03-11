@@ -456,6 +456,63 @@ if ($conn->connect_error) {
                 gap: 10px;
             }
         }
+        @media print {
+            table {
+                page-break-inside: auto;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            thead {
+                display: table-header-group;
+            }
+            h1, h2 {
+                page-break-before: always;
+            }
+            footer {
+                background-color: rgb(43, 69, 152);
+                color: rgb(255, 255, 255);
+                text-align: center;
+                padding: 10px 20px;
+                bottom: 0;
+                width: 100%;
+                position: relative;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        
+        /* General styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1, h2 {
+            color: #333;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .current-info {
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -506,131 +563,404 @@ if ($conn->connect_error) {
     </div>
 
     <?php
-    // Get all departments
-    $dept_query = "SELECT DISTINCT department_name FROM faculty_table ORDER BY department_name";
-    $dept_result = $conn->query($dept_query);
-
-    // Store department totals
-    $grand_totals = array(
-        'int_journals' => 0,
-        'int_conferences' => 0,
-        'book_chapters' => 0,
-        'patents' => 0,
-        'resource_person' => 0,
-        'fdp_count' => 0,
-        'total_citations' => 0,
-        'awards' => 0,
-        'faculty_count' => 0
-    );
-
-    // Display summary for each department
-    while ($dept = $dept_result->fetch_assoc()) {
-        $department_name = $dept['department_name'];
-        
-        // Query to get faculty summary for this department
+        // Query to get overall college summary
         $summary_sql = "SELECT 
             COUNT(DISTINCT ft.faculty_id) as faculty_count,
-            (SELECT COUNT(*) FROM journals j WHERE j.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?) 
-                AND (j.international_national = 'International' OR j.international_national = 'international')
+            (SELECT COUNT(*) FROM journals j 
+            WHERE (j.international_national = 'International' OR j.international_national = 'international')
             ) as int_journals,
-            (SELECT COUNT(*) FROM conference c WHERE c.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-                AND (c.International_National = 'International' OR c.International_National = 'international')
+            (SELECT COUNT(*) FROM conference c 
+            WHERE (c.International_National = 'International' OR c.International_National = 'international')
             ) as int_conferences,
-            (SELECT COUNT(*) FROM books_bookchapter b WHERE b.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-            ) as book_chapters,
-            (SELECT COUNT(*) FROM patents p WHERE p.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-            ) as patents,
-            (SELECT COUNT(*) FROM chair_resource cr WHERE cr.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-            ) as resource_person,
-            (SELECT COUNT(*) FROM fdp_conferences_attended f WHERE f.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-            ) as fdp_count,
-            (SELECT COALESCE(SUM(citations), 0) FROM journals j WHERE j.faculty_id IN 
-                (SELECT faculty_id FROM faculty_table WHERE department_name = ?)
-            ) as total_citations
-        FROM faculty_table ft
-        WHERE ft.department_name = ?";
+            (SELECT COUNT(*) FROM books_bookchapter) as book_chapters,
+            (SELECT COUNT(*) FROM patents) as patents,
+            (SELECT COUNT(*) FROM chair_resource) as resource_person,
+            (SELECT COUNT(*) FROM fdp_conferences_attended) as fdp_count,
+            (SELECT COALESCE(SUM(citations), 0) FROM journals) as total_citations
+        FROM faculty_table ft";
 
-        $stmt = $conn->prepare($summary_sql);
-        $stmt->bind_param("ssssssss", $department_name, $department_name, $department_name, 
-                         $department_name, $department_name, $department_name, $department_name, $department_name);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $result = $conn->query($summary_sql);
         $row = $result->fetch_assoc();
 
-        echo "<div class='department-card'>";
-        echo "<h2 class='department-name'>" . htmlspecialchars($department_name) . "</h2>";
-        echo "<table class='fdp-table'>";
-        echo "<thead>
-                <tr>
-                    <th>Faculty Count</th>
-                    <th>International Journals</th>
-                    <th>International Conferences</th>
-                    <th>Book Chapters</th>
-                    <th>Patents</th>
-                    <th>Resource Person</th>
-                    <th>FDP</th>
-                    <th>Citations</th>
-                </tr>
-              </thead>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<td>" . $row['faculty_count'] . "</td>";
-        echo "<td>" . $row['int_journals'] . "</td>";
-        echo "<td>" . $row['int_conferences'] . "</td>";
-        echo "<td>" . $row['book_chapters'] . "</td>";
-        echo "<td>" . $row['patents'] . "</td>";
-        echo "<td>" . $row['resource_person'] . "</td>";
-        echo "<td>" . $row['fdp_count'] . "</td>";
-        echo "<td>" . $row['total_citations'] . "</td>";
-        echo "</tr>";
-        echo "</tbody>";
-        echo "</table>";
+        // Display college summary
+        echo "<div class='summary-container'>";
+        echo "<h1 class='summary-title'>College Research Summary</h1>";
+        
+        // Main summary table
+        echo "<table class='fdp-table summary-table'>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Faculty Members</td>
+                        <td>" . $row['faculty_count'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>International Journal Publications</td>
+                        <td>" . $row['int_journals'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>International Conference Papers</td>
+                        <td>" . $row['int_conferences'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>Books/Book Chapters</td>
+                        <td>" . $row['book_chapters'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>Patents</td>
+                        <td>" . $row['patents'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>Resource Person Activities</td>
+                        <td>" . $row['resource_person'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>FDP/Conferences Attended</td>
+                        <td>" . $row['fdp_count'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>Total Citations</td>
+                        <td>" . $row['total_citations'] . "</td>
+                    </tr>
+                </tbody>
+            </table>";
+
+        // Calculate and display averages
+        $publications_per_faculty = round(($row['int_journals'] + $row['int_conferences']) / $row['faculty_count'], 2);
+        $citations_per_faculty = round($row['total_citations'] / $row['faculty_count'], 2);
+
         echo "</div>";
 
-        // Add to grand totals
-        foreach ($row as $key => $value) {
-            if (isset($grand_totals[$key])) {
-                $grand_totals[$key] += $value;
+        // Add some CSS for better presentation
+        echo "<style>
+            .summary-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
             }
+            .summary-title {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 30px;
+            }
+            .summary-table, .metrics-table {
+                width: 100%;
+                margin-bottom: 30px;
+                border-collapse: collapse;
+            }
+            .summary-table th, .metrics-table th {
+                background-color: #34495e;
+                color: white;
+                padding: 12px;
+            }
+            .summary-table td, .metrics-table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+            .summary-table tr:nth-child(even), .metrics-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .metrics-container {
+                margin-top: 30px;
+            }
+            .metrics-container h2 {
+                color: #2c3e50;
+                margin-bottom: 20px;
+            }
+        </style>";
+    ?>
+
+<?php
+    // 1. Journals Table
+    $journal_sql = "SELECT 
+        ft.name as faculty_name,
+        j.Title,
+        j.name_of_journal,
+        j.publisher,
+        j.place,
+        j.vol_no_issue_no,
+        j.ISSN,
+        j.page_no,
+        j.year,
+        j.website_link
+    FROM faculty_table ft
+    JOIN journals j ON ft.faculty_id = j.faculty_id
+    ORDER BY j.year ASC";
+
+    $journal_result = $conn->query($journal_sql);
+
+    if ($journal_result->num_rows > 0) {
+        echo "<h1>Journal Publications</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Name of Journal</th>
+                    <th>Publisher</th>
+                    <th>Place</th>
+                    <th>Vol/Issue</th>
+                    <th>ISSN</th>
+                    <th>Page No</th>
+                    <th>Year</th>
+                    <th>Website Link</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $journal_result->fetch_assoc()) {
+            echo "<tr>
+                    <td>" . $sno++ . "</td>
+                    <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                    <td>" . htmlspecialchars($row['Title']) . "</td>
+                    <td>" . htmlspecialchars($row['name_of_journal']) . "</td>
+                    <td>" . htmlspecialchars($row['publisher']) . "</td>
+                    <td>" . htmlspecialchars($row['place']) . "</td>
+                    <td>" . htmlspecialchars($row['vol_no_issue_no']) . "</td>
+                    <td>" . htmlspecialchars($row['ISSN']) . "</td>
+                    <td>" . htmlspecialchars($row['page_no']) . "</td>
+                    <td>" . htmlspecialchars($row['year']) . "</td>
+                    <td>" . (!empty($row['website_link']) ? 
+                            "<a href='" . htmlspecialchars($row['website_link']) . "' target='_blank' class='journal-link'>" . htmlspecialchars($row['website_link']) . "</a>" 
+                            : "N/A") . "</td>
+                </tr>";
         }
+        echo "</tbody></table>";
     }
 
-    // Display grand totals
-    echo "<div class='department-card'>";
-    echo "<h2 class='department-name'>Overall College Summary</h2>";
-    echo "<table class='fdp-table'>";
-    echo "<thead>
-            <tr>
-                <th>Total Faculty</th>
-                <th>Total International Journals</th>
-                <th>Total International Conferences</th>
-                <th>Total Book Chapters</th>
-                <th>Total Patents</th>
-                <th>Total Resource Person</th>
-                <th>Total FDP</th>
-                <th>Total Citations</th>
-            </tr>
-          </thead>";
-    echo "<tbody>";
-    echo "<tr>";
-    echo "<td>" . $grand_totals['faculty_count'] . "</td>";
-    echo "<td>" . $grand_totals['int_journals'] . "</td>";
-    echo "<td>" . $grand_totals['int_conferences'] . "</td>";
-    echo "<td>" . $grand_totals['book_chapters'] . "</td>";
-    echo "<td>" . $grand_totals['patents'] . "</td>";
-    echo "<td>" . $grand_totals['resource_person'] . "</td>";
-    echo "<td>" . $grand_totals['fdp_count'] . "</td>";
-    echo "<td>" . $grand_totals['total_citations'] . "</td>";
-    echo "</tr>";
-    echo "</tbody>";
-    echo "</table>";
-    echo "</div>";
+    // 2. FDP Conferences Attended
+    $fdp_sql = "SELECT 
+        ft.name as faculty_name,
+        f.Topic,
+        f.Organizer,
+        f.no_of_days,
+        f.Place,
+        f.Year
+    FROM faculty_table ft
+    JOIN fdp_conferences_attended f ON ft.faculty_id = f.faculty_id
+    ORDER BY f.Year ASC";
+
+    $fdp_result = $conn->query($fdp_sql);
+
+    if ($fdp_result->num_rows > 0) {
+        echo "<h1>FDP/Conferences Attended</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Faculty Name</th>
+                    <th>Topic</th>
+                    <th>Organizer</th>
+                    <th>Days</th>
+                    <th>Place</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $fdp_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Topic']) . "</td>
+                <td>" . htmlspecialchars($row['Organizer']) . "</td>
+                <td>" . htmlspecialchars($row['no_of_days']) . "</td>
+                <td>" . htmlspecialchars($row['Place']) . "</td>
+                <td>" . htmlspecialchars($row['Year']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table>";
+    }
+
+    // 3. Patents
+    $patent_sql = "SELECT 
+        ft.name as faculty_name,
+        p.Title,
+        p.year_of_publication,
+        p.Status
+    FROM faculty_table ft
+    JOIN patents p ON ft.faculty_id = p.faculty_id
+    ORDER BY p.year_of_publication ASC";
+
+    $patent_result = $conn->query($patent_sql);
+
+    if ($patent_result->num_rows > 0) {
+        echo "<h1>Patent Details</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Faculty Name</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $patent_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Title']) . "</td>
+                <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
+                <td>" . htmlspecialchars($row['Status']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table>";
+    }
+
+    // 4. Books and Book Chapters
+    $books_sql = "SELECT 
+        ft.name as faculty_name,
+        b.Title,
+        b.Publisher,
+        b.Place,
+        b.Year_of_publication,
+        b.ISBN,
+        b.Book_Chapter
+    FROM faculty_table ft
+    JOIN books_bookchapter b ON ft.faculty_id = b.faculty_id
+    ORDER BY b.Year_of_publication ASC";
+
+    $books_result = $conn->query($books_sql);
+
+    if ($books_result->num_rows > 0) {
+        echo "<h1>Books and Book Chapters</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Faculty Name</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Place</th>
+                    <th>Year</th>
+                    <th>ISBN</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $books_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Title']) . "</td>
+                <td>" . htmlspecialchars($row['Publisher']) . "</td>
+                <td>" . htmlspecialchars($row['Place']) . "</td>
+                <td>" . htmlspecialchars($row['Year_of_publication']) . "</td>
+                <td>" . htmlspecialchars($row['ISBN']) . "</td>
+                <td>" . htmlspecialchars($row['Book_Chapter']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table>";
+    }
+
+    // 5. Chair/Resource Person
+    $chair_sql = "SELECT 
+        ft.name as faculty_name,
+        cr.Organization,
+        cr.Chair_Resource,
+        cr.Place,
+        cr.Year
+    FROM faculty_table ft
+    JOIN chair_resource cr ON ft.faculty_id = cr.faculty_id
+    ORDER BY cr.Year ASC";
+
+    $chair_result = $conn->query($chair_sql);
+
+    if ($chair_result->num_rows > 0) {
+        echo "<h1>Chair/Resource Person Details</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Faculty Name</th>
+                    <th>Organization</th>
+                    <th>Role</th>
+                    <th>Place</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $chair_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Organization']) . "</td>
+                <td>" . htmlspecialchars($row['Chair_Resource']) . "</td>
+                <td>" . htmlspecialchars($row['Place']) . "</td>
+                <td>" . htmlspecialchars($row['Year']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table>";
+    }
+
+    
+    $grants_sql = "SELECT 
+        ft.name as faculty_name,
+        rg.research_title,
+        rg.funding_organization,
+        rg.amount,
+        rg.year
+    FROM faculty_table ft
+    JOIN research_grants rg ON ft.faculty_id = rg.faculty_id
+    ORDER BY rg.year ASC";
+
+    $grants_result = $conn->query($grants_sql);
+
+    if ($grants_result->num_rows > 0) {
+        echo "<h1>Research Grants Details</h1>";
+        echo "<table>
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Faculty Name</th>
+                    <th>Research Title</th>
+                    <th>Funding Organization</th>
+                    <th>Amount (₹)</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>";
+        
+        $sno = 1;
+        while ($row = $grants_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['research_title']) . "</td>
+                <td>" . htmlspecialchars($row['funding_organization']) . "</td>
+                <td>" . number_format($row['amount']) . "</td>
+                <td>" . htmlspecialchars($row['year']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table>";
+
+        // Add total amount
+        $total_sql = "SELECT SUM(amount) as total_amount FROM research_grants";
+        $total_result = $conn->query($total_sql);
+        $total_row = $total_result->fetch_assoc();
+        
+        echo "<div class='total-amount'>
+            <strong>Total Research Grants: ₹" . number_format($total_row['total_amount']) . "</strong>
+        </div>";
+    } else {
+        echo "<p class='no-data'>No Research Grants data available.</p>";
+    }
     ?>
 
     <footer>
