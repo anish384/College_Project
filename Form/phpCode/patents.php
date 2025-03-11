@@ -29,8 +29,6 @@ try {
         $stmt->execute([
             ':faculty_id' => $patent['faculty_id'],
             ':title' => $patent['title'],
-            ':co_inventors' => $patent['co_inventors'],
-            ':ip_pct' => $patent['ip_pct'],
             ':year_of_publication' => $patent['year_of_publication'],
             ':status' => $patent['status']
         ]);

@@ -382,7 +382,7 @@ define('CURRENT_USER', 'vky6366');
         </form>
     </div>
     <br>
-    <h1>Faculty Summary</h1>
+    <h1>Research Summary</h1>
     <?php
     // Query to get faculty summary - simplified and corrected
     $summary_sql = "SELECT 

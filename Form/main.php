@@ -747,6 +747,10 @@ function submitForm(event) {
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><label for="link_${i}">Link: </label></td>
+                                    <td><input type="text" id="link_${i}" name="link_${i}"></td>
+                                </tr>
                             </table>
                         `;
                 container.appendChild(formSet);
@@ -1275,21 +1279,6 @@ function submitForm(event) {
                     <tr>
                         <td><label for="title_${i}">Title: </label></td>
                         <td><textarea id="title_${i}" name="title_${i}" required></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><label for="co_inventors_${i}">Co-inventors (If any): </label></td>
-                        <td><input type="text" id="co_inventors_${i}" name="co_inventors_${i}" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="ip_pct_${i}">IP Percent: </label></td>
-                        <td>
-                            <select id="ip_pct_${i}" name="ip_pct_${i}" required>
-                                <option value="">None</option>
-                                <option value="indian patent">Indian Patent</option>
-                                <option value="pct">PCT</option>
-                                
-                            </select>
-                        </td>
                     </tr>
                     <tr>
                         <td><label for="year_of_publication_${i}">Year of Publication: </label></td>

@@ -366,7 +366,7 @@ $faculty_data = $result->fetch_assoc();
                     </div>
 
                     <div class="form-group">
-                        <label for="orchid_id">Email ID:</label>
+                        <label for="orchid_id">Orchid ID:</label>
                         <input type="text" 
                                id="orchid_id" 
                                class="form-control" 
@@ -375,7 +375,7 @@ $faculty_data = $result->fetch_assoc();
                     </div>
 
                     <div class="form-group">
-                        <label for="scholar">Email ID:</label>
+                        <label for="scholar">Google Scholar:</label>
                         <input type="text" 
                                id="scholar" 
                                class="form-control" 

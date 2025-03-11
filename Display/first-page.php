@@ -122,6 +122,27 @@ while ($row = $result->fetch_assoc()) {
             font-size: medium;
             padding: 10px 20px;
         }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            display: inline;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
         .department-box {
             width: 200px;
             background-color: #fff;
@@ -242,7 +263,7 @@ while ($row = $result->fetch_assoc()) {
 
     <nav class="navbar">
         <ul>
-            <li></li>
+            <li><a href="overall_summary.php">Summary</a></li>
         </ul>
     </nav>
 
@@ -252,7 +273,7 @@ while ($row = $result->fetch_assoc()) {
         // Define the display order and labels for department types
         $typeOrder = ['UG' => 'Undergraduate Departments', 
                      'PG' => 'Postgraduate Departments', 
-                     'PCM' => 'Pre-University Departments'];
+                     'PCM' => 'PCM'];
 
         foreach ($typeOrder as $type => $label) {
             if (isset($departments[$type])) {
