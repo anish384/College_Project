@@ -28,7 +28,8 @@ try {
             ':place' => $book['Place'],
             ':year_of_publication' => $yearOfPublication,
             ':isbn' => $book['isbn'],
-            ':book_chapter' => $book['book_chapter']
+            ':book_chapter' => $book['book_chapter'],
+            ':link' => $book['link']
         ]);
     }
 
