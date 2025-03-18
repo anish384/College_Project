@@ -1,11 +1,5 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "college_database");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'config.php';
 
 // Get the department_name from the query string
 if (isset($_GET['department_name'])) {

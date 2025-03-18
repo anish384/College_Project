@@ -1,9 +1,5 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "college_database");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'config.php';
 
 // Get the faculty_id from the URL
 $faculty_id = isset($_GET['faculty_id']) ? $_GET['faculty_id'] : null;
