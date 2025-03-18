@@ -55,16 +55,8 @@ function getImagePath($imagePath) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers in <?php echo htmlspecialchars($department_name); ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <?php include 'common-style.php'; ?>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-
         .container {
             background-color: rgb(238, 235, 240);
             height: 40px;
@@ -94,6 +86,10 @@ function getImagePath($imagePath) {
             margin-right: 60%;
             margin-top: 10px;
             margin-left: 10px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+        color: rgb(43, 69, 152);
         }
 
         .container1 {

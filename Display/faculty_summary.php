@@ -26,8 +26,7 @@ define('CURRENT_USER', 'vky6366');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Summary - <?php echo htmlspecialchars($department_name); ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <?php include 'common-style.php'; ?>
     <style>
         .meta-info {
             background: #f8f9fa;
@@ -635,56 +634,6 @@ define('CURRENT_USER', 'vky6366');
     }
     ?>
     <br>
-    <h1>Patent Details</h1>
-
-    <?php
-    // Query to get Patent details for all faculty in the department
-    $patent_sql = "SELECT 
-        p.faculty_id,
-        ft.name as faculty_name,
-        p.Title,
-        p.year_of_publication,
-        p.Status
-    FROM faculty_table ft
-    JOIN patents p ON ft.faculty_id = p.faculty_id
-    WHERE ft.department_name = ?
-    ORDER BY p.year_of_publication ASC"; // Added ORDER BY clause to sort by year in ascending order
-
-    $stmt = $conn->prepare($patent_sql);
-    $stmt->bind_param("s", $department_name);
-    $stmt->execute();
-    $patent_result = $stmt->get_result();
-
-    if ($patent_result->num_rows > 0) {
-        echo "<div class='patent-table-container'>
-            <table class='fdp-table'> <!-- Using same table styling as FDP -->
-                <thead>
-                    <tr>
-                        <th>Sr. No</th>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th>Year of Publication</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>";
-        
-        $sno = 1;
-        while ($row = $patent_result->fetch_assoc()) {
-            echo "<tr>
-                <td>" . $sno++ . "</td>
-                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
-                <td>" . htmlspecialchars($row['Title']) . "</td>
-                <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
-                <td>" . htmlspecialchars($row['Status']) . "</td>
-            </tr>";
-        }
-        echo "</tbody></table></div>";
-    } else {
-        echo "<p class='no-data'>No Patent data found for this department.</p>";
-    }
-    ?>
-    <br>
     <?php
     // Query to get Books/Book Chapters details
     $books_sql = "SELECT 
@@ -765,7 +714,56 @@ define('CURRENT_USER', 'vky6366');
         echo "<p class='no-data'>No Books/Book Chapters data found for this department.</p>";
     }
     ?>
-    
+    <br>
+    <h1>Patent Details</h1>
+
+    <?php
+    // Query to get Patent details for all faculty in the department
+    $patent_sql = "SELECT 
+        p.faculty_id,
+        ft.name as faculty_name,
+        p.Title,
+        p.year_of_publication,
+        p.Status
+    FROM faculty_table ft
+    JOIN patents p ON ft.faculty_id = p.faculty_id
+    WHERE ft.department_name = ?
+    ORDER BY p.year_of_publication ASC"; // Added ORDER BY clause to sort by year in ascending order
+
+    $stmt = $conn->prepare($patent_sql);
+    $stmt->bind_param("s", $department_name);
+    $stmt->execute();
+    $patent_result = $stmt->get_result();
+
+    if ($patent_result->num_rows > 0) {
+        echo "<div class='patent-table-container'>
+            <table class='fdp-table'> <!-- Using same table styling as FDP -->
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Year of Publication</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+        $sno = 1;
+        while ($row = $patent_result->fetch_assoc()) {
+            echo "<tr>
+                <td>" . $sno++ . "</td>
+                <td>" . htmlspecialchars($row['faculty_name']) . "</td>
+                <td>" . htmlspecialchars($row['Title']) . "</td>
+                <td>" . htmlspecialchars($row['year_of_publication']) . "</td>
+                <td>" . htmlspecialchars($row['Status']) . "</td>
+            </tr>";
+        }
+        echo "</tbody></table></div>";
+    } else {
+        echo "<p class='no-data'>No Patent data found for this department.</p>";
+    }
+    ?>
     <br>
     <h1>Chair/Resource Person Details</h1>
 
