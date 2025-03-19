@@ -35,8 +35,8 @@ $skip_tables = ['departments', 'faculty_table'];
 $expected_tables = [
     'awards',
     'books_bookchapter',
+    'certificates',  // Add this line
     'chair_resource',
-    'certificates',
     'conference',
     'experience',
     'fdp_conferences_attended',
@@ -65,6 +65,8 @@ if (!$faculty_data) {
     header("Location: error.php?message=" . urlencode("Error retrieving faculty data"));
     exit();
 }
+
+
 
 ?>
 
