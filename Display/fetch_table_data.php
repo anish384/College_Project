@@ -1,8 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "college_database");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'config.php';
 
 if (!isset($_GET['table'])) {
     die('Table name not provided');

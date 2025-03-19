@@ -1,10 +1,5 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "college_database");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+require_once 'config.php';
 // Get table name from URL
 $table = isset($_GET['table']) ? $_GET['table'] : '';
 

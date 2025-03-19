@@ -158,7 +158,7 @@ $current_user = 'vky6366';
             padding: 10px 20px;
             bottom: 0;
             width: 100%;
-            position: relative;
+            position: absolute;
         }
         .content {
             display: flex;
@@ -260,9 +260,7 @@ $current_user = 'vky6366';
     </div>
 
     <nav class="navbar">
-        <ul>
-            <li><a href="overall_summary.php">Summary</a></li>
-        </ul>
+
     </nav>
 
     <div class="main-content">
@@ -270,19 +268,16 @@ $current_user = 'vky6366';
         <div class="programs-container">
             <!-- PCM Box -->
             <div class="program-box">
-                <img src="path/to/pcm-image.jpg" alt="PCM Programs">
                 <a href="first-page.php?program=PCM">Science</a>
             </div>
 
             <!-- UG Box -->
             <div class="program-box">
-                <img src="path/to/ug-image.jpg" alt="Undergraduate Programs">
                 <a href="first-page.php?program=UG">Undergraduate Programs</a>
             </div>
 
             <!-- PG Box -->
             <div class="program-box">
-                <img src="path/to/pg-image.jpg" alt="Postgraduate Programs">
                 <a href="first-page.php?program=PG">Postgraduate Programs</a>
             </div>
         </div>

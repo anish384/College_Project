@@ -1,9 +1,5 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "college_database");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'config.php';
 
 // Get the faculty_id from the URL
 $faculty_id = isset($_GET['faculty_id']) ? $_GET['faculty_id'] : null;
@@ -66,8 +62,7 @@ function getValidImagePath($img_file_name) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Details</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <?php include 'common-style.php'; ?>
     <style>
         * {
             margin: 0;

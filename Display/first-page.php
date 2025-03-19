@@ -136,7 +136,7 @@ while ($row = $result->fetch_assoc()) {
         .navbar {
             background-color: rgb(43, 69, 152);
             color: white;
-            height: 40px;
+            height: 50px;
             width: auto;
             text-decoration: none;
             font-size: medium;
@@ -155,13 +155,22 @@ while ($row = $result->fetch_assoc()) {
         .navbar a {
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 8px 20px;
             font-size: 16px;
+            font-weight: 500;
+            background-color: rgba(81, 110, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(45, 69, 255, 0.66);
+            display: inline-block;
+            letter-spacing: 0.5px;
         }
 
         .navbar a:hover {
-            background-color: #555;
-            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
         }
         .department-box {
             width: 250px;
