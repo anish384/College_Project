@@ -36,6 +36,7 @@ $expected_tables = [
     'awards',
     'books_bookchapter',
     'chair_resource',
+    'certificates',
     'conference',
     'experience',
     'fdp_conferences_attended',

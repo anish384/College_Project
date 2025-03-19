@@ -159,6 +159,10 @@ define('CURRENT_USER', 'vky6366');
             background-color: #f5f5f5;
         }
 
+        .fdp-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
         .back-btn {
             display: inline-block;
             padding: 10px 20px;
