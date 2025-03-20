@@ -1,32 +1,63 @@
 <?php
 require_once 'config.php';
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-// Check if faculty_id is set in URL
-if (!isset($_GET['faculty_id'])) {
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if the user has an active session
+if (!isset($_SESSION['faculty_id']) || !isset($_SESSION['login_time']) || !isset($_SESSION['access_token'])) {
+    // User is not logged in, redirect to login page
     header("Location: index.php");
     exit();
 }
 
-$faculty_id = $_GET['faculty_id'];
+// Validate the token from URL
+if (!isset($_GET['token']) || $_GET['token'] !== $_SESSION['access_token']) {
+    // Invalid or missing token
+    session_destroy();
+    header("Location: index.php?error=invalid_session");
+    exit();
+}
 
-// Check if faculty exists in faculty_table
-$check_faculty = $conn->prepare("SELECT faculty_id FROM faculty_table WHERE faculty_id = ?");
-$check_faculty->bind_param("s", $faculty_id);
-$check_faculty->execute();
-$result = $check_faculty->get_result();
+// Check session timeout (30 minutes)
+$timeout = 1800; // 30 minutes in seconds
+if (time() - strtotime($_SESSION['login_time']) > $timeout) {
+    // Session has expired
+    session_destroy();
+    header("Location: index.php?error=session_expired");
+    exit();
+}
+
+// Get faculty_id from session (not from URL)
+$faculty_id = $_SESSION['faculty_id'];
+
+// Verify faculty exists in database using prepared statement
+$stmt = $conn->prepare("SELECT faculty_id FROM faculty_table WHERE faculty_id = ?");
+$stmt->bind_param("s", $faculty_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
     // Faculty ID doesn't exist
-    header("Location: error.php?message=" . urlencode("Faculty ID not found"));
+    session_destroy();
+    header("Location: index.php?error=invalid_faculty");
     exit();
 }
-$check_faculty->close();
+$stmt->close();
 
-// If we get here, faculty exists
-$current_user = 'vky6366';
-$current_time = date('Y-m-d H:i:s');
+// Regenerate token periodically for extra security
+if (time() - strtotime($_SESSION['login_time']) > 900) { // Every 15 minutes
+    $new_token = bin2hex(random_bytes(32));
+    $_SESSION['access_token'] = $new_token;
+    $_SESSION['login_time'] = date('Y-m-d H:i:s');
+    header("Location: view_faculty_data.php?token=" . urlencode($new_token));
+    exit();
+}
+
+// Update last activity time
+$_SESSION['last_activity'] = time();
 
 // Tables to skip
 $skip_tables = ['departments', 'faculty_table'];
