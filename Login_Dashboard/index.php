@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         .login-container {
             max-width: 400px;
-            margin: 100px auto;
+            margin: 50px auto;
         }
         .login-card {
             border: none;
@@ -187,9 +187,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="current-time">
-            Current Time (UTC): <?php echo date('d-m-Y H:i:s'); ?>
         </div>
     </div>
 

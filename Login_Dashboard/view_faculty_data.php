@@ -1,6 +1,12 @@
 <?php
 require_once 'config.php';
-
+// Prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+// Set additional security headers
+header("X-Frame-Options: DENY");
+header("X-XSS-Protection: 1; mode=block");
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -414,7 +420,7 @@ if (!$faculty_data) {
             </div>
         </div>
 
-                    <a href="index.php" class="btn btn-secondary mt-2">Logout</a>
+                <a href="logout.php" class="btn btn-secondary mt-2">Logout</a>
                 </div>
             </div>
         </div>
