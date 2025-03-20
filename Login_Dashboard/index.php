@@ -1,6 +1,11 @@
 <?php
 require_once 'config.php';
 
+// Start session at the beginning
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $faculty_id = $_POST['faculty_id'];
@@ -14,15 +19,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         // Login successful
+        
+        // Generate a secure random token
+        $access_token = bin2hex(random_bytes(32)); // Generate a 64-character random hex token
+        
+        // Store faculty info and token in session
         $_SESSION['faculty_id'] = $faculty_id;
         $_SESSION['login_time'] = date('Y-m-d H:i:s');
-        header("Location: view_faculty_data.php?faculty_id=" . urlencode($faculty_id));
+        $_SESSION['access_token'] = $access_token;
+        $_SESSION['last_activity'] = time();
+        
+        // Redirect with token instead of faculty_id
+        header("Location: view_faculty_data.php?token=" . urlencode($access_token));
         exit();
     } else {
         $error_message = "Invalid Faculty ID or Date of Joining";
     }
     $stmt->close();
 }
+
+// Rest of your existing index.php HTML code...
 ?>
 
 <!DOCTYPE html>
