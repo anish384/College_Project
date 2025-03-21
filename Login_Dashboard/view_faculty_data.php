@@ -12,10 +12,18 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the user has an active session
+// Enhanced session checks
 if (!isset($_SESSION['faculty_id']) || !isset($_SESSION['login_time']) || !isset($_SESSION['access_token'])) {
     // User is not logged in, redirect to login page
-    header("Location: index.php");
+    header("Location: index.php?error=login_required");
+    exit();
+}
+
+// Add login source verification
+if (!isset($_SESSION['login_source']) || $_SESSION['login_source'] !== 'index_login') {
+    // Session didn't originate from proper login
+    session_destroy();
+    header("Location: index.php?error=invalid_login_source");
     exit();
 }
 
@@ -36,10 +44,8 @@ if (time() - strtotime($_SESSION['login_time']) > $timeout) {
     exit();
 }
 
-// Get faculty_id from session (not from URL)
-$faculty_id = $_SESSION['faculty_id'];
-
 // Verify faculty exists in database using prepared statement
+$faculty_id = $_SESSION['faculty_id'];
 $stmt = $conn->prepare("SELECT faculty_id FROM faculty_table WHERE faculty_id = ?");
 $stmt->bind_param("s", $faculty_id);
 $stmt->execute();
@@ -64,6 +70,8 @@ if (time() - strtotime($_SESSION['login_time']) > 900) { // Every 15 minutes
 
 // Update last activity time
 $_SESSION['last_activity'] = time();
+
+// Rest of your existing code...
 
 // Tables to skip
 $skip_tables = ['departments', 'faculty_table'];
